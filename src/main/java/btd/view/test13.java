@@ -1,4 +1,4 @@
-package btd.View;
+package btd.view;
 
 public class test13 {
 }

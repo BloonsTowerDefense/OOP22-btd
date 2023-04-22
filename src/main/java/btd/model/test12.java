@@ -1,4 +1,4 @@
-package btd.Model;
+package btd.model;
 
 public class test12 {
 }
