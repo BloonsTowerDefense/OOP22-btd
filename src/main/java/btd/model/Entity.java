@@ -1,8 +1,12 @@
 package btd.model;
 
+import btd.utils.Position;
+
+import java.util.Optional;
+
 public interface Entity {
 
-    Position getPosition();
+    Optional<Position> getPosition();
 
     String getName();
 

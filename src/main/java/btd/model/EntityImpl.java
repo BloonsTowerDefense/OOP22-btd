@@ -1,9 +1,22 @@
 package btd.model;
 
+import btd.utils.Position;
+
+import java.util.Optional;
+
 public class EntityImpl implements Entity{
+
+    private String name;
+    private Optional<Position> position;
+    private GameMap gameMap;
+
+    public EntityImpl(final String name){
+        this.name = name;
+        this.position = Optional.empty();
+    }
     @Override
-    public Position getPosition() {
-        return null;
+    public Optional<Position> getPosition() {
+        return this.position;
     }
 
     @Override
