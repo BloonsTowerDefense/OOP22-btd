@@ -2,12 +2,10 @@ package btd.utils;
 
 public class Position {
 
-    private double x;
-    private double y;
+    private double x,y;
 
     public Position(double x, double y) {
-        this.x = x;
-        this.y = y;
+        set(x,y);
     }
 
     public double getX() {
@@ -31,10 +29,8 @@ public class Position {
         this.y = y;
     }
 
-    public double distance(Position other) {
-        double dx = this.x - other.x;
-        double dy = this.y - other.y;
-        return Math.sqrt(dx * dx + dy * dy);
+    public void setPosition(final Position pos){
+        set(pos.getX(),pos.getY());
     }
 
     public String toString() {
