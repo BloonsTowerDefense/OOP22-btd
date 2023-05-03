@@ -50,12 +50,12 @@ public class ShootingTower implements Tower{
 
     @Override
     public void SetPosition(double x, double y) {
-
+        return;
     }
 
     @Override
     public void setGameMap(GameMap gameMap) {
-
+        return;
     }
 
     @Override

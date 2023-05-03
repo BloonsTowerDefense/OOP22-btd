@@ -21,7 +21,7 @@ public class HelpingTower implements Tower {
 
     @Override
     public void create() {
-
+        return;
     }
 
     @Override
@@ -31,12 +31,12 @@ public class HelpingTower implements Tower {
 
     @Override
     public void upgrade() {
-
+        return ;
     }
 
     @Override
     public void changeApperance() {
-
+        return;
     }
 
     @Override
@@ -55,12 +55,12 @@ public class HelpingTower implements Tower {
 
     @Override
     public void SetPosition(double x, double y) {
-
+        return;
     }
 
     @Override
     public void setGameMap(GameMap gameMap) {
-
+        return;
     }
 
     @Override
