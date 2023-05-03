@@ -1,5 +1,6 @@
 package btd.model;
 
+import btd.model.entity.Tower;
 import btd.utils.Position;
 
 import java.util.List;

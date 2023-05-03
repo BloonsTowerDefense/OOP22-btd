@@ -1,11 +1,12 @@
 package btd.model;
 
+import btd.model.entity.Tower;
 import btd.utils.Position;
 
 import java.util.List;
 import java.util.Optional;
 
-public class ShootingTower implements Tower{
+public class ShootingTower implements Tower {
 
     private String name;
 
