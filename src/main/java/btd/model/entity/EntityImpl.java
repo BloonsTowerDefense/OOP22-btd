@@ -1,4 +1,4 @@
-package btd.model;
+package btd.model.entity;
 
 import btd.utils.Position;
 

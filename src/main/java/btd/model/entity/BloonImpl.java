@@ -1,8 +1,4 @@
-package btd.model;
-
-import btd.utils.Position;
-
-import java.util.List;
+package btd.model.entity;
 
 public class BloonImpl extends EntityImpl implements Bloon{
 

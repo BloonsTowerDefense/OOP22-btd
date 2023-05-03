@@ -1,6 +1,8 @@
 package btd.model;
 
-public interface Tower extends Entity{
+import btd.model.entity.Entity;
+
+public interface Tower extends Entity {
 
     void create();
 

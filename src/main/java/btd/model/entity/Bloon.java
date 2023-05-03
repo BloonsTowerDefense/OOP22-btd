@@ -1,4 +1,4 @@
-package btd.model;
+package btd.model.entity;
 
 public interface Bloon extends Entity{
     double getHealth();
