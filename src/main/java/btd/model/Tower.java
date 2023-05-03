@@ -11,5 +11,4 @@ public interface Tower extends Entity{
     void changeApperance();
 
     void sell();
-
 }

@@ -55,7 +55,7 @@ public class HelpingTower implements Tower {
 
     @Override
     public void SetPosition(double x, double y) {
-        return;
+        return ;
     }
 
     @Override
