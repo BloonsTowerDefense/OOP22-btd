@@ -1,4 +1,4 @@
-package btd.model;
+package btd.model.entity;
 
 import btd.model.entity.Tower;
 import btd.utils.Position;
@@ -6,23 +6,17 @@ import btd.utils.Position;
 import java.util.List;
 import java.util.Optional;
 
-public class HelpingTower implements Tower {
+public class ShootingTower implements Tower {
 
     private String name;
 
-    private String function;
+    private Integer power;
 
     private List<Position> position;
 
-    public HelpingTower(String name,String function){
-        super();
-        this.name = name;
-        this.function = function;
-    }
-
     @Override
     public void create() {
-        return;
+        return ;
     }
 
     @Override
@@ -37,11 +31,12 @@ public class HelpingTower implements Tower {
 
     @Override
     public void changeApperance() {
-        return;
+        return ;
     }
 
     @Override
     public void sell() {
+        return ;
     }
 
     @Override
@@ -56,12 +51,12 @@ public class HelpingTower implements Tower {
 
     @Override
     public void SetPosition(double x, double y) {
-        return ;
+        return;
     }
 
     @Override
     public void setGameMap(GameMap gameMap) {
-        return;
+        return ;
     }
 
     @Override
