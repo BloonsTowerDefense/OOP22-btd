@@ -21,12 +21,12 @@ public class EntityImpl implements Entity{
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
     public void SetPosition(double x, double y) {
-
+        this.position = Optional.of(new Position(x,y));
     }
 
     @Override

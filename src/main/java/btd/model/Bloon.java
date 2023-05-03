@@ -9,7 +9,7 @@ public interface Bloon extends Entity{
 
     void hit(int damage);
 
-    void move();
+    void move(long time);
 
     boolean isDead();
 }
