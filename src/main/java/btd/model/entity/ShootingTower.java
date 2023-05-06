@@ -63,5 +63,4 @@ public class ShootingTower implements Tower {
     public MapElement getGameMap() {
         return null;
     }
-
 }
