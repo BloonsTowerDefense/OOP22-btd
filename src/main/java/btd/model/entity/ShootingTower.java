@@ -1,6 +1,6 @@
 package btd.model.entity;
 
-import btd.model.entity.Tower;
+import btd.model.map.MapElement;
 import btd.utils.Position;
 
 import java.util.List;
@@ -55,12 +55,13 @@ public class ShootingTower implements Tower {
     }
 
     @Override
-    public void setGameMap(GameMap gameMap) {
-        return ;
+    public void setGameMap(MapElement gameMap) {
+
     }
 
     @Override
-    public GameMap getGameMap() {
+    public MapElement getGameMap() {
         return null;
     }
+
 }
