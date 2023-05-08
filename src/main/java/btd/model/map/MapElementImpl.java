@@ -5,11 +5,10 @@ import java.awt.image.BufferedImage;
 public class MapElementImpl implements MapElement{
     
     private BufferedImage img;
-    private boolean canPlaceTower;
+    private boolean canPlaceTower = false;
 
-    public MapElementImpl(final BufferedImage img, final boolean flag){
-        this.img = img;
-        this.canPlaceTower = flag;
+    public MapElementImpl(){
+        
     }
 
     @Override
