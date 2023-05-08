@@ -12,4 +12,6 @@ public interface Path {
     public Position getSpawnPosition();
     
     public int getPathDistance();
+
+    public int getTileSize();
 }

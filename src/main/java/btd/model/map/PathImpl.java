@@ -72,5 +72,10 @@ public class PathImpl implements Path{
 		result = prime * result + ((path == null) ? 0 : path.hashCode());
 		return result;
 	}
+
+	@Override
+	public int getTileSize() {
+		return 48;
+	}
     
 }
