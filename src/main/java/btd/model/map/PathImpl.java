@@ -22,7 +22,7 @@ public class PathImpl implements Path{
     }
 
 	@Override
-	public List<Direction> getPath() {
+	public List<Direction> getDirections() {
 		return this.path;
 	}
 
