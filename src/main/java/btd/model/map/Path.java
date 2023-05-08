@@ -7,7 +7,7 @@ import btd.utils.Position;
 
 public interface Path {
 
-    public List<Direction> getPath();
+    public List<Direction> getDirections();
 
     public Position getSpawnPosition();
 
