@@ -8,13 +8,17 @@ import java.util.Optional;
 
 public class HelpingTower implements Tower {
 
+    private final static Integer SELL_PRICE_FACTOR = 100;
+
     private String name;
 
     private String function;
 
+    private Integer price;
+
     private List<Position> position;
 
-    public HelpingTower(String name,String function){
+    public HelpingTower(String name,final String function){
         super();
         this.name = name;
         this.function = function;
@@ -41,7 +45,13 @@ public class HelpingTower implements Tower {
     }
 
     @Override
-    public void sell() {
+    public Integer sell() {
+        return getPrice() - SELL_PRICE_FACTOR;
+    }
+
+    @Override
+    public Integer getPrice() {
+        return this.price;
     }
 
     @Override
@@ -51,7 +61,7 @@ public class HelpingTower implements Tower {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override

@@ -8,11 +8,20 @@ import java.util.Optional;
 
 public class ShootingTower implements Tower {
 
+    private final static Integer SELL_PRICE_FACTOR = 100;
     private String name;
 
     private Integer power;
 
+    //Price increments after upgrade
+    private Integer price;
+
     private List<Position> position;
+
+    public ShootingTower(String name){
+        super();
+        this.name = name;
+    }
 
     @Override
     public void create() {
@@ -35,8 +44,14 @@ public class ShootingTower implements Tower {
     }
 
     @Override
-    public void sell() {
-        return ;
+    public Integer sell() {
+        //When player sells a tower the price is lower than the initial price
+        return getPrice() - SELL_PRICE_FACTOR;
+    }
+
+    @Override
+    public Integer getPrice() {
+        return this.price;
     }
 
     @Override
@@ -46,12 +61,12 @@ public class ShootingTower implements Tower {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
     public void SetPosition(double x, double y) {
-        return;
+
     }
 
     @Override

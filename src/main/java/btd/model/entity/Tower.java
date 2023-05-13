@@ -1,6 +1,9 @@
 package btd.model.entity;
 
 import btd.model.entity.Entity;
+import btd.utils.Position;
+
+import java.util.List;
 
 public interface Tower extends Entity {
 
@@ -12,5 +15,7 @@ public interface Tower extends Entity {
 
     void changeApperance();
 
-    void sell();
+    Integer sell();
+
+    Integer getPrice();
 }
