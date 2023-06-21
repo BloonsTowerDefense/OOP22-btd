@@ -10,7 +10,7 @@ public interface Entity {
 
     String getName();
 
-    void SetPosition(double x, double y);
+    void setPosition(double x, double y);
 
     void setGameMap(GameMap gameMap);
 

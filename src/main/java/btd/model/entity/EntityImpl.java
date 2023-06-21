@@ -25,7 +25,7 @@ public class EntityImpl implements Entity{
     }
 
     @Override
-    public void SetPosition(double x, double y) {
+    public void setPosition(double x, double y) {
         this.position = Optional.of(new Position(x,y));
     }
 

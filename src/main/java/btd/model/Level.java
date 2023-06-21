@@ -4,5 +4,5 @@ import java.util.ArrayList;
 
 public interface Level {
 
-    public ArrayList<Wave> getWave();
+    public Wave getWave();
 }

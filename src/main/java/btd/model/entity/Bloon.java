@@ -11,5 +11,7 @@ public interface Bloon extends Entity{
 
     void move(long time);
 
+    void update(long time);
+
     boolean isDead();
 }
