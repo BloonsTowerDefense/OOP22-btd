@@ -37,7 +37,7 @@ public class MapLoaderImpl implements MapLoader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return ret;
     }
     
 }
