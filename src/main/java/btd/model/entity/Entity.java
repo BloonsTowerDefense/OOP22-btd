@@ -12,8 +12,8 @@ public interface Entity {
 
     void setPosition(double x, double y);
 
-    void setGameMap(GameMap gameMap);
+    //void setGameMap(GameMap gameMap);
 
-    GameMap getGameMap();
+    //GameMap getGameMap();
 
 }

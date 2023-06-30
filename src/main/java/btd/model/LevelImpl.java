@@ -11,10 +11,12 @@ public class LevelImpl implements Level{
     private int round;
     private int difficultyMultiplier;
     private Random rand;
+    private boolean waveInProgress;
 
     public LevelImpl (String difficulty) {
         this.round = 1;
         this.rand = new Random();
+        this.waveInProgress = false;
         if (difficulty.equals("facile")) {
             this.difficultyMultiplier = 1;
         } else if (difficulty.equals("normale")) {
@@ -25,6 +27,9 @@ public class LevelImpl implements Level{
     }
     @Override
     public Wave getWave() {
+        if (waveInProgress) {
+            return null;
+        }
         List<Bloon> bloons = new ArrayList<>();
         int numBloons = rand.nextInt(10) + round * difficultyMultiplier;
         for (int i=0; i<numBloons; i++) {
@@ -37,10 +42,15 @@ public class LevelImpl implements Level{
             } else {
                 bloonHealth = 30 + round;
             }
-            bloons.add(new BloonImpl(bloonType,bloonHealth));
+            bloons.add(new BloonImpl("bloon_1",));
         }
         round++;
+        waveInProgress = true;
         return new WaveImpl(bloons);
+    }
+
+    public void waveFinished(){
+        waveInProgress = false;
     }
 
     public int getRound() {
