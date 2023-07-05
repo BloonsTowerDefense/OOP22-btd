@@ -25,12 +25,7 @@ public class HelpingTower implements Tower {
     }
 
     @Override
-    public void create() {
-        return;
-    }
-
-    @Override
-    public boolean upgradable() {
+    public boolean upgradable(Integer playerMoney) {
         return false;
     }
 
@@ -39,8 +34,7 @@ public class HelpingTower implements Tower {
         return ;
     }
 
-    @Override
-    public void changeApperance() {
+    private void changeAppearance() {
         return;
     }
 
@@ -65,17 +59,8 @@ public class HelpingTower implements Tower {
     }
 
     @Override
-    public void SetPosition(double x, double y) {
+    public void setPosition(double x, double y) {
         return ;
     }
 
-    @Override
-    public void setGameMap(GameMap gameMap) {
-        return;
-    }
-
-    @Override
-    public GameMap getGameMap() {
-        return null;
-    }
 }
