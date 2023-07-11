@@ -11,6 +11,7 @@ public class MapManagerImpl implements MapManager{
     private int[][] mapNum;
     private MapLoader mapLoader;
     private MapPanel mapPanel;
+    private Path bloonPath = new PathImpl("/map/map01/bloonsPath.txt");
 
     public MapManagerImpl(final MapPanel mp){
         this.mapElementList = new ArrayList<>();
@@ -25,12 +26,12 @@ public class MapManagerImpl implements MapManager{
         try {
             System.out.println("Cerco di caricare le immagini");
             this.mapElementList.add(new MapElementImpl());
-            this.mapElementList.get(0).setImg(ImageIO.read(getClass().getResourceAsStream("/mapSprite/blue.png")));
+            this.mapElementList.get(0).setImg(ImageIO.read(getClass().getResourceAsStream("/mapSprite/sand.png")));
             this.mapElementList.add(new MapElementImpl());
-            this.mapElementList.get(1).setImg(ImageIO.read(getClass().getResourceAsStream("/mapSprite/green.png")));
-            this.mapElementList.get(1).setCanPlaceTower(true);
+            this.mapElementList.get(1).setImg(ImageIO.read(getClass().getResourceAsStream("/mapSprite/tree.png")));
             this.mapElementList.add(new MapElementImpl());
-            this.mapElementList.get(2).setImg(ImageIO.read(getClass().getResourceAsStream("/mapSprite/red.png")));
+            this.mapElementList.get(2).setImg(ImageIO.read(getClass().getResourceAsStream("/mapSprite/wall.png")));
+            this.mapElementList.get(2).setCanPlaceTower(true);
         } catch (Exception e) {
             e.printStackTrace();
         }

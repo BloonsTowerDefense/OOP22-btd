@@ -19,6 +19,7 @@ public class PathImpl implements Path{
         this.path = new ArrayList<>();
 		this.source = source;
         loadPath(this.source);
+		System.out.println("Ho letto il seguente path: " + this.path.toString());
     }
 
 	@Override
@@ -42,7 +43,8 @@ public class PathImpl implements Path{
 			BufferedReader br = new BufferedReader(new InputStreamReader(input));
 			String read = br.readLine();
 			String spawnPosition[] = read.split(" ");
-			this.spawnPosition.set(Double.parseDouble(spawnPosition[0]), Double.parseDouble(spawnPosition[1]));
+			this.spawnPosition = new Position(Double.parseDouble(spawnPosition[0]), Double.parseDouble(spawnPosition[1]));
+			//this.spawnPosition.set(Double.parseDouble(spawnPosition[0]), Double.parseDouble(spawnPosition[1]));
 			int step = Integer.parseInt(spawnPosition[2]);
 			read = br.readLine();
 			String path[] = read.split(" ");

@@ -9,7 +9,7 @@ public class MapPanel extends JPanel implements Runnable{
     private final int scale = 3;
     private final int finalSpritesize = this.originalSpriteSize * this.scale; //48px finali
     private final int col = 25; //25 colonne per avere la lunghezza 1200px
-    private final int row = 15; //20 righe per avere l'altezza 960px
+    private final int row = 15; //15 righe per avere l'altezza 720px
     private final int screenWidth = this.finalSpritesize * this.col;
     private final int screenHeight = this.finalSpritesize * this.row;
 
