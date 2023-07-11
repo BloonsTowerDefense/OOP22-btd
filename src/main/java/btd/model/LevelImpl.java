@@ -2,6 +2,8 @@ package btd.model;
 
 import btd.model.entity.Bloon;
 import btd.model.entity.BloonImpl;
+import btd.model.entity.BloonType;
+import btd.model.map.Path;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,8 @@ public class LevelImpl implements Level{
     private int difficultyMultiplier;
     private Random rand;
     private boolean waveInProgress;
+
+    private Path path;
 
     public LevelImpl (String difficulty) {
         this.round = 1;
@@ -35,14 +39,17 @@ public class LevelImpl implements Level{
         for (int i=0; i<numBloons; i++) {
             int bloonType = i % 3;
             int bloonHealth;
+            Bloon b = null;
             if (bloonType == 0) {
                 bloonHealth = 10 + round;
+                b = new BloonImpl(BloonType.RED_BLOON);
+                b.setPath(path);
             } else if (bloonType == 1) {
                 bloonHealth = 20 + round;
             } else {
                 bloonHealth = 30 + round;
             }
-            bloons.add(new BloonImpl("bloon_1",));
+            bloons.add(b);
         }
         round++;
         waveInProgress = true;
@@ -55,5 +62,9 @@ public class LevelImpl implements Level{
 
     public int getRound() {
         return this.round;
+    }
+
+    public void setPath(final Path path) {
+        this.path = path;
     }
 }

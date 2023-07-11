@@ -18,7 +18,7 @@ public class WaveImpl implements Wave{
 
     private Random random = new Random();
 
-    public void Wave(final List<Bloon> bloons){
+    public WaveImpl(final List<Bloon> bloons){
         this.bloons = bloons;
         this.delay = 1000;
     }
