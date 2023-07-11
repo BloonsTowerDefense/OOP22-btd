@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import org.junit.jupiter.api.Test;
 
 import btd.model.map.MapPanel;
-import btd.model.menu.MainMenu;
+import btd.view.menu.MainMenu;
 
 public class TestMap1 {
     @Test
