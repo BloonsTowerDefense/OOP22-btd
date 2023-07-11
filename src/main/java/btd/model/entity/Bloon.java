@@ -1,5 +1,7 @@
 package btd.model.entity;
 
+import btd.model.map.Path;
+
 public interface Bloon extends Entity{
     double getHealth();
 
@@ -14,4 +16,6 @@ public interface Bloon extends Entity{
     void update(long time);
 
     boolean isDead();
+
+    void setPath(Path path);
 }

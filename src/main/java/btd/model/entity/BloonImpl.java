@@ -12,16 +12,19 @@ public class BloonImpl extends EntityImpl implements Bloon{
     private Path path;
     private int currentPathIndex;
     private Direction currentDirection;
+    private boolean alive;
 
-    public BloonImpl(final String name, final double speed, final int health, final int money, final Path path) {
-        super(name);
-        this.health = health;
-        this.speed = speed;
-        this.money = money;
+    private BloonType type;
+
+    public BloonImpl(final BloonType type) {
+        super(type.name());
+        this.type = type;
+        this.health = type.getHealth();
+        this.speed = type.getSpeed();
+        this.money = type.getMoney();
         this.currentPathIndex = 0;
-        this.path = path;
+        this.alive = true;
     }
-
 
     @Override
     public double getHealth() {
@@ -40,7 +43,10 @@ public class BloonImpl extends EntityImpl implements Bloon{
 
     @Override
     public void hit(int amount) {
-        health -= amount;
+        this.health -= amount;
+        if (this.isDead()) {
+            this.alive = false;
+        }
     }
 
     @Override
@@ -80,6 +86,12 @@ public class BloonImpl extends EntityImpl implements Bloon{
 
     @Override
     public boolean isDead() {
-        return health <= 0;
+        return this.health <= 0;
     }
+
+    @Override
+    public void setPath(Path path) {
+        this.path = path;
+    }
+
 }

@@ -1,9 +1,12 @@
 package btd.model.entity;
 
-import btd.model.map.MapElement;
 import btd.utils.Position;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.List;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 
 public class ShootingTower implements Tower {
@@ -13,34 +16,48 @@ public class ShootingTower implements Tower {
 
     private Integer power;
 
-    //Price increments after upgrade
     private Integer price;
 
-    private List<Position> position;
+    private Position position;
 
-    public ShootingTower(String name){
+    private BufferedImage towerImage;
+
+    //ENUM
+    private Pair<Integer,Integer> hittingRange;
+
+    public ShootingTower(String name,Integer power,Integer price, Position position){
         super();
         this.name = name;
+        this.power = power;
+        this.price = price;
+        this.position = position;
+        try {
+            this.towerImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/resources/towers/tower1/Upgrade0/tower0")));
+        } catch (IOException e) {
+            //To be checked
+            System.out.println(e);
+        }
+        //Hitting Range is a rectangle
     }
 
+    //IF PLAYER HAS ENOUGH MONEY (playerMoney >= towerPrice) RETURN TRUE, ELSE FALSE
     @Override
-    public void create() {
-        return ;
+    public boolean upgradable(Integer playerMoney) {
+        return playerMoney - this.price >= 0;
     }
 
-    @Override
-    public boolean upgradable() {
-        return false;
-    }
-
+    //CHANGE APPEARANCE, CHANGE PRICE, CHANGE HIT RANGE, (OPTIONAL) CHANGE NAME
     @Override
     public void upgrade() {
-        return ;
+        changeAppearance();
     }
 
-    @Override
-    public void changeApperance() {
-        return ;
+    private void changeAppearance() {
+        try{
+            this.towerImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/resources/towers/tower1/Upgrade1/tower1")));
+        }catch (IOException e){
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -64,18 +81,11 @@ public class ShootingTower implements Tower {
         return this.name;
     }
 
+
+    //TO BE CHECKED
     @Override
-    public void SetPosition(double x, double y) {
-
-    }
-
-    @Override
-    public void setGameMap(MapElement gameMap) {
-
-    }
-
-    @Override
-    public MapElement getGameMap() {
-        return null;
+    public void setPosition(double x, double y) {
+        Position newPosition = new Position(x,y);
+        this.position = new Position(x,y);
     }
 }
