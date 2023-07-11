@@ -1,4 +1,4 @@
-package btd.model.menu;
+package btd.view.menu;
 
 
 import javax.imageio.ImageIO;
