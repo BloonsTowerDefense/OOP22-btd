@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import org.junit.jupiter.api.Test;
 
 import btd.model.map.MapPanel;
+import btd.model.menu.MainMenu;
 
 public class TestMap1 {
     @Test
@@ -13,9 +14,12 @@ public class TestMap1 {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
 
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.exitButtonHandler();
         MapPanel mp = new MapPanel();
-    
+        mainMenu.playButtonHandler();
         frame.add(mp);
+        frame.add(mainMenu);
         frame.pack();
 
         frame.setVisible(true);
