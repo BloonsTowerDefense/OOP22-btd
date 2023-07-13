@@ -4,8 +4,6 @@ package btd.view.menu;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
@@ -16,75 +14,63 @@ public class MainMenu extends JPanel{
     private final static int HEIGHT = 720;
 
     private BufferedImage menuBackground;
-    private JButton playButton;
-    private JButton leaderboard;
-    private JButton createMap;
-    private JButton exit;
+    private final JButton playButton;
+    private final JButton leaderboardButton;
+    private final JButton createMapButton;
+    private final JButton exitButton;
 
-    public MainMenu(){
+    public MainMenu() {
         try {
             this.menuBackground = ImageIO.read(Objects.requireNonNull(getClass().getResource("/menuSprite/mainMenuSprite.png")));
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        this.playButton = new JButton();
-        try {
-            Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource("/menuSprite/icons/playSprite.png")));
-            playButton.setIcon(new ImageIcon(img.getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
-            playButton.setBackground(Color.RED);
-            buttonProperties(playButton);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.leaderboard = new JButton();
-        try {
-            Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource("/menuSprite/icons/leaderboardSprite.png")));
-            leaderboard.setIcon(new ImageIcon(img.getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
-            leaderboard.setBackground(Color.BLUE);
-            buttonProperties(leaderboard);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.createMap = new JButton();
-        try {
-            Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource("/menuSprite/icons/createMapSprite.png")));
-            createMap.setIcon(new ImageIcon(img.getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
-            createMap.setBackground(Color.RED);
-            buttonProperties(createMap);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.exit = new JButton();
-        try {
-            Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource("/menuSprite/icons/exitSprite.png")));
-            exit.setIcon(new ImageIcon(img.getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
-            exit.setBackground(Color.RED);
-            exit.setAction(null);
-            buttonProperties(exit);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //GAME TITLE
-        JLabel gameTitle = new JLabel("BLOONS TD");
-        gameTitle.setFont(new Font("Arial", Font.BOLD, 64));
-        gameTitle.setForeground(Color.WHITE);
-        gameTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        //BUTTONS PANEL
+        playButton = createButton("/menuSprite/icons/playSprite.png", Color.RED);
+        leaderboardButton = createButton("/menuSprite/icons/leaderboardSprite.png", Color.BLUE);
+        createMapButton = createButton("/menuSprite/icons/createMapSprite.png", Color.RED);
+        exitButton = createButton("/menuSprite/icons/exitSprite.png", Color.RED);
+
+        // GAME TITLE
+        JLabel gameTitle = createLabel("BLOONS TD", new Font("Arial", Font.BOLD, 64));
+
+        // BUTTONS PANEL
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setOpaque(false);
         buttonsPanel.setLayout(new FlowLayout());
         buttonsPanel.add(playButton);
-        buttonsPanel.add(leaderboard);
-        buttonsPanel.add(createMap);
-        buttonsPanel.add(exit);
-        //ADD ALL PANELS TO THE MAIN PANEL
-        this.setLayout(new BorderLayout(0,300));
-        this.setOpaque(false);
-        this.add(gameTitle,BorderLayout.NORTH);
-        this.add(buttonsPanel,BorderLayout.CENTER);
-        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        this.setVisible(true);
+        buttonsPanel.add(leaderboardButton);
+        buttonsPanel.add(createMapButton);
+        buttonsPanel.add(exitButton);
+
+        // ADD ALL PANELS TO THE MAIN PANEL
+        setLayout(new BorderLayout(0, 300));
+        setOpaque(false);
+        add(gameTitle, BorderLayout.NORTH);
+        add(buttonsPanel, BorderLayout.CENTER);
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setVisible(true);
+    }
+
+    private JButton createButton(String imagePath, Color backgroundColor) {
+        JButton button = new JButton();
+        try {
+            Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePath)));
+            button.setIcon(new ImageIcon(img.getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
+            button.setBackground(backgroundColor);
+            buttonProperties(button);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return button;
+    }
+
+    private JLabel createLabel(String text, Font font) {
+        JLabel label = new JLabel(text);
+        label.setFont(font);
+        label.setForeground(Color.WHITE);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        return label;
     }
 
     public void paintComponent(Graphics g){
@@ -99,12 +85,21 @@ public class MainMenu extends JPanel{
         button.setBorderPainted(false);
     }
 
-    public void exitButtonHandler(){
-        this.exit.addActionListener(actionEvent -> System.exit(0));
+
+    public JButton getPlayButton(){
+        return this.playButton;
     }
 
-    public JButton playButton(){
-       return this.playButton;
+    public JButton getLeaderboardButton(){
+        return this.leaderboardButton;
+    }
+
+    public JButton getCreateMapButton(){
+        return this.createMapButton;
+    }
+
+    public JButton getExitButton(){
+        return this.exitButton;
     }
 
 }
