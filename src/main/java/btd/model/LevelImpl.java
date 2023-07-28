@@ -14,8 +14,8 @@ public class LevelImpl implements Level{
     private int difficultyMultiplier;
     private Random rand;
     private boolean waveInProgress;
-
     private Path path;
+    private long timeBetweenWaves = 10000; // 10 seconds between waves
 
     public LevelImpl (String difficulty) {
         this.round = 1;
@@ -66,5 +66,9 @@ public class LevelImpl implements Level{
 
     public void setPath(final Path path) {
         this.path = path;
+    }
+
+    public long getTimeBetweenWaves() {
+        return this.timeBetweenWaves;
     }
 }
