@@ -1,7 +1,7 @@
 package btd.utils;
 
 public enum ImagePath {
-    RED_BLOON("bloonsSprites/redBloon.png");
+    RED_BLOON("/bloonsSprites/redBloon.png");
 
     private String imagePath;
 
