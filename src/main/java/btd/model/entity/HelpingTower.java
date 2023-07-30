@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class HelpingTower implements Tower {
 
-    private final static Integer SELL_PRICE_FACTOR = 100;
+    private final static int SELL_PRICE_FACTOR = 100;
 
     private String name;
 
@@ -30,7 +30,7 @@ public class HelpingTower implements Tower {
     }
 
     @Override
-    public void upgrade() {
+    public void update() {
         return ;
     }
 
@@ -54,7 +54,7 @@ public class HelpingTower implements Tower {
     }
 
     @Override
-    public String getName() {
+    public String getTowerName() {
         return this.name;
     }
 
