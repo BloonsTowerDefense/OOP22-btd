@@ -8,18 +8,18 @@ import java.awt.*;
 
 public class GameView extends View {
 
-    private final TowerPurchaseMenu towerPurchaseMenu;
-    private final PurchasedTowersMenu purchasedTowersMenu;
+    //private final TowerPurchaseMenu towerPurchaseMenu;
+    //private final PurchasedTowersMenu purchasedTowersMenu;
     private final MapPanel mapPanel;
 
     public GameView(final Game gameEngine) {
         super(gameEngine);
-        this.towerPurchaseMenu = new TowerPurchaseMenu();
-        this.purchasedTowersMenu = new PurchasedTowersMenu();
+        //this.towerPurchaseMenu = new TowerPurchaseMenu();
+        //this.purchasedTowersMenu = new PurchasedTowersMenu();
         this.mapPanel = new MapPanel();
 
-        add(this.towerPurchaseMenu, BorderLayout.EAST);
-        add(this.purchasedTowersMenu, BorderLayout.WEST);
+        //add(this.towerPurchaseMenu, BorderLayout.EAST);
+        //add(this.purchasedTowersMenu, BorderLayout.WEST);
         add(this.mapPanel, BorderLayout.CENTER);
     }
 
@@ -28,20 +28,19 @@ public class GameView extends View {
         super.paintComponent(g);
         // Aggiorna i componenti del pannello di gioco
         mapPanel.paintComponent(g);
-        towerPurchaseMenu.render(g);
-        purchasedTowersMenu.render(g);
+        //towerPurchaseMenu.render(g);
+        //purchasedTowersMenu.render(g);
     }
 
-    public TowerPurchaseMenu getTowerPurchaseMenu() {
+    /*public TowerPurchaseMenu getTowerPurchaseMenu() {
         return towerPurchaseMenu;
     }
 
     public PurchasedTowersMenu getPurchasedTowersMenu() {
         return purchasedTowersMenu;
     }
-
+    */
     public MapPanel getMapPanel() {
         return mapPanel;
     }
 }
-

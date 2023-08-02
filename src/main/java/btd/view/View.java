@@ -50,7 +50,6 @@ public class View extends JFrame{
         menuPanel.setVisible(false);
         gameView.setVisible(true);
         gameView.requestFocus();
-
     }
 
 
