@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import btd.model.entity.Bloon;
 
 import btd.utils.Direction;
 import btd.utils.Position;
@@ -14,12 +15,15 @@ public class PathImpl implements Path{
     private List<Direction> path;
     private Position spawnPosition;
 	private String source;
+	private List<Bloon> bloonsOnPath;
+	private List<Position> positions;
 
     public PathImpl(final String source){
         this.path = new ArrayList<>();
 		this.source = source;
         loadPath(this.source);
 		System.out.println("Ho letto il seguente path: " + this.path.toString());
+		this.bloonsOnPath = new ArrayList<>();
     }
 
 	@Override
@@ -35,6 +39,11 @@ public class PathImpl implements Path{
 	@Override
 	public int getPathDistance() {
 		return this.path.size();
+	}
+
+	@Override
+	public List<Position> getPositions() {
+		return positions;
 	}
 
 	private void loadPath(final String source){

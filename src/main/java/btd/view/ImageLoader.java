@@ -28,4 +28,17 @@ public class ImageLoader {
         }
         return images.get(imageName);
     }
+
+
+    public static Image loadImageFromFile(ImagePath imagePath) {
+        return instance.loadFromFile(imagePath);
+    }
+
+    private Image loadFromFile(ImagePath imagePath) {
+        if (!images.containsKey(imagePath.toString())) {
+            Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath.toString()));
+            images.put(imagePath.toString(), image);
+        }
+        return images.get(imagePath.toString());
+    }
 }

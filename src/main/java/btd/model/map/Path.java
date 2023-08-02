@@ -14,4 +14,6 @@ public interface Path {
     public int getPathDistance();
 
     public int getTileSize();
+
+    List<Position> getPositions();
 }

@@ -1,15 +1,30 @@
 //Batusha
 package btd.model;
 
-import btd.model.entity.Bloon;
-import java.util.Iterator;
-import java.util.List;
+//import btd.model.entity.Bloon;
+//import btd.model.entity.BloonImpl;
+//import btd.model.entity.BloonType;
+//import btd.model.entity.Tower;
+//import btd.model.map.Path;
+//import btd.model.map.PathImpl;
+//
+//import btd.model.entity.Tower;
+//import btd.model.entity.ShootingTower;
+//
+//import java.awt.event.MouseAdapter;
+//import java.awt.event.MouseEvent;
+//import java.util.ArrayList;
+//import java.util.Iterator;
+//import java.util.List;
+//
+//import btd.utils.Position;
+//
+//import javax.swing.*;
 
 public class Game implements Runnable {
     private boolean running;
     private Thread gameThread;
     private Player player;
-    private List<Bloon> bloons;  // Lista dei bloons nel gioco
 
     public void start() {
         this.player = new Player();
@@ -36,40 +51,10 @@ public class Game implements Runnable {
     @Override
     public void run() {
         init();
-
-        while (running) {
-            update();
-            render();
-        }
     }
 
     private void init() {
         // componenti del gioco finestra risorse ecc
-    }
-
-    private void update() {
-        checkBloons();  // Verifica se i bloons sono morti o hanno raggiunto la fine
-        // risorse giocatore
-    }
-
-    private void render() {
-        // game visuals
-    }
-
-    public void checkBloons() {
-        Iterator<Bloon> iterator = bloons.iterator();
-
-        while (iterator.hasNext()) {
-            Bloon bloon = iterator.next();
-
-            if (bloon.hasReachedEnd()) {
-                player.loseHealth(10); // Ogni bloon fa 10 danni
-                iterator.remove(); // Rimuove il bloon dalla lista
-            } else if (bloon.isDead()) {
-                player.gainCoins(bloon.getMoney()); // Aggiunge i soldi del bloon al giocatore
-                iterator.remove(); // Rimuove il bloon dalla lista
-            }
-        }
     }
 
 }

@@ -68,7 +68,7 @@ public class GameModel {
 
         // Aggiornamento delle torri
         for (Tower tower : towers) {
-            tower.update(time);
+//            tower.update(time);
         }
 
         // Aggiornamento delle wave e dei bloons
