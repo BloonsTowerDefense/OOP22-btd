@@ -37,6 +37,7 @@ public interface Tower extends Entity {
      * */
     Integer getPrice();
 
+
     /**
      * Method used to set the position of the tower in the map
      *

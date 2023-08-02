@@ -59,7 +59,7 @@ public class ShootingTower implements Tower {
     }
 
     @Override
-    public String getTowerName() {
+    public String getName() {
         return this.towerName;
     }
 

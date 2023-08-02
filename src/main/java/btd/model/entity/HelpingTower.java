@@ -1,6 +1,5 @@
 package btd.model.entity;
 
-import btd.model.entity.Tower;
 import btd.utils.Position;
 
 import java.util.List;
@@ -10,7 +9,7 @@ public class HelpingTower implements Tower {
 
     private final static int SELL_PRICE_FACTOR = 100;
 
-    private String name;
+    private String towerName;
 
     private String function;
 
@@ -20,7 +19,7 @@ public class HelpingTower implements Tower {
 
     public HelpingTower(String name,final String function){
         super();
-        this.name = name;
+        this.towerName = name;
         this.function = function;
     }
 
@@ -54,8 +53,8 @@ public class HelpingTower implements Tower {
     }
 
     @Override
-    public String getTowerName() {
-        return this.name;
+    public String getName() {
+        return this.towerName;
     }
 
     @Override
