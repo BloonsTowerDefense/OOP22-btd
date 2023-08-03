@@ -35,10 +35,12 @@ public class ImageLoader {
     }
 
     private Image loadFromFile(ImagePath imagePath) {
-        if (!images.containsKey(imagePath.toString())) {
-            Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath.toString()));
-            images.put(imagePath.toString(), image);
+        String imagePathString = imagePath.getImagePath();
+        if (!images.containsKey(imagePathString)) {
+            Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePathString));
+            images.put(imagePathString, image);
         }
-        return images.get(imagePath.toString());
+        return images.get(imagePathString);
     }
+
 }

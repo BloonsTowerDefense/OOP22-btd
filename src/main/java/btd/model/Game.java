@@ -1,30 +1,19 @@
-//Batusha
 package btd.model;
 
-//import btd.model.entity.Bloon;
-//import btd.model.entity.BloonImpl;
-//import btd.model.entity.BloonType;
-//import btd.model.entity.Tower;
-//import btd.model.map.Path;
-//import btd.model.map.PathImpl;
-//
-//import btd.model.entity.Tower;
-//import btd.model.entity.ShootingTower;
-//
-//import java.awt.event.MouseAdapter;
-//import java.awt.event.MouseEvent;
-//import java.util.ArrayList;
-//import java.util.Iterator;
-//import java.util.List;
-//
-//import btd.utils.Position;
-//
-//import javax.swing.*;
+import javax.swing.*;
+import java.awt.*;
+import btd.view.menu.MainMenu;
+import btd.model.map.MapPanel;
 
 public class Game implements Runnable {
     private boolean running;
     private Thread gameThread;
     private Player player;
+    private MainMenu mainMenu;
+    private MapPanel mapPanel;
+    private JPanel contentPane;
+    private CardLayout cardLayout;
+    private JFrame frame;
 
     public void start() {
         this.player = new Player();
@@ -34,6 +23,36 @@ public class Game implements Runnable {
         running = true;
         gameThread = new Thread(this);
         gameThread.start();
+
+        // Initialize UI components
+        cardLayout = new CardLayout();
+        contentPane = new JPanel(cardLayout);
+
+        mainMenu = new MainMenu();
+        mapPanel = new MapPanel(this);
+        contentPane.add(mainMenu, "MENU");
+        contentPane.add(mapPanel, "MAP");
+
+        JButton playButton = mainMenu.getPlayButton();
+        playButton.addActionListener(actionEvent -> {
+            System.out.println("Start");
+
+            cardLayout.show(contentPane, "MAP");
+
+            mapPanel.startGameThread();
+        });
+
+        JButton exitButton = mainMenu.getExitButton();
+        exitButton.addActionListener(actionEvent -> {
+            System.exit(0);
+        });
+
+        frame = new JFrame("Bloons Tower Defense");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(contentPane);
+        frame.pack();
+        frame.setLocationRelativeTo(null); // Center the frame
+        frame.setVisible(true);
     }
 
     public void stop() {
@@ -57,4 +76,7 @@ public class Game implements Runnable {
         // componenti del gioco finestra risorse ecc
     }
 
+    public JPanel getContentPane() {
+        return contentPane;
+    }
 }
