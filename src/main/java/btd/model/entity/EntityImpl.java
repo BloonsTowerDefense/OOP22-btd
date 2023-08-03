@@ -4,16 +4,16 @@ import btd.utils.Position;
 
 import java.util.Optional;
 
-public class EntityImpl implements Entity{
+public class EntityImpl implements Entity {
 
     private String name;
     private Optional<Position> position;
-    private GameMap gameMap;
 
-    public EntityImpl(final String name){
+    public EntityImpl(final String name) {
         this.name = name;
         this.position = Optional.empty();
     }
+
     @Override
     public Optional<Position> getPosition() {
         return this.position;
@@ -26,16 +26,24 @@ public class EntityImpl implements Entity{
 
     @Override
     public void setPosition(double x, double y) {
-        this.position = Optional.of(new Position(x,y));
+        this.position = Optional.of(new Position(x, y));
     }
 
-    @Override
-    public void setGameMap(GameMap gameMap) {
-
+    public double getX() {
+        return this.position.isPresent() ? this.position.get().getX() : 0;
     }
 
-    @Override
-    public GameMap getGameMap() {
-        return null;
+    public double getY() {
+        return this.position.isPresent() ? this.position.get().getY() : 0;
     }
 }
+//    @Override
+//    public void setGameMap(GameMap gameMap) {
+//
+//    }
+//
+//    @Override
+//    public GameMap getGameMap() {
+//        return null;
+//    }
+//}

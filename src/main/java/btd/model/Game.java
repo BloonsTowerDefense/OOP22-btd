@@ -1,15 +1,19 @@
-//Batusha
 package btd.model;
 
-import btd.model.entity.Bloon;
-import java.util.Iterator;
-import java.util.List;
+import javax.swing.*;
+import java.awt.*;
+import btd.view.menu.MainMenu;
+import btd.model.map.MapPanel;
 
 public class Game implements Runnable {
     private boolean running;
     private Thread gameThread;
     private Player player;
-    private List<Bloon> bloons;  // Lista dei bloons nel gioco
+    private MainMenu mainMenu;
+    private MapPanel mapPanel;
+    private JPanel contentPane;
+    private CardLayout cardLayout;
+    private JFrame frame;
 
     public void start() {
         this.player = new Player();
@@ -19,6 +23,36 @@ public class Game implements Runnable {
         running = true;
         gameThread = new Thread(this);
         gameThread.start();
+
+        // Initialize UI components
+        cardLayout = new CardLayout();
+        contentPane = new JPanel(cardLayout);
+
+        mainMenu = new MainMenu();
+        mapPanel = new MapPanel(this);
+        contentPane.add(mainMenu, "MENU");
+        contentPane.add(mapPanel, "MAP");
+
+        JButton playButton = mainMenu.getPlayButton();
+        playButton.addActionListener(actionEvent -> {
+            System.out.println("Start");
+
+            cardLayout.show(contentPane, "MAP");
+
+            mapPanel.startGameThread();
+        });
+
+        JButton exitButton = mainMenu.getExitButton();
+        exitButton.addActionListener(actionEvent -> {
+            System.exit(0);
+        });
+
+        frame = new JFrame("Bloons Tower Defense");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(contentPane);
+        frame.pack();
+        frame.setLocationRelativeTo(null); // Center the frame
+        frame.setVisible(true);
     }
 
     public void stop() {
@@ -36,40 +70,13 @@ public class Game implements Runnable {
     @Override
     public void run() {
         init();
-
-        while (running) {
-            update();
-            render();
-        }
     }
 
     private void init() {
         // componenti del gioco finestra risorse ecc
     }
 
-    private void update() {
-        checkBloons();  // Verifica se i bloons sono morti o hanno raggiunto la fine
-        // risorse giocatore
+    public JPanel getContentPane() {
+        return contentPane;
     }
-
-    private void render() {
-        // game visuals
-    }
-
-    public void checkBloons() {
-        Iterator<Bloon> iterator = bloons.iterator();
-
-        while (iterator.hasNext()) {
-            Bloon bloon = iterator.next();
-
-            if (bloon.hasReachedEnd()) {
-                player.loseHealth(10); // Ogni bloon fa 10 danni
-                iterator.remove(); // Rimuove il bloon dalla lista
-            } else if (bloon.isDead()) {
-                player.gainCoins(bloon.getMoney()); // Aggiunge i soldi del bloon al giocatore
-                iterator.remove(); // Rimuove il bloon dalla lista
-            }
-        }
-    }
-
 }

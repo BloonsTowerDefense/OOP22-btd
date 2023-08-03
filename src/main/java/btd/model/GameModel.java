@@ -1,28 +1,163 @@
 package btd.model;
 
+import btd.model.entity.Bloon;
+import btd.model.entity.BloonImpl;
+import btd.model.entity.BloonType;
 import btd.model.entity.Entity;
+import btd.model.entity.HelpingTower;
+import btd.model.entity.ShootingTower;
+import btd.model.entity.Tower;
+import btd.model.map.Path;
 import btd.utils.Position;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-public interface GameModel {
+public class GameModel {
+    private LevelImpl level;
+    private WaveImpl wave;
+    private Path path;
+    private List<Tower> towers;
+    private Player player;
+    private boolean waveInProgress;
+    private boolean bloonSpawnInProgress;
+    private List<Bloon> aliveBloons;
+    private long lastSpawnTime;
+    private long lastWaveEndTime;
+    private final long bloonSpawnInterval = 1500; // 1.5 secondi
+    private final long waveInterval = 10000; // 10 secondi
 
-    enum State {
+    public enum GameState {
         PLAYING,
-        DEFEAT
+        GAME_OVER,
+        VICTORY
     }
 
-    void updateState(long time);
+    public GameModel(String difficulty, Path path) {
+        this.level = new LevelImpl(difficulty);
+        this.path = path;
+        this.level.setPath(path);
+        this.towers = new ArrayList<>();
+        this.player = new Player();
+        this.waveInProgress = false;
+        this.bloonSpawnInProgress = false;
+        this.aliveBloons = new ArrayList<>();
+        this.lastSpawnTime = 0;
+        this.lastWaveEndTime = 0;
+    }
 
-    List<Entity> getEntities();
+    public void startWave() {
+        if (!waveInProgress && System.currentTimeMillis() - lastWaveEndTime >= waveInterval) {
+            waveInProgress = true;
+            bloonSpawnInProgress = true;
+            aliveBloons.clear();
+            wave = (WaveImpl) level.getWave();
+            lastSpawnTime = System.currentTimeMillis(); // Memorizziamo il tempo di inizio dello spawn
+        }
+    }
 
-    int getLife();
+    public void update(long time) {
+        // Controllo dello spawn dei bloon
+        if (waveInProgress && bloonSpawnInProgress) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastSpawnTime >= bloonSpawnInterval) {
+                spawnBloons();
+                lastSpawnTime = currentTime;
+            }
+        }
 
-    Set<Position> getAvailablePositions();
+        // Aggiornamento delle torri
+        for (Tower tower : towers) {
+//            tower.update(time);
+        }
 
-    double getMoney();
+        // Aggiornamento delle wave e dei bloons
+        if (waveInProgress && !wave.isOver()) {
+            for (Bloon bloon : aliveBloons) {
+                ((BloonImpl) bloon).update(time);
+            }
+        }
 
+        // Controllo dei bloon morti e arrivati a fine percorso
+        aliveBloons.removeIf(Bloon::isDead);
+        aliveBloons.forEach(bloon -> {
+            if (bloon.hasReachedEnd()) {
+                int healthDecrease = 1;
+                player.loseHealth(healthDecrease);
+            }
+        });
 
+        // Controllo fine wave
+        if (waveInProgress && wave.isOver() && aliveBloons.isEmpty()) {
+            bloonSpawnInProgress = false;
+            waveInProgress = false;
+            lastWaveEndTime = System.currentTimeMillis(); // Memorizziamo il tempo di fine wave
+        }
+    }
 
+    private void spawnBloons() {
+        if (wave != null && !wave.isOver()) {
+            List<Bloon> newBloons = wave.getBloons();
+            aliveBloons.addAll(newBloons);
+        } else {
+            bloonSpawnInProgress = false;
+        }
+    }
+
+    public void addShootingTower(String name, Integer power, Integer price, double x, double y) {
+        ShootingTower tower = new ShootingTower(name, power, price, new Position(x, y));
+        towers.add(tower);
+    }
+
+    public void addHelpingTower(String name, String function) {
+        HelpingTower tower = new HelpingTower(name, function);
+        towers.add(tower);
+    }
+
+    public List<Entity> getEntities() {
+        List<Entity> entities = new ArrayList<>();
+        entities.addAll(towers);
+        if (waveInProgress && !wave.isOver()) {
+            entities.addAll(aliveBloons);
+        }
+        return entities;
+    }
+
+    public GameState gameState() {
+        if (player.getHealth() <= 0) {
+            return GameState.GAME_OVER;
+        } else if (level.getRound() > 10) { // Condizione di vittoria arbitraria
+            return GameState.VICTORY;
+        } else {
+            return GameState.PLAYING;
+        }
+    }
+
+    public int getLife() {
+        return player.getHealth();
+    }
+
+    public int getMoney() {
+        return player.getCoins();
+    }
+
+    public LevelImpl getLevel() {
+        return level;
+    }
+
+    public WaveImpl getWave() {
+        return wave;
+    }
+
+    public Path getPath() {
+        return path;
+    }
+
+    public List<Tower> getTowers() {
+        return towers;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
 }

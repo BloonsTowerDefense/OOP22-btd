@@ -1,7 +1,19 @@
 package btd.model.entity;
 
 import btd.model.map.Path;
+import btd.model.map.PathImpl;
 import btd.utils.Direction;
+import java.awt.Graphics2D;
+import java.awt.Color;
+
+import btd.utils.ImagePath;
+import btd.view.ImageLoader;
+import java.awt.Image;
+
+import btd.utils.Position;
+import java.util.List;
+
+import java.awt.*;
 
 public class BloonImpl extends EntityImpl implements Bloon{
 
@@ -15,8 +27,9 @@ public class BloonImpl extends EntityImpl implements Bloon{
     private boolean alive;
 
     private BloonType type;
+    private Image image;
 
-    public BloonImpl(final BloonType type) {
+    public BloonImpl(final BloonType type, Path path) {
         super(type.name());
         this.type = type;
         this.health = type.getHealth();
@@ -24,6 +37,13 @@ public class BloonImpl extends EntityImpl implements Bloon{
         this.money = type.getMoney();
         this.currentPathIndex = 0;
         this.alive = true;
+        this.image = ImageLoader.loadImageFromFile(ImagePath.RED_BLOON);
+//        this.image = ImageLoader.loadImage(BloonImpl.class, ImagePath.RED_BLOON);
+
+        this.path = path; // Set this.path to the passed path
+        if (!path.getDirections().isEmpty()) {
+            this.currentDirection = path.getDirections().get(0);
+        }
     }
 
     @Override
@@ -57,10 +77,10 @@ public class BloonImpl extends EntityImpl implements Bloon{
         double y = this.getPosition().get().getY();
         switch (currentDirection){
             case UP:
-                y+= path.getTileSize();
+                y-= path.getTileSize();
                 break;
             case DOWN:
-                y-= path.getTileSize();
+                y+= path.getTileSize();
                 break;
             case LEFT:
                 x-= path.getTileSize();
@@ -77,9 +97,10 @@ public class BloonImpl extends EntityImpl implements Bloon{
     @Override
     public void update(long time) {
         if(!this.hasReachedEnd()){
-            this.currentDirection = this.getGameMap().getPath().getDirections(this.currentPathIndex);
+            this.currentDirection = this.path.getDirections().get(this.currentPathIndex);
             this.currentPathIndex++;
         }
+        if(this.hasReachedEnd()){return;}
         this.move(time);
     }
 
@@ -94,4 +115,14 @@ public class BloonImpl extends EntityImpl implements Bloon{
         this.path = path;
     }
 
+    @Override
+    public void draw(Graphics2D g) {
+        if (this.image != null) {
+            g.drawImage(this.image, (int) this.getX(), (int) this.getY(), null);
+        } else {
+            // Fallback to drawing a red circle if the image couldn't be loaded
+            g.setColor(Color.RED);
+            g.fillOval((int) this.getX(), (int) this.getY(), 20, 20);
+        }
+    }
 }

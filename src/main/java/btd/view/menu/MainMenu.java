@@ -16,7 +16,6 @@ public class MainMenu extends JPanel{
     private BufferedImage menuBackground;
     private final JButton playButton;
     private final JButton leaderboardButton;
-    private final JButton createMapButton;
     private final JButton exitButton;
 
     public MainMenu() {
@@ -28,7 +27,6 @@ public class MainMenu extends JPanel{
 
         playButton = createButton("/menuSprite/icons/playSprite.png", Color.RED);
         leaderboardButton = createButton("/menuSprite/icons/leaderboardSprite.png", Color.BLUE);
-        createMapButton = createButton("/menuSprite/icons/createMapSprite.png", Color.RED);
         exitButton = createButton("/menuSprite/icons/exitSprite.png", Color.RED);
 
         // GAME TITLE
@@ -40,18 +38,17 @@ public class MainMenu extends JPanel{
         buttonsPanel.setLayout(new FlowLayout());
         buttonsPanel.add(playButton);
         buttonsPanel.add(leaderboardButton);
-        buttonsPanel.add(createMapButton);
         buttonsPanel.add(exitButton);
 
         // ADD ALL PANELS TO THE MAIN PANEL
-        setLayout(new BorderLayout(0, 300));
+        setLayout(new BorderLayout(0, 200));
         setOpaque(false);
         add(gameTitle, BorderLayout.NORTH);
         add(buttonsPanel, BorderLayout.CENTER);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setVisible(true);
     }
 
+    //Create Utils class to return edited JButton
     private JButton createButton(String imagePath, Color backgroundColor) {
         JButton button = new JButton();
         try {
@@ -94,12 +91,7 @@ public class MainMenu extends JPanel{
         return this.leaderboardButton;
     }
 
-    public JButton getCreateMapButton(){
-        return this.createMapButton;
-    }
-
     public JButton getExitButton(){
         return this.exitButton;
     }
-
 }

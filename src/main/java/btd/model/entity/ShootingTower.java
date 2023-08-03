@@ -1,63 +1,45 @@
 package btd.model.entity;
 
 import btd.utils.Position;
-import org.apache.commons.lang3.tuple.Pair;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
 import java.util.Optional;
 
 public class ShootingTower implements Tower {
 
-    private final static Integer SELL_PRICE_FACTOR = 100;
-    private String name;
+    private final static int SELL_PRICE_FACTOR = 100;
+    private final String towerName;
 
     private Integer power;
 
-    private Integer price;
+    private final Integer price;
 
     private Position position;
 
-    private BufferedImage towerImage;
+    private Position hittingRange;
 
-    //ENUM
-    private Pair<Integer,Integer> hittingRange;
+    private final TowerSpriteManager towerSpriteManager;
 
-    public ShootingTower(String name,Integer power,Integer price, Position position){
-        super();
-        this.name = name;
+    public ShootingTower(String towerName,Integer power,Integer price, Position position){
+        this.towerSpriteManager = new TowerSpriteManagerImpl(towerName);
+        this.towerName = towerName;
         this.power = power;
         this.price = price;
         this.position = position;
-        try {
-            this.towerImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/resources/towers/tower1/Upgrade0/tower0")));
-        } catch (IOException e) {
-            //To be checked
-            System.out.println(e);
-        }
-        //Hitting Range is a rectangle
+        this.hittingRange = new Position(10,10);
+        
     }
 
-    //IF PLAYER HAS ENOUGH MONEY (playerMoney >= towerPrice) RETURN TRUE, ELSE FALSE
     @Override
     public boolean upgradable(Integer playerMoney) {
         return playerMoney - this.price >= 0;
     }
 
-    //CHANGE APPEARANCE, CHANGE PRICE, CHANGE HIT RANGE, (OPTIONAL) CHANGE NAME
     @Override
-    public void upgrade() {
-        changeAppearance();
-    }
-
-    private void changeAppearance() {
-        try{
-            this.towerImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/resources/towers/tower1/Upgrade1/tower1")));
-        }catch (IOException e){
-            System.out.println(e);
-        }
+    public void update(){
+        this.towerSpriteManager.upgrade(this.towerName);
+        this.power += 100;
+        this.hittingRange = new Position(hittingRange.getX()+10,hittingRange.getY()+10);
     }
 
     @Override
@@ -72,20 +54,34 @@ public class ShootingTower implements Tower {
     }
 
     @Override
+    public BufferedImage getTowerSprite() {
+        return towerSpriteManager.getTowerSpriteList().get(0);
+    }
+
+    @Override
     public Optional<Position> getPosition() {
         return Optional.empty();
     }
 
     @Override
     public String getName() {
-        return this.name;
+        return this.towerName;
     }
 
-
-    //TO BE CHECKED
     @Override
     public void setPosition(double x, double y) {
-        Position newPosition = new Position(x,y);
         this.position = new Position(x,y);
+    }
+
+    public void setHittingRange(double x,double y){
+        this.hittingRange = new Position(x,y);
+    }
+
+    public Integer getPower(){
+        return this.power;
+    }
+
+    public BufferedImage getTowerImage(){
+        return this.towerSpriteManager.getTowerSpriteList().get(0);
     }
 }

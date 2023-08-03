@@ -4,6 +4,7 @@ import btd.model.entity.Bloon;
 import btd.model.entity.BloonImpl;
 import btd.model.entity.BloonType;
 import btd.model.map.Path;
+import btd.model.map.PathImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +15,8 @@ public class LevelImpl implements Level{
     private int difficultyMultiplier;
     private Random rand;
     private boolean waveInProgress;
-
     private Path path;
+    private long timeBetweenWaves = 10000; // 10 seconds between waves
 
     public LevelImpl (String difficulty) {
         this.round = 1;
@@ -40,14 +41,22 @@ public class LevelImpl implements Level{
             int bloonType = i % 3;
             int bloonHealth;
             Bloon b = null;
+            Path path = new PathImpl("/map/map01/bloonsPath.txt");
             if (bloonType == 0) {
                 bloonHealth = 10 + round;
-                b = new BloonImpl(BloonType.RED_BLOON);
+                b = new BloonImpl(BloonType.RED_BLOON,path);
                 b.setPath(path);
+                b.setPosition(path.getSpawnPosition().getX(), path.getSpawnPosition().getY());
             } else if (bloonType == 1) {
                 bloonHealth = 20 + round;
+                b = new BloonImpl(BloonType.RED_BLOON,path);
+                b.setPath(path);
+                b.setPosition(path.getSpawnPosition().getX(), path.getSpawnPosition().getY());
             } else {
                 bloonHealth = 30 + round;
+                b = new BloonImpl(BloonType.RED_BLOON,path);
+                b.setPath(path);
+                b.setPosition(path.getSpawnPosition().getX(), path.getSpawnPosition().getY());
             }
             bloons.add(b);
         }
@@ -66,5 +75,9 @@ public class LevelImpl implements Level{
 
     public void setPath(final Path path) {
         this.path = path;
+    }
+
+    public long getTimeBetweenWaves() {
+        return this.timeBetweenWaves;
     }
 }
