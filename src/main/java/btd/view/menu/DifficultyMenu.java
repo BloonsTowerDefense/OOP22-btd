@@ -20,7 +20,7 @@ public class DifficultyMenu extends JPanel {
     private Integer difficulty = 1;
 
     private String map = "Map 1";
-    private final JButton startButton = new JButton("Start");
+    private final JButton startButton = new JButton("Play");
 
     public DifficultyMenu() {
         GridLayout mainLayout = new GridLayout(5,1);
