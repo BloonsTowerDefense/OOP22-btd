@@ -16,7 +16,8 @@ public class GameView extends View {
         super(gameEngine);
         //this.towerPurchaseMenu = new TowerPurchaseMenu();
         //this.purchasedTowersMenu = new PurchasedTowersMenu();
-        this.mapPanel = new MapPanel();
+        this.mapPanel = new MapPanel(gameEngine);
+
 
         //add(this.towerPurchaseMenu, BorderLayout.EAST);
         //add(this.purchasedTowersMenu, BorderLayout.WEST);

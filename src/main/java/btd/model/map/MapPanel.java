@@ -36,7 +36,7 @@ public class MapPanel extends JPanel implements Runnable{
     private Game game;
     private LevelImpl level;
 
-    public MapPanel(){
+    public MapPanel(Game game){
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight));
         this.setDoubleBuffered(true);
         this.game = game;
@@ -54,6 +54,7 @@ public class MapPanel extends JPanel implements Runnable{
         this.level = new LevelImpl("facile"); // normale
         this.bloons = new ArrayList<>(); // Initialize the bloons list
     }
+
     
     public void startGameThread(){
         this.gameThread = new Thread(this);
