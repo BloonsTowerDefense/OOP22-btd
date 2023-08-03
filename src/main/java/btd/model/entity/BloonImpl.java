@@ -40,10 +40,11 @@ public class BloonImpl extends EntityImpl implements Bloon{
         this.image = ImageLoader.loadImageFromFile(ImagePath.RED_BLOON);
 //        this.image = ImageLoader.loadImage(BloonImpl.class, ImagePath.RED_BLOON);
 
-        this.path = path; // Set this.path to the passed path
+        this.path = path;
         if (!path.getDirections().isEmpty()) {
             this.currentDirection = path.getDirections().get(0);
         }
+
     }
 
     @Override

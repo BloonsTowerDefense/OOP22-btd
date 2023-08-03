@@ -134,7 +134,8 @@ public class Game implements Runnable {
 
 
     private void repaint() {
-        // Redraw
+
+        // aggiorna display e stato gioco
         if (mapPanel != null) {
             mapPanel.repaint();
         }
