@@ -18,9 +18,7 @@ public class StartingMenu extends JPanel {
         add(mainMenu, "MAIN");
         add(difficultyMenu, "DIFFICULTY");
 
-        mainMenu.getPlayButton().addActionListener(e -> {
-            cardLayout.show(this, "DIFFICULTY");
-        });
+        mainMenu.getPlayButton().addActionListener(e -> cardLayout.show(this, "DIFFICULTY"));
 
         setPreferredSize(new Dimension(1200, 720));
     }
@@ -33,7 +31,7 @@ public class StartingMenu extends JPanel {
         return difficultyMenu.getMap();
     }
 
-    public Integer getDifficulty() {
+    public String getDifficulty() {
         return difficultyMenu.getDifficulty();
     }
 }
