@@ -54,6 +54,11 @@ public class ShootingTower implements Tower {
     }
 
     @Override
+    public BufferedImage getTowerSprite() {
+        return towerSpriteManager.getTowerSpriteList().get(0);
+    }
+
+    @Override
     public Optional<Position> getPosition() {
         return Optional.empty();
     }
