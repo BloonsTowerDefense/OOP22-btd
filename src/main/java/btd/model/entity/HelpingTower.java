@@ -2,6 +2,7 @@ package btd.model.entity;
 
 import btd.utils.Position;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,18 +10,22 @@ public class HelpingTower implements Tower {
 
     private final static int SELL_PRICE_FACTOR = 100;
 
-    private String towerName;
+    private final String towerName;
 
-    private String function;
+    private final String function;
 
     private Integer price;
 
-    private List<Position> position;
+    private Position position;
 
-    public HelpingTower(String name,final String function){
-        super();
-        this.towerName = name;
+    private Position hittingRange;
+    private final TowerSpriteManager towerSpriteManager;
+
+    public HelpingTower(String towerName,final String function){
+        this.towerSpriteManager = new TowerSpriteManagerImpl(towerName);
+        this.towerName = towerName;
         this.function = function;
+        this.position = position;
     }
 
     @Override
@@ -30,11 +35,8 @@ public class HelpingTower implements Tower {
 
     @Override
     public void update() {
-        return ;
-    }
-
-    private void changeAppearance() {
-        return;
+        this.towerSpriteManager.upgrade(this.towerName);
+        this.hittingRange = new Position(hittingRange.getX()+10, hittingRange.getY()+10);
     }
 
     @Override
@@ -57,9 +59,18 @@ public class HelpingTower implements Tower {
         return this.towerName;
     }
 
+    public String getFunction(){
+        return this.function;
+    }
+
     @Override
     public void setPosition(double x, double y) {
         return ;
+    }
+
+    @Override
+    public BufferedImage getTowerSprite(){
+        return towerSpriteManager.getTowerSpriteList().get(0);
     }
 
 }

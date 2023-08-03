@@ -39,7 +39,7 @@ public class ShootingTower implements Tower {
     public void update(){
         this.towerSpriteManager.upgrade(this.towerName);
         this.power += 100;
-        this.hittingRange = new Position(20,20);
+        this.hittingRange = new Position(hittingRange.getX()+10,hittingRange.getY()+10);
     }
 
     @Override

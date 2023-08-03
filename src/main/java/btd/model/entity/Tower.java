@@ -3,6 +3,7 @@ package btd.model.entity;
 import btd.model.entity.Entity;
 import btd.utils.Position;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
@@ -36,6 +37,14 @@ public interface Tower extends Entity {
      * @return returns the tower's price
      * */
     Integer getPrice();
+
+
+    /**
+     * Method used to get tower's sprites
+     *
+     * @return returns a list with tower's sprites
+     * */
+    BufferedImage getTowerSprite();
 
 
     /**
