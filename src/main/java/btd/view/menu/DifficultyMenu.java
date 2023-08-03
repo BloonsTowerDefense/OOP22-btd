@@ -1,23 +1,21 @@
 package btd.view.menu;
 
-import btd.Main;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class DifficultyMenu extends JPanel {
-
     private static final Color SELECTED_COLOR = Color.decode("#FD8D14");
     private static final Color UNSELECTED_COLOR = Color.WHITE;
 
     private BufferedImage menuBackground;
 
     //Default game difficulty set to 1
-    private Integer difficulty = 1;
+    private String difficulty = "easy";
 
     private String map = "Map 1";
     private final JButton startButton = new JButton("Play");
@@ -47,13 +45,13 @@ public class DifficultyMenu extends JPanel {
         hardButton.setFocusPainted(false);
 
         // Changes color only for Easy Button and sets "difficulty" variable to 1
-        easyButton.addActionListener(e -> setDifficulty(1, easyButton, mediumButton, hardButton));
+        easyButton.addActionListener(e -> setDifficulty("easy", easyButton, mediumButton, hardButton));
         easyButton.setBackground(Color.decode("#FD8D14"));
         // Changes color only for Medium Button and sets "difficulty" variable to 2
-        mediumButton.addActionListener(e -> setDifficulty(2, easyButton, mediumButton, hardButton));
+        mediumButton.addActionListener(e -> setDifficulty("medium", easyButton, mediumButton, hardButton));
 
         // Changes color only for Hard Button and sets "difficulty" variable to 3
-        hardButton.addActionListener(e -> setDifficulty(3, easyButton, mediumButton, hardButton));
+        hardButton.addActionListener(e -> setDifficulty("hard", easyButton, mediumButton, hardButton));
 
         GridLayout gridLayout1 = new GridLayout(1,2);
         gridLayout1.setHgap(20);
@@ -100,11 +98,11 @@ public class DifficultyMenu extends JPanel {
         setOpaque(false);
     }
 
-    private void setDifficulty(int value, JButton easyButton, JButton mediumButton, JButton hardButton) {
+    private void setDifficulty(String value, JButton easyButton, JButton mediumButton, JButton hardButton) {
         difficulty = value;
-        easyButton.setBackground(value == 1 ? SELECTED_COLOR : UNSELECTED_COLOR);
-        mediumButton.setBackground(value == 2 ? SELECTED_COLOR : UNSELECTED_COLOR);
-        hardButton.setBackground(value == 3 ? SELECTED_COLOR : UNSELECTED_COLOR);
+        easyButton.setBackground(Objects.equals(value, "easy") ? SELECTED_COLOR : UNSELECTED_COLOR);
+        mediumButton.setBackground(Objects.equals(value, "medium") ? SELECTED_COLOR : UNSELECTED_COLOR);
+        hardButton.setBackground(Objects.equals(value, "hard") ? SELECTED_COLOR : UNSELECTED_COLOR);
     }
 
     private void setMap(String value, JButton map1,JButton map2){
@@ -150,7 +148,7 @@ public class DifficultyMenu extends JPanel {
         return button;
     }
 
-    public Integer getDifficulty() {
+    public String getDifficulty() {
         return difficulty;
     }
 
