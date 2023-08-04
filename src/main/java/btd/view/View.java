@@ -16,8 +16,8 @@ public class View extends JFrame{
     private final GameView gameView;
     private Game gameEngine;
     //private final JFrame frame;
-    private static final int DEFAULT_WIDTH = 600;
-    private static final int DEFAULT_HEIGHT = 400;
+    private static final int DEFAULT_WIDTH = 1200;
+    private static final int DEFAULT_HEIGHT = 720;
 
     public View(Game gameEngine) {
         this.gameEngine = gameEngine;

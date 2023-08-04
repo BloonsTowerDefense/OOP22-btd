@@ -75,7 +75,6 @@ public class Game extends Thread {
     public void run() {
         System.out.print("sono arrivato qui");
         this.lastUpdateTime = System.currentTimeMillis();
-        this.gameCondition = GameCondition.PLAY;
         //double interval = 1000000000/4; //60
         //double nextDraw = System.nanoTime() + interval;
         while(!isGameOver()){
@@ -88,7 +87,7 @@ public class Game extends Thread {
             this.update(elapsedTime);
             this.render();
         }
-    }
+        }
 
     public boolean isGameOver(){
         return this.gameCondition == GameCondition.OVER;
