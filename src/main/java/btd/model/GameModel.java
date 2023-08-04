@@ -7,6 +7,8 @@ import btd.model.entity.Entity;
 import btd.model.entity.HelpingTower;
 import btd.model.entity.ShootingTower;
 import btd.model.entity.Tower;
+import btd.model.map.MapManager;
+import btd.model.map.MapManagerImpl;
 import btd.model.map.Path;
 import btd.utils.Position;
 
@@ -27,6 +29,7 @@ public class GameModel {
     private final long bloonSpawnInterval = 1500; // 1.5 secondi
     private final long waveInterval = 10000; // 10 secondi
     private String difficulty;
+    private MapManager mapManager;
 
     public enum GameState {
         PLAYING,
@@ -174,5 +177,13 @@ public class GameModel {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void initGame(String difficulty, String mapName){
+        this.mapManager = new MapManagerImpl(mapName);
+    }
+
+    public MapManager getMapManager(){
+        return this.mapManager;
     }
 }

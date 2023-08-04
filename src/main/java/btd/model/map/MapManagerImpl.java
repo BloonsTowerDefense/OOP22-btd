@@ -10,14 +10,13 @@ public class MapManagerImpl implements MapManager{
     private List<MapElement> mapElementList;
     private int[][] mapNum;
     private MapLoader mapLoader;
-    private MapPanel mapPanel;
     private Path bloonPath;
 
-    public MapManagerImpl(final MapPanel mp, String mapName){
+    public MapManagerImpl(String mapName){
         this.mapElementList = new ArrayList<>();
-        this.mapPanel = mp;
-        this.mapNum = new int[this.mapPanel.getCol()][this.mapPanel.getRow()];
-        this.mapLoader = new MapLoaderImpl(this.mapPanel);
+        //this.mapPanel = mp;
+        this.mapNum = new int[MapPanel.col][MapPanel.row];
+        this.mapLoader = new MapLoaderImpl();
         loadMapImage();
         setMap(mapName);
     }
@@ -48,18 +47,18 @@ public class MapManagerImpl implements MapManager{
         int currentRow = 0;
         int x = 0;
         int y = 0;
-        while(currentCol < this.mapPanel.getCol() && currentRow < this.mapPanel.getRow()){
+        while(currentCol < MapPanel.col && currentRow < MapPanel.row){
             int tileNum = this.mapNum[currentCol][currentRow];
             //int paintX = currentCol * this.mapPanel.getFinalSpriteSize();
             //int paintY = currentCol * this.mapPanel.getFinalSpriteSize();
-            graphics2d.drawImage(this.mapElementList.get(tileNum).getImg(), x, y, this.mapPanel.getFinalSpriteSize(), this.mapPanel.getFinalSpriteSize(), null);
+            graphics2d.drawImage(this.mapElementList.get(tileNum).getImg(), x, y, MapPanel.finalSpritesize,  MapPanel.finalSpritesize, null);
             currentCol++;
-            x += this.mapPanel.getFinalSpriteSize();
-            if(currentCol == this.mapPanel.getCol()){
+            x +=  MapPanel.finalSpritesize;
+            if(currentCol ==  MapPanel.col){
                 currentCol = 0;
                 x = 0;
                 currentRow++;
-                y += this.mapPanel.getFinalSpriteSize();
+                y +=  MapPanel.finalSpritesize;
             }
         }
         //graphics2d.drawImage(this.mapElementList.get(0).getImg(), 0, 0, mapPanel.getFinalSpriteSize(), mapPanel.getFinalSpriteSize(), null);
