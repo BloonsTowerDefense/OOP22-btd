@@ -25,9 +25,9 @@ import java.util.ArrayList;
 
 public class MapPanel extends JPanel {
 
-    private final int originalSpriteSize = 16; //16 px originali
-    private final int scale = 3;
-    private final int finalSpritesize = this.originalSpriteSize * this.scale; //48px finali
+    private final static int originalSpriteSize = 16; //16 px originali
+    private final static int scale = 3;
+    public final static int finalSpritesize = originalSpriteSize * scale; //48px finali
     public final static int col = 25; //25 colonne per avere la lunghezza 1200px
     public final static int row = 15; //15 righe per avere l'altezza 720px
     private final int screenWidth = this.finalSpritesize * this.col;
@@ -46,7 +46,7 @@ public class MapPanel extends JPanel {
         this.setPreferredSize(new Dimension(1200, 720));
         this.setDoubleBuffered(true);
         this.game = game;
-        this.mapManager = new MapManagerImpl(this);
+        this.mapManager = game.getGameModel().getMapManager();
         lastUpdateTime = System.currentTimeMillis();
         // Add a mouse listener
         this.addMouseListener(new MouseAdapter() {
