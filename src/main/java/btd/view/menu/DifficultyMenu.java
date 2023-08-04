@@ -21,8 +21,11 @@ public class DifficultyMenu extends JPanel {
     private String map = "Map 1";
     private final JButton startButton = new JButton("Play");
 
+    private final JButton backButton = new JButton();
+
     public DifficultyMenu() {
         GridLayout mainLayout = new GridLayout(5,1);
+        JPanel northPanel = new JPanel(new BorderLayout());
         mainLayout.setVgap(50);
         setLayout(mainLayout);
 
@@ -31,7 +34,17 @@ public class DifficultyMenu extends JPanel {
         titleLabel.setForeground(Color.decode("#CECE5A"));
         titleLabel.setFont(new Font("Arial", Font.BOLD, 64));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(titleLabel);
+        try {
+            BufferedImage backIcon = ImageIO.read(Objects.requireNonNull(getClass().getResource("/menusprite/icons/backButton.png")));
+            backButton.setIcon(new ImageIcon(backIcon.getScaledInstance(80,80,Image.SCALE_DEFAULT)));
+            backButton.setBorderPainted(false);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        northPanel.add(backButton,BorderLayout.WEST);
+        northPanel.add(titleLabel,BorderLayout.CENTER);
+        northPanel.setOpaque(false);
+        add(northPanel);
 
         // Create panel that holds difficulty buttons
         GridLayout gridLayout = new GridLayout(1, 3);
@@ -159,5 +172,9 @@ public class DifficultyMenu extends JPanel {
 
     public JButton getStartButton() {
         return startButton;
+    }
+
+    public JButton getBackButton(){
+        return this.backButton;
     }
 }

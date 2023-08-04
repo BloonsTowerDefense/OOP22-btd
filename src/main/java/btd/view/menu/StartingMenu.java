@@ -34,6 +34,8 @@ public class StartingMenu extends JPanel {
 
         mainMenu.getPlayButton().addActionListener(e -> cardLayout.show(this, "DIFFICULTY"));
         mainMenu.getLeaderboardButton().addActionListener(e -> cardLayout.show(this, "LEADERBOARD"));
+        rankView.getBackButton().addActionListener(e -> cardLayout.show(this,"MAIN"));
+        difficultyMenu.getBackButton().addActionListener(e -> cardLayout.show(this,"MAIN"));
         difficultyMenu.getStartButton().addActionListener(e -> this.gameEngine.setGameCondition(GameCondition.PLAY));
 
 

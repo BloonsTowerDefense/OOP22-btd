@@ -1,15 +1,21 @@
 package btd.view.score;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import btd.controller.score.RankController;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 
 public class RankView extends JPanel {
     private RankController controller;
+
+    private JButton backButton;
 
     public RankView(RankController controller) {
         this.controller = controller;
@@ -23,6 +29,15 @@ public class RankView extends JPanel {
         JPanel northPanel = new JPanel(new BorderLayout());
         northPanel.setPreferredSize(new Dimension(1200, 150));
         northPanel.setBackground(Color.RED); // Set background color for North section
+        backButton = new JButton();
+        try {
+            BufferedImage backIcon = ImageIO.read(Objects.requireNonNull(getClass().getResource("/menusprite/icons/backButton.png")));
+            backButton.setIcon(new ImageIcon(backIcon.getScaledInstance(80,80,Image.SCALE_DEFAULT)));
+            backButton.setBorderPainted(false);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        northPanel.add(backButton,BorderLayout.WEST);
         northPanel.add(titleLabel, BorderLayout.CENTER);
         add(northPanel, BorderLayout.NORTH);
 
@@ -73,5 +88,9 @@ public class RankView extends JPanel {
             panel.add(tmp);
             panel.add(tmp2);
         }
+    }
+
+    public JButton getBackButton(){
+        return this.backButton;
     }
 }
