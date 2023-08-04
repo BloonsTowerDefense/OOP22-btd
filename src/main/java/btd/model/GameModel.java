@@ -181,6 +181,8 @@ public class GameModel {
 
     public void initGame(String difficulty, String mapName){
         this.mapManager = new MapManagerImpl(mapName);
+        this.setPath(this.mapManager.getBloonPath());
+        this.setLevel(difficulty,this.path);
     }
 
     public MapManager getMapManager(){
