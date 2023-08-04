@@ -23,5 +23,7 @@ public interface Bloon extends Entity{
 
     void setPath(Path path);
 
+    public BloonType getType();
+
     void draw(Graphics2D g);
 }

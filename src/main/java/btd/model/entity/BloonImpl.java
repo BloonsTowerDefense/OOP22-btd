@@ -72,9 +72,10 @@ public class BloonImpl extends EntityImpl implements Bloon{
     @Override
     public void move(final long time) {
         final Direction direction = path.getDirections().get(this.currentPathIndex);
-        double actualSpeed = speed * time / 1000;
+        double actualSpeed = speed * (time / 1000);
         double x = this.getPosition().get().getX();
         double y = this.getPosition().get().getY();
+        double tileSize = 0;
         switch (currentDirection){
             case UP:
                 y-= path.getTileSize();
@@ -116,13 +117,18 @@ public class BloonImpl extends EntityImpl implements Bloon{
     }
 
     @Override
+    public BloonType getType(){
+        return this.type;
+    }
+
+    @Override
     public void draw(Graphics2D g) {
         if (this.image != null) {
             g.drawImage(this.image, (int) this.getX(), (int) this.getY(), null);
         } else {
             // Fallback to drawing a red circle if the image couldn't be loaded
             g.setColor(Color.RED);
-            g.fillOval((int) this.getX(), (int) this.getY(), 20, 20);
+            g.fillOval((int) this.getX(), (int) this.getY(), 48, 48);
         }
     }
 }
