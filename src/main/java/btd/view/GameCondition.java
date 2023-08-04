@@ -12,5 +12,7 @@ public enum GameCondition {
     /**
      * Main menu
      */
-    MENU;
+    MENU,
+
+    EXIT;
 }
