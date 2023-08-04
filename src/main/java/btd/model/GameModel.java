@@ -26,6 +26,7 @@ public class GameModel {
     private long lastWaveEndTime;
     private final long bloonSpawnInterval = 1500; // 1.5 secondi
     private final long waveInterval = 10000; // 10 secondi
+    private String difficulty;
 
     public enum GameState {
         PLAYING,
@@ -33,10 +34,7 @@ public class GameModel {
         VICTORY
     }
 
-    public GameModel(String difficulty, Path path) {
-        this.level = new LevelImpl(difficulty);
-        this.path = path;
-        this.level.setPath(path);
+    public GameModel() {
         this.towers = new ArrayList<>();
         this.player = new Player();
         this.waveInProgress = false;
@@ -54,6 +52,19 @@ public class GameModel {
             wave = (WaveImpl) level.getWave();
             lastSpawnTime = System.currentTimeMillis(); // Memorizziamo il tempo di inizio dello spawn
         }
+    }
+    public void setDifficulty(String difficulty){
+        this.difficulty = difficulty;
+    }
+    public void setPath(Path path) {
+        this.path = path;
+    }
+    public String getDifficulty(){
+        return this.difficulty;
+    }
+    public void setLevel(String difficulty, Path path){
+        this.level = new LevelImpl(difficulty);
+        this.level.setPath(path);
     }
 
     public void update(long time) {
@@ -102,6 +113,10 @@ public class GameModel {
         } else {
             bloonSpawnInProgress = false;
         }
+    }
+
+    public List<Bloon> getAliveBloons(){
+        return this.aliveBloons;
     }
 
     public void addShootingTower(String name, Integer power, Integer price, double x, double y) {

@@ -1,5 +1,7 @@
 package btd.view.menu;
 
+import btd.model.Game;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,11 +11,11 @@ public class StartingMenu extends JPanel {
     private final MainMenu mainMenu;
     private final DifficultyMenu difficultyMenu;
 
-    public StartingMenu() {
+    public StartingMenu(Game gameEngine) {
         cardLayout = new CardLayout();
         setLayout(cardLayout);
         mainMenu = new MainMenu();
-        difficultyMenu = new DifficultyMenu();
+        difficultyMenu = new DifficultyMenu(gameEngine);
 
         add(mainMenu, "MAIN");
         add(difficultyMenu, "DIFFICULTY");

@@ -1,5 +1,8 @@
 package btd.view.menu;
 
+import btd.model.Game;
+import btd.view.GameCondition;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -17,10 +20,13 @@ public class DifficultyMenu extends JPanel {
     //Default game difficulty set to 1
     private String difficulty = "easy";
 
+    private Game gameEngine;
     private String map = "Map 1";
     private final JButton startButton = new JButton("Play");
 
-    public DifficultyMenu() {
+    public DifficultyMenu(Game gameEngine) {
+        System.out.print("\n inizio difficulty menu");
+        this.gameEngine = gameEngine;
         GridLayout mainLayout = new GridLayout(5,1);
         mainLayout.setVgap(50);
         setLayout(mainLayout);
@@ -96,6 +102,7 @@ public class DifficultyMenu extends JPanel {
         // Set panel size and opacity
         setPreferredSize(new Dimension(1200, 720));
         setOpaque(false);
+        System.out.print("\n fine difficulty menu");
     }
 
     private void setDifficulty(String value, JButton easyButton, JButton mediumButton, JButton hardButton) {
@@ -157,6 +164,7 @@ public class DifficultyMenu extends JPanel {
     }
 
     public JButton getStartButton() {
+        this.gameEngine.setGameCondition(GameCondition.PLAY);
         return startButton;
     }
 }

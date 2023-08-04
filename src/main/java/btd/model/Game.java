@@ -2,6 +2,9 @@ package btd.model;
 
 import javax.swing.*;
 import java.awt.*;
+
+import btd.view.GameCondition;
+import btd.view.View;
 import btd.view.menu.MainMenu;
 import btd.model.map.MapPanel;
 import btd.model.entity.Bloon;
@@ -9,62 +12,44 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Game implements Runnable {
+public class Game extends Thread {
+
+    private long frameTime;
+    private long lastUpdateTime;
+    private long currentTime;
+    private GameModel gameModel;
+    private View view;
     private boolean running;
     private Thread gameThread;
-    private Player player;
-    private MainMenu mainMenu;
-    private MapPanel mapPanel;
-    private JPanel contentPane;
-    private CardLayout cardLayout;
-    private JFrame frame;
+    private GameCondition gameCondition;
     private LevelImpl level;
     private List<Bloon> bloons = new CopyOnWriteArrayList<>(); // CopyOnWriteArrayList per evitare errori di Concurrent Modification durante update di bloon.
 
-    private long lastUpdateTime;
 
+    public Game(View view){
+        System.out.print("\ninizio costruttore");
+        this.gameCondition = GameCondition.MENU;
+        System.out.print("\n1 costruttore");
+        this.gameModel = new GameModel();
+        System.out.print("\n2 costruttore");
+        this.view = view;
+        view.setGameEngine(this);
+        System.out.print("\nfine costruttore");
+        this.view.renderMenu();
+    }
     public void start() {
-        this.player = new Player();
-        this.level = new LevelImpl("normale");
-        if (running) {
+        /*if (running) {
             return;
         }
         running = true;
         gameThread = new Thread(this);
-        gameThread.start();
-
-        // Initialize UI components
-        cardLayout = new CardLayout();
-        contentPane = new JPanel(cardLayout);
-
-        mainMenu = new MainMenu();
-        mapPanel = new MapPanel(this);
-        contentPane.add(mainMenu, "MENU");
-        contentPane.add(mapPanel, "MAP");
-
-        JButton playButton = mainMenu.getPlayButton();
-        playButton.addActionListener(actionEvent -> {
-            System.out.println("Start");
-
-            cardLayout.show(contentPane, "MAP");
-
-            startGameThread();
-        });
-
-        JButton exitButton = mainMenu.getExitButton();
-        exitButton.addActionListener(actionEvent -> {
-            System.exit(0);
-        });
-
-        frame = new JFrame("Bloons Tower Defense");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(contentPane);
-        frame.pack();
-        frame.setLocationRelativeTo(null); // Center the frame
-        frame.setVisible(true);
+        gameThread.start();*/
+        System.out.print("isRunning");
+        this.gameCondition = GameCondition.PLAY;
+        System.out.print("isRunning");
     }
 
-    public void stop() {
+    /*public void stop() {
         if (!running) {
             return;
         }
@@ -74,70 +59,85 @@ public class Game implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    @Override
-    public void run() {
-        double interval = 1000000000/4; //60
-        double nextDraw = System.nanoTime() + interval;
-        while(gameThread != null){
-         //   System.out.println("Is running");
-            update();
-            repaint();
+    private void waitForNextFrame(long currentTime) {
+        long dt = System.currentTimeMillis() - currentTime;
+        if (dt < frameTime) {
             try {
-                double rest = nextDraw - System.nanoTime();
-                rest = ((rest/1000000) > 0 ? rest/1000000 : 0);
-                Thread.sleep((long) rest);
-                nextDraw += interval;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.sleep(frameTime - dt);
+            } catch (Exception e) {
             }
         }
     }
 
+    @Override
+    public void run() {
+        System.out.print("sono arrivato qui");
+        this.lastUpdateTime = System.currentTimeMillis();
+        this.gameCondition = GameCondition.PLAY;
+        //double interval = 1000000000/4; //60
+        //double nextDraw = System.nanoTime() + interval;
+        while(!isGameOver()){
+            //System.out.println("Is running");
+            this.currentTime = System.currentTimeMillis();
+            long elapsedTime = this.currentTime - currentTime;
+            this.update(elapsedTime);
+            this.waitForNextFrame(currentTime);
+            this.lastUpdateTime = this.currentTime;
+            this.update(elapsedTime);
+            this.render();
+        }
+    }
+
+    public boolean isGameOver(){
+        return this.gameCondition == GameCondition.OVER;
+    }
+
+    public void render(){
+        switch (this.gameCondition){
+            case MENU:
+                this.view.renderMenu();
+                break;
+            case PLAY:
+                this.view.renderGame();
+        }
+    }
+    public void update(long elapsedTime){
+        switch (this.gameCondition){
+            case PLAY:
+                this.gameModel.update(elapsedTime);
+                break;
+            default:
+                break;
+        }
+    }
     private void init() {
         // componenti del gioco finestra risorse ecc
     }
 
-    public JPanel getContentPane() {
-        return contentPane;
-    }
-
-    public void startGameThread(){
-        this.gameThread = new Thread(this);
-        Wave initialWave = level.getWave();
-        System.out.println(initialWave);
-        if (initialWave != null) {
-            new Thread(() -> {
-                for (Bloon bloon : initialWave.getBloons()) {
-                    try {
-                        Thread.sleep(600); // 600 millisecond delay between each spawn
-                        bloons.add(bloon);
-                        mapPanel.addBloon(bloon);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                mapPanel.setBloons(bloons); // Pass the list of bloons to mapPanel
-            }).start();
-        }
-        gameThread.start();
-        lastUpdateTime = System.currentTimeMillis();
+    public GameModel getGameModel(){
+        return this.gameModel;
     }
 
 
-    public void update() {
-        for (Bloon bloon : bloons) {
-            bloon.update(System.currentTimeMillis() - lastUpdateTime);
-        }
-        lastUpdateTime = System.currentTimeMillis();
-    }
+    /*public void update() {
+        this.gameModel.update();
+    }*/
 
 
-    private void repaint() {
+    /*private void repaint() {
         // Redraw
         if (mapPanel != null) {
             mapPanel.repaint();
         }
+    }*/
+
+    public void setGameCondition(GameCondition gameCondition) {
+        this.gameCondition = gameCondition;
+    }
+
+    public GameCondition getGameCondition() {
+        return this.gameCondition;
     }
 }

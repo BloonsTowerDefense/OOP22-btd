@@ -4,6 +4,7 @@ import btd.model.Game;
 import btd.model.GameModel;
 import btd.model.map.MapPanel;
 import btd.view.menu.MainMenu;
+import btd.view.menu.StartingMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,49 +12,63 @@ import java.awt.*;
 public class View extends JFrame{
 
     private final JLayeredPane mainPanel;
-    private final MainMenu menuPanel;
+    private final StartingMenu menuPanel;
     private final GameView gameView;
-
+    private Game gameEngine;
+    private final JFrame frame;
     private static final int DEFAULT_WIDTH = 600;
     private static final int DEFAULT_HEIGHT = 400;
 
-    public View(final Game gameEngine) {
+    public View() {
+        this.frame = new JFrame();
         this.mainPanel = new JLayeredPane();
-        this.menuPanel = new MainMenu();
+        System.out.print("\n 1 view");
+        this.menuPanel = new StartingMenu(gameEngine);
+        System.out.print("\n 2 view");
         this.gameView = new GameView(gameEngine);
-
+        System.out.print("\n inizo view");
         this.mainPanel.add(menuPanel, JLayeredPane.DEFAULT_LAYER);
         this.mainPanel.add(gameView, JLayeredPane.PALETTE_LAYER);
 
         this.menuPanel.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         this.gameView.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().add(mainPanel);
-        this.pack();
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setVisible(true);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.getContentPane().add(mainPanel);
+        this.frame.pack();
+        this.frame.setLocationRelativeTo(null);
+        this.frame.setResizable(false);
+        this.frame.setVisible(true);
+        System.out.print("fine view");
     }
 
     public void renderMenu() {
-        mainPanel.setLayer(menuPanel, JLayeredPane.DEFAULT_LAYER);
-        mainPanel.setLayer(gameView, JLayeredPane.PALETTE_LAYER);
-        menuPanel.setVisible(true);
-        gameView.setVisible(false);
-        menuPanel.requestFocus();
+        this.mainPanel.setLayer(menuPanel, JLayeredPane.DEFAULT_LAYER);
+        this.mainPanel.setLayer(gameView, JLayeredPane.PALETTE_LAYER);
+        this.menuPanel.setVisible(true);
+        this.gameView.setVisible(false);
+        this.menuPanel.requestFocus();
+        //this.repaint();
     }
 
     public void renderGame() {
-        mainPanel.setLayer(menuPanel, JLayeredPane.PALETTE_LAYER);
-        mainPanel.setLayer(gameView, JLayeredPane.DEFAULT_LAYER);
-        menuPanel.setVisible(false);
-        gameView.setVisible(true);
-        gameView.requestFocus();
+        this.mainPanel.setLayer(menuPanel, JLayeredPane.PALETTE_LAYER);
+        this.mainPanel.setLayer(gameView, JLayeredPane.DEFAULT_LAYER);
+        this.menuPanel.setVisible(false);
+        this.gameView.setVisible(true);
+        this.gameView.requestFocus();
+        //this.repaint();
     }
 
 
     public void paintComponent(Graphics g) {
         super.paintComponents(g);
+    }
+
+    public void setGameEngine(Game gameEngine){
+        this.gameEngine = gameEngine;
+    }
+    public Game getGameEngine(){
+        return this.gameEngine;
     }
 }

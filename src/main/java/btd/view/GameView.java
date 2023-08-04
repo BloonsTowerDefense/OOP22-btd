@@ -14,6 +14,7 @@ public class GameView extends View {
 
     public GameView(final Game gameEngine) {
         super(gameEngine);
+        System.out.print("\n GameView");
         //this.towerPurchaseMenu = new TowerPurchaseMenu();
         //this.purchasedTowersMenu = new PurchasedTowersMenu();
         this.mapPanel = new MapPanel(gameEngine);

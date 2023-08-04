@@ -1,9 +1,11 @@
 package btd.model.map;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.*;
 
 import java.awt.event.MouseAdapter;
+import java.io.IOException;
 import java.util.List;
 import btd.model.entity.Bloon;
 import java.awt.event.MouseAdapter;
@@ -15,6 +17,9 @@ import btd.model.Game;
 
 import btd.model.LevelImpl;
 import btd.model.Wave;
+import btd.view.BloonViewImpl;
+import btd.view.ItemType;
+import btd.view.Resources;
 
 import java.util.ArrayList;
 
@@ -35,8 +40,9 @@ public class MapPanel extends JPanel {
     private long lastUpdateTime;
     private Game game;
     private LevelImpl level;
+    private BloonViewImpl bloonView;
 
-    public MapPanel(Game game){
+    public MapPanel(Game game) {
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight));
         this.setDoubleBuffered(true);
         this.game = game;
@@ -60,14 +66,31 @@ public class MapPanel extends JPanel {
 
     public void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
-        Graphics2D graphics2d = (Graphics2D)graphics;
+        Graphics2D graphics2d = (Graphics2D) graphics;
         graphics2d.setColor(Color.black);
         this.mapManager.draw(graphics2d);
-        for (Bloon bloon : bloons) {
-            bloon.draw(graphics2d);
-        }
-        //graphics2d.fillRect(100, 100, this.finalSpritesize, this.finalSpritesize);
-        graphics2d.dispose();
+        drawBloon(graphics);
+    }
+
+    private void drawBloon(Graphics g) {
+        this.game.getGameModel().getAliveBloons().forEach(f -> {
+            final Position position = f.getPosition().get();
+            final int x = (int) position.getX();
+            final int y = (int) position.getY();
+            switch (f.getType().name()){
+                case "red_bloon":
+                    g.drawImage(Resources.getRes().getTextures(ItemType.RED_BLOON), x, y, null);
+                    break;
+                case "blue_bloon":
+                    g.drawImage(Resources.getRes().getTextures(ItemType.BLUE_BLOON), x, y, null);
+                    break;
+                case "black bloon":
+                    g.drawImage(Resources.getRes().getTextures(ItemType.BLACK_BLOON), x, y, null);
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
     public void update(){

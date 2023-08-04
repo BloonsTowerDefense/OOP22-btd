@@ -19,12 +19,13 @@ public class MainMenu extends JPanel{
     private final JButton exitButton;
 
     public MainMenu() {
+        System.out.print("\n 1 MainMenu");
         try {
             this.menuBackground = ImageIO.read(Objects.requireNonNull(getClass().getResource("/menuSprite/mainMenuSprite.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        System.out.print("\n MainMenu dopo trycath");
         playButton = createButton("/menuSprite/icons/playSprite.png", Color.RED);
         leaderboardButton = createButton("/menuSprite/icons/leaderboardSprite.png", Color.BLUE);
         exitButton = createButton("/menuSprite/icons/exitSprite.png", Color.RED);
@@ -46,6 +47,7 @@ public class MainMenu extends JPanel{
         add(gameTitle, BorderLayout.NORTH);
         add(buttonsPanel, BorderLayout.CENTER);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        System.out.print("\n fine MainMenu");
     }
 
     //Create Utils class to return edited JButton
@@ -59,6 +61,7 @@ public class MainMenu extends JPanel{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.print("\n create button");
         return button;
     }
 
