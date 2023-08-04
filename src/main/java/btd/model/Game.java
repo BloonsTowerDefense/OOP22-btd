@@ -25,7 +25,7 @@ public class Game implements Runnable {
 
     public void start() {
         this.player = new Player();
-        this.level = new LevelImpl("facile");
+        this.level = new LevelImpl("normale");
         if (running) {
             return;
         }
@@ -81,7 +81,7 @@ public class Game implements Runnable {
         double interval = 1000000000/4; //60
         double nextDraw = System.nanoTime() + interval;
         while(gameThread != null){
-            //System.out.println("Is running");
+         //   System.out.println("Is running");
             update();
             repaint();
             try {
@@ -113,6 +113,7 @@ public class Game implements Runnable {
                     try {
                         Thread.sleep(600); // 600 millisecond delay between each spawn
                         bloons.add(bloon);
+                        mapPanel.addBloon(bloon);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -134,8 +135,7 @@ public class Game implements Runnable {
 
 
     private void repaint() {
-
-        // aggiorna display e stato gioco
+        // Redraw
         if (mapPanel != null) {
             mapPanel.repaint();
         }
