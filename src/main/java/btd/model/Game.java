@@ -26,13 +26,13 @@ public class Game extends Thread {
     private List<Bloon> bloons = new CopyOnWriteArrayList<>(); // CopyOnWriteArrayList per evitare errori di Concurrent Modification durante update di bloon.
 
 
-    public Game(View view){
+    public Game(){
         System.out.print("\ninizio costruttore");
         this.gameCondition = GameCondition.MENU;
         System.out.print("\n1 costruttore");
         this.gameModel = new GameModel();
         System.out.print("\n2 costruttore");
-        this.view = view;
+        this.view = new View(this);
         view.setGameEngine(this);
         System.out.print("\nfine costruttore");
         this.view.renderMenu();

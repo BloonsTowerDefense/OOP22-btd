@@ -11,13 +11,15 @@ public class GameView extends JPanel {
     //private final TowerPurchaseMenu towerPurchaseMenu;
     //private final PurchasedTowersMenu purchasedTowersMenu;
     private final MapPanel mapPanel;
+    private final Game gameEngine;
 
     public GameView(final Game gameEngine) {
+        this.gameEngine = gameEngine;
         System.out.println("\n\nCostruttore GameView");
         System.out.print("\n GameView");
         //this.towerPurchaseMenu = new TowerPurchaseMenu();
         //this.purchasedTowersMenu = new PurchasedTowersMenu();
-        this.mapPanel = new MapPanel(gameEngine);
+        this.mapPanel = new MapPanel(this.gameEngine);
 
 
         //add(this.towerPurchaseMenu, BorderLayout.EAST);

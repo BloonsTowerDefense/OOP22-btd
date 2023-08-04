@@ -15,12 +15,13 @@ public class View extends JFrame{
     private final StartingMenu menuPanel;
     private final GameView gameView;
     private Game gameEngine;
-    private final JFrame frame;
+    //private final JFrame frame;
     private static final int DEFAULT_WIDTH = 600;
     private static final int DEFAULT_HEIGHT = 400;
 
-    public View() {
-        this.frame = new JFrame();
+    public View(Game gameEngine) {
+        this.gameEngine = gameEngine;
+        //this.frame = new JFrame();
         this.mainPanel = new JLayeredPane();
         System.out.print("\n 1 view");
         this.menuPanel = new StartingMenu(this.gameEngine);
@@ -33,12 +34,13 @@ public class View extends JFrame{
         this.menuPanel.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         this.gameView.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.getContentPane().add(mainPanel);
-        this.frame.pack();
-        this.frame.setLocationRelativeTo(null);
-        this.frame.setResizable(false);
-        this.frame.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.getContentPane().add(mainPanel);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setSize(new Dimension(1200,720));
+        this.setVisible(true);
         System.out.print("fine view");
     }
 

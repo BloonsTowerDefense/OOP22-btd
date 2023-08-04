@@ -43,7 +43,7 @@ public class MapPanel extends JPanel {
     private BloonViewImpl bloonView;
 
     public MapPanel(Game game) {
-        this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight));
+        this.setPreferredSize(new Dimension(1200, 720));
         this.setDoubleBuffered(true);
         this.game = game;
         this.mapManager = new MapManagerImpl(this);

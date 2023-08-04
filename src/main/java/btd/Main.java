@@ -11,8 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.print("inizio main");
-        View view = new View();
-        Game gameEngine = new Game(view);
+        Game gameEngine = new Game();
         System.out.print("\ntest game");
         gameEngine.run();
         System.out.print("\ntest start");
