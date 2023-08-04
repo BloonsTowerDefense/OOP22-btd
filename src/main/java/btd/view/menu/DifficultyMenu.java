@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 public class DifficultyMenu extends JPanel {
     private static final Color SELECTED_COLOR = Color.decode("#FD8D14");
@@ -23,7 +22,6 @@ public class DifficultyMenu extends JPanel {
     private final JButton startButton = new JButton("Play");
 
     public DifficultyMenu() {
-        System.out.print("\n inizio difficulty menu");
         GridLayout mainLayout = new GridLayout(5,1);
         mainLayout.setVgap(50);
         setLayout(mainLayout);
@@ -99,7 +97,6 @@ public class DifficultyMenu extends JPanel {
         // Set panel size and opacity
         setPreferredSize(new Dimension(1200, 720));
         setOpaque(false);
-        System.out.print("\n fine difficulty menu");
     }
 
     private void setDifficulty(String value, JButton easyButton, JButton mediumButton, JButton hardButton) {

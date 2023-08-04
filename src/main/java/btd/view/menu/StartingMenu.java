@@ -1,7 +1,10 @@
 package btd.view.menu;
 
+import btd.controller.score.RankController;
 import btd.model.Game;
+import btd.model.score.RankModel;
 import btd.view.GameCondition;
+import btd.view.score.RankView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,21 +14,26 @@ public class StartingMenu extends JPanel {
     private final CardLayout cardLayout;
     private final MainMenu mainMenu;
     private final DifficultyMenu difficultyMenu;
+
+    private final RankView rankView;
     private Game gameEngine;
 
     public StartingMenu(Game gameEngine) {
         this.gameEngine = gameEngine;
-        System.out.println("\nCostruttore starting menu");
         cardLayout = new CardLayout();
         setLayout(cardLayout);
-        System.out.println("\nCreo main menu");
-        mainMenu = new MainMenu();
-        difficultyMenu = new DifficultyMenu();
+        this.mainMenu = new MainMenu();
+        this.difficultyMenu = new DifficultyMenu();
+        RankModel rankModel = new RankModel();
+        RankController rankController = new RankController(rankModel);
+        this.rankView = new RankView(rankController);
 
         add(mainMenu, "MAIN");
         add(difficultyMenu, "DIFFICULTY");
+        add(rankView, "LEADERBOARD");
 
         mainMenu.getPlayButton().addActionListener(e -> cardLayout.show(this, "DIFFICULTY"));
+        mainMenu.getLeaderboardButton().addActionListener(e -> cardLayout.show(this, "LEADERBOARD"));
         difficultyMenu.getStartButton().addActionListener(e -> this.gameEngine.setGameCondition(GameCondition.PLAY));
 
 
