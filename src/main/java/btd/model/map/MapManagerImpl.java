@@ -68,5 +68,9 @@ public class MapManagerImpl implements MapManager{
     public int[][] getMapNum() {
         return this.mapNum;
     }
+
+    public Path getBloonPath(){
+        return this.bloonPath;
+    }
     
 }
