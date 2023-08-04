@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import btd.view.menu.MainMenu;
 import btd.model.map.MapPanel;
+import btd.model.entity.Bloon;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Game implements Runnable {
     private boolean running;
@@ -14,9 +18,14 @@ public class Game implements Runnable {
     private JPanel contentPane;
     private CardLayout cardLayout;
     private JFrame frame;
+    private LevelImpl level;
+    private List<Bloon> bloons = new CopyOnWriteArrayList<>(); // CopyOnWriteArrayList per evitare errori di Concurrent Modification durante update di bloon.
+
+    private long lastUpdateTime;
 
     public void start() {
         this.player = new Player();
+        this.level = new LevelImpl("normale");
         if (running) {
             return;
         }
@@ -39,7 +48,7 @@ public class Game implements Runnable {
 
             cardLayout.show(contentPane, "MAP");
 
-            mapPanel.startGameThread();
+            startGameThread();
         });
 
         JButton exitButton = mainMenu.getExitButton();
@@ -69,7 +78,21 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        init();
+        double interval = 1000000000/4; //60
+        double nextDraw = System.nanoTime() + interval;
+        while(gameThread != null){
+         //   System.out.println("Is running");
+            update();
+            repaint();
+            try {
+                double rest = nextDraw - System.nanoTime();
+                rest = ((rest/1000000) > 0 ? rest/1000000 : 0);
+                Thread.sleep((long) rest);
+                nextDraw += interval;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void init() {
@@ -78,5 +101,43 @@ public class Game implements Runnable {
 
     public JPanel getContentPane() {
         return contentPane;
+    }
+
+    public void startGameThread(){
+        this.gameThread = new Thread(this);
+        Wave initialWave = level.getWave();
+        System.out.println(initialWave);
+        if (initialWave != null) {
+            new Thread(() -> {
+                for (Bloon bloon : initialWave.getBloons()) {
+                    try {
+                        Thread.sleep(600); // 600 millisecond delay between each spawn
+                        bloons.add(bloon);
+                        mapPanel.addBloon(bloon);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                mapPanel.setBloons(bloons); // Pass the list of bloons to mapPanel
+            }).start();
+        }
+        gameThread.start();
+        lastUpdateTime = System.currentTimeMillis();
+    }
+
+
+    public void update() {
+        for (Bloon bloon : bloons) {
+            bloon.update(System.currentTimeMillis() - lastUpdateTime);
+        }
+        lastUpdateTime = System.currentTimeMillis();
+    }
+
+
+    private void repaint() {
+        // Redraw
+        if (mapPanel != null) {
+            mapPanel.repaint();
+        }
     }
 }

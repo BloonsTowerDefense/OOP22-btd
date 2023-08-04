@@ -18,8 +18,8 @@ import btd.model.Wave;
 
 import java.util.ArrayList;
 
-public class MapPanel extends JPanel implements Runnable{
-    
+public class MapPanel extends JPanel {
+
     private final int originalSpriteSize = 16; //16 px originali
     private final int scale = 3;
     private final int finalSpritesize = this.originalSpriteSize * this.scale; //48px finali
@@ -55,44 +55,8 @@ public class MapPanel extends JPanel implements Runnable{
         this.bloons = new ArrayList<>(); // Initialize the bloons list
     }
 
-    
-    public void startGameThread(){
-        this.gameThread = new Thread(this);
-        Wave initialWave = level.getWave();
-        System.out.println(initialWave);
-        if (initialWave != null) {
-            new Thread(() -> {
-                for (Bloon bloon : initialWave.getBloons()) {
-                    try {
-                        Thread.sleep(600); // 1 second delay
-                        bloons.add(bloon);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-        }
-        gameThread.start();
-    }
 
-    @Override
-    public void run() {
-        double interval = 1000000000/4; //60
-        double nextDraw = System.nanoTime() + interval;
-        while(gameThread != null){
-            //System.out.println("Is running");
-            update();
-            repaint();
-            try {
-                double rest = nextDraw - System.nanoTime();
-                rest = ((rest/1000000) > 0 ? rest/1000000 : 0);
-                Thread.sleep((long) rest);
-                nextDraw += interval;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
 
     public void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
@@ -111,6 +75,14 @@ public class MapPanel extends JPanel implements Runnable{
             bloon.update(System.currentTimeMillis() - lastUpdateTime);
         }
         lastUpdateTime = System.currentTimeMillis();
+    }
+    public void setBloons(List<Bloon> bloons) {
+        this.bloons = bloons;
+    }
+
+    public void addBloon(Bloon bloon) {
+        this.bloons.add(bloon);
+        this.repaint();
     }
 
     public int getCol(){
