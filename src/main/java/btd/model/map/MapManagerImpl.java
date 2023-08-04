@@ -37,7 +37,7 @@ public class MapManagerImpl implements MapManager{
     }
 
     private void setMap(String mapName){
-        this.mapNum = this.mapLoader.loadMap("/map/" + mapName + "/ " + mapName + ".txt"); //il nome della mappa sarà preso dal game manager
+        this.mapNum = this.mapLoader.loadMap("/map/" + mapName + "/" + mapName + ".txt"); //il nome della mappa sarà preso dal game manager
         this.bloonPath = new PathImpl(mapName);
     }
 

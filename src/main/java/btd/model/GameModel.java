@@ -12,6 +12,7 @@ import btd.model.map.MapManagerImpl;
 import btd.model.map.Path;
 import btd.utils.Position;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class GameModel {
         VICTORY
     }
 
-    public GameModel() {
+    public GameModel(String difficulty, String mapName) {   //
         this.towers = new ArrayList<>();
         this.player = new Player();
         this.waveInProgress = false;
@@ -45,6 +46,7 @@ public class GameModel {
         this.aliveBloons = new ArrayList<>();
         this.lastSpawnTime = 0;
         this.lastWaveEndTime = 0;
+        initGame(difficulty, mapName); //
     }
 
     public void startWave() {
@@ -188,4 +190,6 @@ public class GameModel {
     public MapManager getMapManager(){
         return this.mapManager;
     }
+
+
 }

@@ -3,6 +3,7 @@ package btd.model.map;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.FileNotFoundException;
 
 public class MapLoaderImpl implements MapLoader {
 
@@ -13,7 +14,10 @@ public class MapLoaderImpl implements MapLoader {
     public int[][] loadMap(String mapName) {
         int ret[][] = new int[MapPanel.col][MapPanel.row];
         try {
-            InputStream input = getClass().getResourceAsStream(mapName); //da rivedere
+            InputStream input = getClass().getResourceAsStream(mapName);
+            if (input == null) {
+                throw new FileNotFoundException("Map file not found: " + mapName);
+            }
             BufferedReader buffReader = new BufferedReader(new InputStreamReader(input));
             int currentCol = 0;
             int currentRow = 0;
