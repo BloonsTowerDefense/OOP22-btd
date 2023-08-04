@@ -11,15 +11,15 @@ public class MapManagerImpl implements MapManager{
     private int[][] mapNum;
     private MapLoader mapLoader;
     private MapPanel mapPanel;
-    private Path bloonPath = new PathImpl("/map/map01/bloonsPath.txt");
+    private Path bloonPath;
 
-    public MapManagerImpl(final MapPanel mp){
+    public MapManagerImpl(final MapPanel mp, String mapName){
         this.mapElementList = new ArrayList<>();
         this.mapPanel = mp;
         this.mapNum = new int[this.mapPanel.getCol()][this.mapPanel.getRow()];
         this.mapLoader = new MapLoaderImpl(this.mapPanel);
         loadMapImage();
-        setMap();
+        setMap(mapName);
     }
 
     private void loadMapImage(){
@@ -37,8 +37,9 @@ public class MapManagerImpl implements MapManager{
         }
     }
 
-    private void setMap(){
-        this.mapNum = this.mapLoader.loadMap("/map/map01/map01.txt"); //il nome della mappa sarà preso dal game manager
+    private void setMap(String mapName){
+        this.mapNum = this.mapLoader.loadMap("/map/" + mapName + "/ " + mapName + ".txt"); //il nome della mappa sarà preso dal game manager
+        this.bloonPath = new PathImpl(mapName);
     }
 
     @Override

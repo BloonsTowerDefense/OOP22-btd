@@ -6,29 +6,26 @@ import java.io.InputStreamReader;
 
 public class MapLoaderImpl implements MapLoader {
 
-    private MapPanel mapPanel;
-
-    public MapLoaderImpl(final MapPanel mp){
-        this.mapPanel = mp;
+    public MapLoaderImpl(){
     }
 
     @Override
     public int[][] loadMap(String mapName) {
-        int ret[][] = new int[this.mapPanel.getCol()][this.mapPanel.getRow()];
+        int ret[][] = new int[MapPanel.col][MapPanel.row];
         try {
             InputStream input = getClass().getResourceAsStream(mapName); //da rivedere
             BufferedReader buffReader = new BufferedReader(new InputStreamReader(input));
             int currentCol = 0;
             int currentRow = 0;
-            while(currentCol < this.mapPanel.getCol() && currentRow < this.mapPanel.getRow()){
+            while(currentCol < MapPanel.col && currentRow < MapPanel.row){
                 String read = buffReader.readLine();
-                while(currentCol < this.mapPanel.getCol()){
+                while(currentCol < MapPanel.col){
                     String numbers[] = read.split(" ");
                     int currentNum = Integer.parseInt(numbers[currentCol]);
                     ret[currentCol][currentRow] = currentNum;
                     currentCol++;
                 }
-                if(currentCol == this.mapPanel.getCol()){
+                if(currentCol == MapPanel.col){
                     currentCol = 0;
                     currentRow++;
                 }
