@@ -37,17 +37,17 @@ public class Game extends Thread {
         System.out.print("\nfine costruttore");
         this.view.renderMenu();
     }
-    public void start() {
-        /*if (running) {
+    /*public void start() {
+        if (running) {
             return;
         }
         running = true;
         gameThread = new Thread(this);
-        gameThread.start();*/
+        gameThread.start();
         System.out.print("isRunning");
         this.gameCondition = GameCondition.PLAY;
         System.out.print("isRunning");
-    }
+    }*/
 
     /*public void stop() {
         if (!running) {
@@ -72,19 +72,19 @@ public class Game extends Thread {
     }
 
     @Override
-    public void run() {
-        System.out.print("sono arrivato qui");
+    public void start() {
+        System.out.print("\nsono arrivato qui");
         this.lastUpdateTime = System.currentTimeMillis();
         //double interval = 1000000000/4; //60
         //double nextDraw = System.nanoTime() + interval;
-        while(!exitGame()){
+        System.out.print("\nci sono quasi");
+        while(exitGame()){
             //System.out.println("Is running");
             this.currentTime = System.currentTimeMillis();
             long elapsedTime = this.currentTime - currentTime;
             this.update(elapsedTime);
             this.waitForNextFrame(currentTime);
             this.lastUpdateTime = this.currentTime;
-            this.update(elapsedTime);
             this.render();
         }
         }

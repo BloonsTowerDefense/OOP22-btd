@@ -13,7 +13,7 @@ public class Main {
         System.out.print("inizio main");
         Game gameEngine = new Game();
         System.out.print("\ntest game");
-        gameEngine.run();
+        gameEngine.start();
         System.out.print("\ntest start");
         System.out.print("\nfine main");
     }
