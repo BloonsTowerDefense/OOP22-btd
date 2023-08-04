@@ -13,7 +13,8 @@ public class GameView extends View {
     private final MapPanel mapPanel;
 
     public GameView(final Game gameEngine) {
-        super(gameEngine);
+        System.out.println("\n\nCostruttore GameView");
+        super();
         System.out.print("\n GameView");
         //this.towerPurchaseMenu = new TowerPurchaseMenu();
         //this.purchasedTowersMenu = new PurchasedTowersMenu();

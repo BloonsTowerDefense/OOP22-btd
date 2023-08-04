@@ -12,8 +12,10 @@ public class StartingMenu extends JPanel {
     private final DifficultyMenu difficultyMenu;
 
     public StartingMenu(Game gameEngine) {
+        System.out.println("\nCostruttore starting menu");
         cardLayout = new CardLayout();
         setLayout(cardLayout);
+        System.out.println("\nCreo main menu");
         mainMenu = new MainMenu();
         difficultyMenu = new DifficultyMenu(gameEngine);
 
