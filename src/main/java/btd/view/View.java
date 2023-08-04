@@ -23,9 +23,9 @@ public class View extends JFrame{
         this.frame = new JFrame();
         this.mainPanel = new JLayeredPane();
         System.out.print("\n 1 view");
-        this.menuPanel = new StartingMenu(gameEngine);
+        this.menuPanel = new StartingMenu(this.gameEngine);
         System.out.print("\n 2 view");
-        this.gameView = new GameView(gameEngine);
+        this.gameView = new GameView(this.gameEngine);
         System.out.print("\n inizo view");
         this.mainPanel.add(menuPanel, JLayeredPane.DEFAULT_LAYER);
         this.mainPanel.add(gameView, JLayeredPane.PALETTE_LAYER);
@@ -67,8 +67,5 @@ public class View extends JFrame{
 
     public void setGameEngine(Game gameEngine){
         this.gameEngine = gameEngine;
-    }
-    public Game getGameEngine(){
-        return this.gameEngine;
     }
 }

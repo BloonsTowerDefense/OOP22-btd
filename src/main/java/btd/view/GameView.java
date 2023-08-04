@@ -6,7 +6,7 @@ import btd.model.map.MapPanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class GameView extends View {
+public class GameView extends JPanel {
 
     //private final TowerPurchaseMenu towerPurchaseMenu;
     //private final PurchasedTowersMenu purchasedTowersMenu;
@@ -14,7 +14,6 @@ public class GameView extends View {
 
     public GameView(final Game gameEngine) {
         System.out.println("\n\nCostruttore GameView");
-        super();
         System.out.print("\n GameView");
         //this.towerPurchaseMenu = new TowerPurchaseMenu();
         //this.purchasedTowersMenu = new PurchasedTowersMenu();

@@ -38,4 +38,8 @@ public class StartingMenu extends JPanel {
     public String getDifficulty() {
         return difficultyMenu.getDifficulty();
     }
+
+    public void paint(final Graphics g) {
+        super.paint(g);
+    }
 }
