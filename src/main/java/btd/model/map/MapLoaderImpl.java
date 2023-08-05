@@ -7,12 +7,14 @@ import java.io.InputStreamReader;
 public class MapLoaderImpl implements MapLoader {
 
     public MapLoaderImpl(){
+        System.out.println("Costruttore MAPLOADERIMPL");
     }
 
     @Override
     public int[][] loadMap(String mapName) {
         int ret[][] = new int[MapPanel.col][MapPanel.row];
         try {
+            System.out.println("SONO LOADMAP: " + mapName);
             InputStream input = getClass().getResourceAsStream(mapName); //da rivedere
             BufferedReader buffReader = new BufferedReader(new InputStreamReader(input));
             int currentCol = 0;
@@ -30,6 +32,7 @@ public class MapLoaderImpl implements MapLoader {
                     currentRow++;
                 }
             }
+            System.out.println("MapLoader ho finito di leggere la mappa");
             buffReader.close();
         } catch (Exception e) {
             e.printStackTrace();

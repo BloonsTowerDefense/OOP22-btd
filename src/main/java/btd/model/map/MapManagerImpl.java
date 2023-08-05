@@ -11,8 +11,11 @@ public class MapManagerImpl implements MapManager{
     private int[][] mapNum;
     private MapLoader mapLoader;
     private Path bloonPath;
+    //private String mapName;
 
     public MapManagerImpl(String mapName){
+        System.out.println("Sto creando un MapManagerImpl con il seguente mapName: " + mapName);
+        //this.mapName = mapName;
         this.mapElementList = new ArrayList<>();
         //this.mapPanel = mp;
         this.mapNum = new int[MapPanel.col][MapPanel.row];
@@ -23,7 +26,7 @@ public class MapManagerImpl implements MapManager{
 
     private void loadMapImage(){
         try {
-            System.out.println("Cerco di caricare le immagini");
+            //System.out.println("Cerco di caricare le immagini");
             this.mapElementList.add(new MapElementImpl());
             this.mapElementList.get(0).setImg(ImageIO.read(getClass().getResourceAsStream("/mapSprite/sand.png")));
             this.mapElementList.add(new MapElementImpl());
@@ -37,7 +40,10 @@ public class MapManagerImpl implements MapManager{
     }
 
     private void setMap(String mapName){
-        this.mapNum = this.mapLoader.loadMap("/map/" + mapName + "/ " + mapName + ".txt"); //il nome della mappa sarà preso dal game manager
+        String src = "/map/" + mapName + "/" + mapName + ".txt";
+        System.out.println("APRO LA MAPPA: " + src);
+        //this.mapNum = this.mapLoader.loadMap("/map/map01/map01.txt"); //il nome della mappa sarà preso dal game manager
+        this.mapNum = this.mapLoader.loadMap(src);
         this.bloonPath = new PathImpl(mapName);
     }
 
@@ -71,6 +77,11 @@ public class MapManagerImpl implements MapManager{
 
     public Path getBloonPath(){
         return this.bloonPath;
+    }
+
+    public String getMapName(){
+        //return this.mapName;
+        return "";
     }
     
 }

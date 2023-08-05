@@ -15,10 +15,11 @@ public class GameView extends JPanel {
 
     public GameView(final Game gameEngine) {
         this.gameEngine = gameEngine;
-        System.out.println("\n\nCostruttore GameView");
-        System.out.print("\n GameView");
+        //System.out.println("\n\nCostruttore GameView");
+        //System.out.print("\n GameView");
         //this.towerPurchaseMenu = new TowerPurchaseMenu();
         //this.purchasedTowersMenu = new PurchasedTowersMenu();
+        System.out.println("\n\n\nORA CREO MAPPANEL\n\n\n");
         this.mapPanel = new MapPanel(this.gameEngine);
 
 
@@ -31,7 +32,12 @@ public class GameView extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Aggiorna i componenti del pannello di gioco
-        mapPanel.paintComponent(g);
+        //if(mapPanel.getMapManager() == null){
+          //  System.out.println("MapManager null");
+        //} else {
+            mapPanel.paintComponent(g);
+       // }
+        
         //towerPurchaseMenu.render(g);
         //purchasedTowersMenu.render(g);
     }

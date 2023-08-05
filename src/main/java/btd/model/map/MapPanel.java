@@ -47,6 +47,9 @@ public class MapPanel extends JPanel {
         this.setDoubleBuffered(true);
         this.game = game;
         this.mapManager = game.getGameModel().getMapManager();
+        if(this.mapManager == null){
+            System.out.println("Dentro costruttore di MapPanel il mapManager è null");
+        }
         lastUpdateTime = System.currentTimeMillis();
         // Add a mouse listener
         this.addMouseListener(new MouseAdapter() {
@@ -68,12 +71,17 @@ public class MapPanel extends JPanel {
         super.paintComponent(graphics);
         Graphics2D graphics2d = (Graphics2D) graphics;
         graphics2d.setColor(Color.black);
-        this.mapManager.draw(graphics2d);
+        if(this.mapManager == null){
+            System.out.println("MapManager è null");
+            System.exit(0);
+        } //else {
+            this.mapManager.draw(graphics2d);
+        //}
         drawBloon(graphics);
     }
 
     private void drawBloon(Graphics g) {
-        System.out.println("SONO DRAWBLOON");
+        //System.out.println("SONO DRAWBLOON");
         this.game.getGameModel().getAliveBloons().forEach(f -> {
             final Position position = f.getPosition().get();
             System.out.println("POSIZIONE: " + position);
@@ -125,6 +133,10 @@ public class MapPanel extends JPanel {
 
     public MapManager getMapManager(){
         return this.mapManager;
+    }
+
+    public void setNewMapManager(MapManager newMapManager){
+        this.mapManager = newMapManager;
     }
 
 }

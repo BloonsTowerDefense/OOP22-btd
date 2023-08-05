@@ -27,14 +27,14 @@ public class Game extends Thread {
 
 
     public Game(){
-        System.out.print("\ninizio costruttore");
+        //System.out.print("\ninizio costruttore");
         this.gameCondition = GameCondition.MENU;
-        System.out.print("\n1 costruttore");
+        //System.out.print("\n1 costruttore");
         this.gameModel = new GameModel();
-        System.out.print("\n2 costruttore");
+        //System.out.print("\n2 costruttore");
         this.view = new View(this);
         view.setGameEngine(this);
-        System.out.print("\nfine costruttore");
+        //System.out.print("\nfine costruttore");
         this.view.renderMenu();
     }
     /*public void start() {
@@ -73,11 +73,11 @@ public class Game extends Thread {
 
     @Override
     public void start() {
-        System.out.print("\nsono arrivato qui");
+        //System.out.print("\nsono arrivato qui");
         this.lastUpdateTime = System.currentTimeMillis();
         //double interval = 1000000000/4; //60
         //double nextDraw = System.nanoTime() + interval;
-        System.out.print("\nci sono quasi");
+        //System.out.print("\nci sono quasi");
         while(exitGame()){
             //System.out.println("Is running");
             this.currentTime = System.currentTimeMillis();
@@ -138,5 +138,9 @@ public class Game extends Thread {
 
     public GameCondition getGameCondition() {
         return this.gameCondition;
+    }
+
+    public View getView(){
+        return this.view;
     }
 }

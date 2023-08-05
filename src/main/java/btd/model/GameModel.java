@@ -45,6 +45,8 @@ public class GameModel {
         this.aliveBloons = new ArrayList<>();
         this.lastSpawnTime = 0;
         this.lastWaveEndTime = 0;
+        //this.mapManager = new MapManagerImpl("map01");
+        initGame("norm", "map02"); //In questo modo mapManager non è null
     }
 
     public void startWave() {
@@ -180,9 +182,19 @@ public class GameModel {
     }
 
     public void initGame(String difficulty, String mapName){
+        System.out.println("Sto passando " + mapName);
         this.mapManager = new MapManagerImpl(mapName);
+        //System.out.println("Il mapName di questo mapManager è: " + this.mapManager.getMapName());
+        if(this.mapManager != null){
+            System.out.println("\n\n\nMAP MANAGER NON è NULL\n\n");
+        }
         this.setPath(this.mapManager.getBloonPath());
-        this.setLevel(difficulty,this.path);
+        System.out.println("LEGGO IL PATH DENTRO INITGAME:\n\n" + this.path);
+        if(this.path == null){
+            System.out.println("PATH VUOTO");
+        }
+        //this.setLevel(difficulty,this.path); MODIFICATO
+        setLevel(difficulty, this.path);
     }
 
     public MapManager getMapManager(){
