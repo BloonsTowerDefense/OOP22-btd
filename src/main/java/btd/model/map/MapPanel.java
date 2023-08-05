@@ -86,7 +86,7 @@ public class MapPanel extends JPanel {
                 case "blue_bloon":
                     g.drawImage(Resources.getRes().getTextures(ItemType.BLUE_BLOON), x, y, null);
                     break;
-                case "black bloon":
+                case "black_bloon":
                     g.drawImage(Resources.getRes().getTextures(ItemType.BLACK_BLOON), x, y, null);
                     break;
                 default:

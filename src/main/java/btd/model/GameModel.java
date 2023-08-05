@@ -38,7 +38,7 @@ public class GameModel {
         VICTORY
     }
 
-    public GameModel(String difficulty, String mapName) {   //
+    public GameModel() {   //
         this.towers = new ArrayList<>();
         this.player = new Player();
         this.waveInProgress = false;
@@ -46,7 +46,7 @@ public class GameModel {
         this.aliveBloons = new ArrayList<>();
         this.lastSpawnTime = 0;
         this.lastWaveEndTime = 0;
-        initGame(difficulty, mapName); //
+
     }
 
     public void startWave() {

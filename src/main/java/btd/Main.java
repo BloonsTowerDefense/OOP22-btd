@@ -11,10 +11,8 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.print("inizio main");
-        Game gameEngine = new Game("easy", "map02");
+        Game gameEngine = new Game();
         System.out.print("\ntest game");
         gameEngine.start();
         System.out.print("\ntest start");
-        System.out.print("\nfine main");
-    }
 }
