@@ -23,20 +23,20 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
     @Override
     public void towerResourceMap() {
         towerResourceMap = new HashMap<>();
-        towerResourceMap.put("blackAdam", "/resources/towers/blackAdam/");
-        towerResourceMap.put("deadColossus", "/resources/towers/deadColossus/");
-        towerResourceMap.put("voldelife", "/resources/towers/voldelife/");
-        towerResourceMap.put("powerEnhancer", "/resources/towers/powerEnhancer/");
-        towerResourceMap.put("rangeEnhancer", "/resources/towers/rangeEnhancer/");
+        towerResourceMap.put("blackAdam", "/towers/blackAdam/");
+        towerResourceMap.put("deadColossus", "/towers/deadColossus/");
+        towerResourceMap.put("voldelife", "/towers/voldelife/");
+        towerResourceMap.put("powerEnhancer", "/towers/powerEnhancer/");
+        towerResourceMap.put("rangeEnhancer", "/towers/rangeEnhancer/");
     }
 
     private void setTowerSprites(String towerName, Integer upgradeNumber) {
         spriteList.clear();
         String towerPath = towerResourceMap.get(towerName);
         if (towerPath != null) {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 2; i++) {
                 try {
-                    spriteList.add(ImageIO.read(Objects.requireNonNull(getClass().getResource(towerPath + "Upgrade" + upgradeNumber + "/sprite" + i))));
+                    spriteList.add(ImageIO.read(Objects.requireNonNull(getClass().getResource(towerPath + "Upgrade" + upgradeNumber + "/sprite" + i + ".png"))));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

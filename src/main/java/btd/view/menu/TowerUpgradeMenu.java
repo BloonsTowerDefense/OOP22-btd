@@ -10,24 +10,25 @@ import java.util.Objects;
 
 public class TowerUpgradeMenu extends JPanel{
 
-    private JButton upgradeButton;
+    private final JButton upgradeButton = new JButton();
 
     public TowerUpgradeMenu(Tower tower){
-        GridLayout mainLayout = new GridLayout(4,1);
+        setPreferredSize(new Dimension(200,720));
+        setBackground(Color.decode("#629D5A"));
+        GridLayout mainLayout = new GridLayout(3,1);
         setLayout(mainLayout);
 
         BufferedImage currentTowerImage = tower.getTowerSprite();
-        JLabel currentTowerLabel = new JLabel(new ImageIcon(currentTowerImage));
+        JLabel currentTowerLabel = new JLabel(new ImageIcon(currentTowerImage.getScaledInstance(90,100,Image.SCALE_DEFAULT)));
         tower.update();
         BufferedImage nextTowerImage = tower.getTowerSprite();
-        JLabel nextTowerLabel = new JLabel(new ImageIcon(nextTowerImage));
+        JLabel nextTowerLabel = new JLabel(new ImageIcon(nextTowerImage.getScaledInstance(90,100,Image.SCALE_DEFAULT)));
         try{
             BufferedImage arrowDown = ImageIO.read(Objects.requireNonNull(getClass().getResource("/menuSprite/icons/arrow_down.png")));
-            JLabel arrowDownLabel = new JLabel(new ImageIcon(arrowDown));
+            upgradeButton.setIcon(new ImageIcon(arrowDown.getScaledInstance(100,100,Image.SCALE_DEFAULT)));
             add(currentTowerLabel);
-            add(arrowDownLabel);
-            add(nextTowerLabel);
             add(upgradeButton);
+            add(nextTowerLabel);
         }catch (Exception e){
             e.printStackTrace();
         }
