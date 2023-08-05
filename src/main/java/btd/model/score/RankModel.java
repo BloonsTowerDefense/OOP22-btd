@@ -10,12 +10,13 @@ import java.util.Map.Entry;
 public class RankModel{
     private Map<Integer, String> rank;
     private final static int LIMIT_SCORE = 5;
-    private final String fileName = "src/main/resources/score/score.txt";
+    private final String fileName = "/score/score.txt";
 
     public RankModel(){
         this.rank = new TreeMap<>(Collections.reverseOrder());
         File test = new File(fileName);
         if(test.exists() && test.length() > 0){
+            System.out.println("Leggo il file e carico rank");
             this.rank = readRankFromFile();
         }
     }
@@ -55,8 +56,9 @@ public class RankModel{
     public TreeMap<Integer, String> readRankFromFile(){
         TreeMap<Integer, String> ret = null;
         try {
-            FileInputStream fileIn = new FileInputStream(fileName);
-            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+            //FileInputStream fileIn = new FileInputStream(fileName);
+            InputStream inputStream = getClass().getResourceAsStream(fileName);
+            ObjectInputStream objIn = new ObjectInputStream(inputStream);
             ret = (TreeMap<Integer, String>) objIn.readObject();
             objIn.close();
         } catch (Exception e) {
