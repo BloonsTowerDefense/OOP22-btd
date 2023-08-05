@@ -68,8 +68,7 @@ public class GameModel {
         return this.difficulty;
     }
     public void setLevel(String difficulty, Path path){
-        this.level = new LevelImpl(difficulty);
-        this.level.setPath(path);
+        this.level = new LevelImpl(difficulty, path);
     }
 
     public void update(long time) {
@@ -81,6 +80,7 @@ public class GameModel {
                 lastSpawnTime = currentTime;
             }
         }
+        startWave();
 
         // Aggiornamento delle torri
         for (Tower tower : towers) {
@@ -146,8 +146,6 @@ public class GameModel {
     public GameState gameState() {
         if (player.getHealth() <= 0) {
             return GameState.GAME_OVER;
-        } else if (level.getRound() > 10) { // Condizione di vittoria arbitraria
-            return GameState.VICTORY;
         } else {
             return GameState.PLAYING;
         }
@@ -194,7 +192,8 @@ public class GameModel {
             System.out.println("PATH VUOTO");
         }
         //this.setLevel(difficulty,this.path); MODIFICATO
-        setLevel(difficulty, this.path);
+        this.setLevel(difficulty, this.path);
+        this.startWave();
     }
 
     public MapManager getMapManager(){

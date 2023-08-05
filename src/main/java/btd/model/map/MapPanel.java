@@ -60,8 +60,7 @@ public class MapPanel extends JPanel {
                 towers.add(tower);
             }
         });
-        this.level = new LevelImpl("facile"); // normale
-        this.bloons = new ArrayList<>(); // Initialize the bloons list
+
     }
 
 
@@ -82,6 +81,7 @@ public class MapPanel extends JPanel {
 
     private void drawBloon(Graphics g) {
         //System.out.println("SONO DRAWBLOON");
+        System.out.print(this.game.getGameModel().getAliveBloons());
         this.game.getGameModel().getAliveBloons().forEach(f -> {
             final Position position = f.getPosition().get();
             System.out.println("POSIZIONE: " + position);
@@ -94,7 +94,7 @@ public class MapPanel extends JPanel {
                 case "blue_bloon":
                     g.drawImage(Resources.getRes().getTextures(ItemType.BLUE_BLOON), x, y, null);
                     break;
-                case "black bloon":
+                case "black_bloon":
                     g.drawImage(Resources.getRes().getTextures(ItemType.BLACK_BLOON), x, y, null);
                     break;
                 default:
