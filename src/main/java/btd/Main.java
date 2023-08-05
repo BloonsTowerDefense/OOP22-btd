@@ -15,4 +15,5 @@ public class Main {
         System.out.print("\ntest game");
         gameEngine.start();
         System.out.print("\ntest start");
+    }
 }
