@@ -48,7 +48,10 @@ public class PathImpl implements Path{
 
 	private void loadPath(final String source){
 		try {
-			InputStream input = getClass().getResourceAsStream(source);
+			//InputStream input = getClass().getResourceAsStream("/map/map01/bloonsPath.txt");
+			String realSource = "/map/" + source + "/bloonsPath.txt";
+			System.out.println("Sono loadPath in PATHIMPL, src è: " + realSource);
+			InputStream input = getClass().getResourceAsStream(realSource);
 			BufferedReader br = new BufferedReader(new InputStreamReader(input));
 			String read = br.readLine();
 			String spawnPosition[] = read.split(" ");

@@ -3,21 +3,19 @@ package btd.model.map;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.FileNotFoundException;
 
 public class MapLoaderImpl implements MapLoader {
 
     public MapLoaderImpl(){
+        System.out.println("Costruttore MAPLOADERIMPL");
     }
 
     @Override
     public int[][] loadMap(String mapName) {
         int ret[][] = new int[MapPanel.col][MapPanel.row];
         try {
-            InputStream input = getClass().getResourceAsStream(mapName);
-            if (input == null) {
-                throw new FileNotFoundException("Map file not found: " + mapName);
-            }
+            System.out.println("SONO LOADMAP: " + mapName);
+            InputStream input = getClass().getResourceAsStream(mapName); //da rivedere
             BufferedReader buffReader = new BufferedReader(new InputStreamReader(input));
             int currentCol = 0;
             int currentRow = 0;
@@ -34,6 +32,7 @@ public class MapLoaderImpl implements MapLoader {
                     currentRow++;
                 }
             }
+            System.out.println("MapLoader ho finito di leggere la mappa");
             buffReader.close();
         } catch (Exception e) {
             e.printStackTrace();

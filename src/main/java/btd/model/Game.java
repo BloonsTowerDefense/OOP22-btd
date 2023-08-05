@@ -26,19 +26,21 @@ public class Game extends Thread {
     private List<Bloon> bloons = new CopyOnWriteArrayList<>(); // CopyOnWriteArrayList per evitare errori di Concurrent Modification durante update di bloon.
 
 
-    public Game() {
-        System.out.print("\ninizio costruttore");
+    public Game(){
+        //System.out.print("\ninizio costruttore");
         this.gameCondition = GameCondition.MENU;
-        System.out.print("\n1 costruttore");
+        //System.out.print("\n1 costruttore");
         this.gameModel = new GameModel();
-        System.out.print("\n2 costruttore");
+        //System.out.print("\n2 costruttore");
         this.view = new View(this);
         view.setGameEngine(this);
-        System.out.print("\nfine costruttore");
+        //System.out.print("\nfine costruttore");
         this.view.renderMenu();
     }
     /*public void start() {
-
+        if (running) {
+            return;
+        }
         running = true;
         gameThread = new Thread(this);
         gameThread.start();
@@ -71,11 +73,11 @@ public class Game extends Thread {
 
     @Override
     public void start() {
-        System.out.print("\nsono arrivato qui");
+        //System.out.print("\nsono arrivato qui");
         this.lastUpdateTime = System.currentTimeMillis();
         //double interval = 1000000000/4; //60
         //double nextDraw = System.nanoTime() + interval;
-        System.out.print("\nci sono quasi");
+        //System.out.print("\nci sono quasi");
         while(exitGame()){
             //System.out.println("Is running");
             this.currentTime = System.currentTimeMillis();
@@ -138,4 +140,7 @@ public class Game extends Thread {
         return this.gameCondition;
     }
 
+    public View getView(){
+        return this.view;
+    }
 }
