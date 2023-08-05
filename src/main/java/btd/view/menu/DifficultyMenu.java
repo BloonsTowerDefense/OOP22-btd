@@ -18,7 +18,7 @@ public class DifficultyMenu extends JPanel {
 
     //Default game difficulty set to 1
     private String difficulty = "easy";
-    private String map = "Map 1";
+    private String map = "map01";
     private final JButton startButton = new JButton("Play");
 
     private final JButton backButton = new JButton();
@@ -74,10 +74,16 @@ public class DifficultyMenu extends JPanel {
         JButton map1 = createMapButton("/map/map01/map1.png");
         JButton map2 = createMapButton("/map/map02/map2.png");
 
-        map1.addActionListener(e -> setMap("map01",map1,map2));
+        map1.addActionListener(e -> {
+            setMap("map01",map1,map2);
+            System.out.println("SONO LA LAMDA STO PASSANDO map01");
+        });
         map1.setBorder(BorderFactory.createLineBorder(Color.WHITE,4));
         map1.setFocusPainted(false);
-        map2.addActionListener(e -> setMap("map02",map1,map2));
+        map2.addActionListener(e -> {
+            setMap("map02",map1,map2);
+            System.out.println("SONO LA LAMDA STO PASSANDO map02");
+        });
         map2.setFocusPainted(false);
 
         // Add all buttons to the panel

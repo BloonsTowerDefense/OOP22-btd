@@ -4,5 +4,6 @@ public interface MapManager {
     public void draw(Graphics2D graphics2d);
     public int[][] getMapNum();
     public Path getBloonPath();
+    public String getMapName();
     //TODO getMap();
 }
