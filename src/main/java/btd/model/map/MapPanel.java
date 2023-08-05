@@ -35,8 +35,8 @@ public class MapPanel extends JPanel {
 
     private MapManager mapManager;
     private Thread gameThread;
-    private List<Bloon> bloons;
-    private List<Tower> towers;
+    //private List<Bloon> bloons;
+    //private List<Tower> towers;
     private long lastUpdateTime;
     private Game game;
     private LevelImpl level;
@@ -56,8 +56,8 @@ public class MapPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);;
-                ShootingTower tower = new ShootingTower("Tower", 100, 100, new Position(e.getX(), e.getY()));
-                towers.add(tower);
+                //ShootingTower tower = new ShootingTower("Tower", 100, 100, new Position(e.getX(), e.getY()));
+                //towers.add(tower);
             }
         });
 
@@ -77,6 +77,7 @@ public class MapPanel extends JPanel {
             this.mapManager.draw(graphics2d);
         //}
         drawBloon(graphics);
+        System.out.println("\n paint mapPanel");
     }
 
     private void drawBloon(Graphics g) {
@@ -84,7 +85,7 @@ public class MapPanel extends JPanel {
         System.out.print(this.game.getGameModel().getAliveBloons());
         this.game.getGameModel().getAliveBloons().forEach(f -> {
             final Position position = f.getPosition().get();
-            System.out.println("POSIZIONE: " + position);
+            //System.out.println("POSIZIONE: " + position);
             final int x = (int) position.getX();
             final int y = (int) position.getY();
             switch (f.getType().name()){
@@ -105,18 +106,10 @@ public class MapPanel extends JPanel {
 
     public void update(){
         System.out.println("SONO UPDATE");
-        for (Bloon bloon : bloons) {
+        /*for (Bloon bloon : bloons) {
             bloon.update(System.currentTimeMillis() - lastUpdateTime);
         }
-        lastUpdateTime = System.currentTimeMillis();
-    }
-    public void setBloons(List<Bloon> bloons) {
-        this.bloons = bloons;
-    }
-
-    public void addBloon(Bloon bloon) {
-        this.bloons.add(bloon);
-        this.repaint();
+        lastUpdateTime = System.currentTimeMillis();*/
     }
 
     public int getCol(){
