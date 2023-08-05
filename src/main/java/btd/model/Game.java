@@ -27,6 +27,7 @@ public class Game extends Thread {
 
 
     public Game(){
+        this.frameTime = 2000;
         //System.out.print("\ninizio costruttore");
         this.gameCondition = GameCondition.MENU;
         //System.out.print("\n1 costruttore");
@@ -35,7 +36,7 @@ public class Game extends Thread {
         this.view = new View(this);
         view.setGameEngine(this);
         //System.out.print("\nfine costruttore");
-        //this.view.renderMenu();
+        this.view.renderMenu();
     }
     /*public void start() {
         if (running) {
