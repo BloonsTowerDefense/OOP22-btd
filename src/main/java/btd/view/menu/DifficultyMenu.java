@@ -1,7 +1,5 @@
 package btd.view.menu;
 
-import btd.model.Game;
-import btd.view.GameCondition;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -128,7 +126,7 @@ public class DifficultyMenu extends JPanel {
     private void setMap(String value, JButton map1,JButton map2){
         map = value;
 
-        if (Objects.equals(value, "Map 1")) {
+        if (Objects.equals(value, "map01")) {
             map1.setBorderPainted(true);
             map2.setBorderPainted(false);
             map1.setBorder(BorderFactory.createLineBorder(Color.WHITE, 4));

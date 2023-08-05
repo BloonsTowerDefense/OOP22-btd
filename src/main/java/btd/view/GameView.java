@@ -1,31 +1,42 @@
 package btd.view;
 
 import btd.model.Game;
+import btd.model.entity.ShootingTower;
 import btd.model.map.MapPanel;
+import btd.utils.Position;
+import btd.view.menu.ShopMenu;
+import btd.view.menu.TowerUpgradeMenu;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GameView extends JPanel {
 
-    //private final TowerPurchaseMenu towerPurchaseMenu;
-    //private final PurchasedTowersMenu purchasedTowersMenu;
+    private final ShopMenu towerShopMenu;
+    private final TowerUpgradeMenu towerUpgradeMenu;
     private final MapPanel mapPanel;
     private final Game gameEngine;
 
     public GameView(final Game gameEngine) {
+        setLayout(new BorderLayout());
         this.gameEngine = gameEngine;
-        //System.out.println("\n\nCostruttore GameView");
-        //System.out.print("\n GameView");
-        //this.towerPurchaseMenu = new TowerPurchaseMenu();
-        //this.purchasedTowersMenu = new PurchasedTowersMenu();
-        System.out.println("\n\n\nORA CREO MAPPANEL\n\n\n");
+        this.towerUpgradeMenu = new TowerUpgradeMenu(new ShootingTower("blackAdam",100,100,new Position(0,0)));
+        this.towerShopMenu = new ShopMenu();
         this.mapPanel = new MapPanel(this.gameEngine);
 
+        CardLayout cardLayout = new CardLayout();
+        JPanel shopUpgradePanel = new JPanel(cardLayout);
+        shopUpgradePanel.setPreferredSize(new Dimension(200,720));
+        shopUpgradePanel.add(towerShopMenu,"SHOP");
+        shopUpgradePanel.add(towerUpgradeMenu,"UPGRADE");
 
-        //add(this.towerPurchaseMenu, BorderLayout.EAST);
-        //add(this.purchasedTowersMenu, BorderLayout.WEST);
+        cardLayout.show(shopUpgradePanel,"SHOP");
+
+        this.towerShopMenu.getBlackAdam().addActionListener(e -> cardLayout.show(shopUpgradePanel,"UPGRADE"));
+        this.towerUpgradeMenu.getUpgradeButton().addActionListener(e -> cardLayout.show(shopUpgradePanel,"SHOP"));
+
         add(this.mapPanel, BorderLayout.CENTER);
+        add(shopUpgradePanel,BorderLayout.EAST);
     }
 
     @Override
