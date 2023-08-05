@@ -37,7 +37,7 @@ public class BloonImpl extends EntityImpl implements Bloon{
         this.money = type.getMoney();
         this.currentPathIndex = 0;
         this.alive = true;
-        this.image = ImageLoader.loadImageFromFile(ImagePath.RED_BLOON);
+        this.image = this.type.getImage();
 //        this.image = ImageLoader.loadImage(BloonImpl.class, ImagePath.RED_BLOON);
 
         this.path = path;
@@ -59,57 +59,69 @@ public class BloonImpl extends EntityImpl implements Bloon{
 
     @Override
     public boolean hasReachedEnd() {
-        return this.currentPathIndex >= path.getDirections().size();
+        return this.currentPathIndex == path.getDirections().size();
     }
 
     @Override
     public void hit(int amount) {
         this.health -= amount;
-        if (this.isDead()) {
+        if (health <= 0) {
             this.alive = false;
         }
     }
 
     @Override
     public void move(final long time) {
-        final Direction direction = path.getDirections().get(this.currentPathIndex);
-        double actualSpeed = speed * (time / 1000);
-        double x = this.getPosition().get().getX();
-        double y = this.getPosition().get().getY();
-        double tileSize = 0;
-        switch (currentDirection){
-            case UP:
-                y-= path.getTileSize();
-                break;
-            case DOWN:
-                y+= path.getTileSize();
-                break;
-            case LEFT:
-                x-= path.getTileSize();
-                break;
-            case RIGHT:
-                x+= path.getTileSize();
-                break;
-            default:
-                break;
+        if(currentPathIndex < this.path.getDirections().size()) {
+            this.currentDirection = path.getDirections().get(this.currentPathIndex);
+            double actualSpeed = speed * (time / 1000);
+            double x = this.getPosition().get().getX();
+            double y = this.getPosition().get().getY();
+            switch (currentDirection) {
+                case UP:
+                    y -= path.getTileSize() + actualSpeed;
+                    break;
+                case DOWN:
+                    y += path.getTileSize() + actualSpeed;
+                    break;
+                case LEFT:
+                    x -= path.getTileSize() + actualSpeed;
+                    break;
+                case RIGHT:
+                    x += path.getTileSize() + actualSpeed;
+                    break;
+                default:
+                    break;
+            }
+            this.setPosition(x,y);
         }
-        this.setPosition(x,y);
+
     }
 
     @Override
     public void update(long time) {
-        if(!this.hasReachedEnd()){
-            this.currentDirection = this.path.getDirections().get(this.currentPathIndex);
-            this.currentPathIndex++;
+        if(!this.hasReachedEnd() || !this.isDead()){
+            if (this.currentPathIndex < this.path.getDirections().size()) {
+                this.currentDirection = this.path.getDirections().get(this.currentPathIndex);
+                System.out.println("\n" + this.currentDirection);
+                System.out.println("\n pathIndex: " + this.currentPathIndex);
+                System.out.println(this.path.getDirections().size());
+                this.currentPathIndex++;
+                this.move(time);
+            } else {
+                // Gestisci qui la situazione in cui currentPathIndex >= path.getDirections().size()
+                this.alive = false;
+            }
+        } else {
+            this.alive = false;
         }
-        if(this.hasReachedEnd()){return;}
-        this.move(time);
     }
+
 
 
     @Override
     public boolean isDead() {
-        return this.health <= 0;
+        return !alive;
     }
 
     @Override
