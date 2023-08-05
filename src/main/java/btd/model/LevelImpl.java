@@ -18,7 +18,8 @@ public class LevelImpl implements Level{
     private Path path;
     private long timeBetweenWaves = 10000; // 10 seconds between waves
 
-    public LevelImpl (String difficulty) {
+    public LevelImpl (String difficulty, Path path) {
+        this.path = path;
         this.round = 1;
         this.rand = new Random();
         this.waveInProgress = false;
@@ -41,20 +42,20 @@ public class LevelImpl implements Level{
             int bloonType = i % 3;
             int bloonHealth;
             Bloon b = null;
-            Path path = new PathImpl("/map/map01/bloonsPath.txt");
+            //Path path = new PathImpl("/map/map01/bloonsPath.txt");
             if (bloonType == 0) {
                 bloonHealth = 10 + round;
-                b = new BloonImpl(BloonType.RED_BLOON,path);
+                b = new BloonImpl(BloonType.RED_BLOON,this.path);
                 b.setPath(path);
-                b.setPosition(path.getSpawnPosition().getX(), path.getSpawnPosition().getY());
+                b.setPosition(path.getSpawnPosition().getX(), this.path.getSpawnPosition().getY());
             } else if (bloonType == 1) {
                 bloonHealth = 20 + round;
-                b = new BloonImpl(BloonType.RED_BLOON,path);
+                b = new BloonImpl(BloonType.BLUE_BLOON,path);
                 b.setPath(path);
                 b.setPosition(path.getSpawnPosition().getX(), path.getSpawnPosition().getY());
             } else {
                 bloonHealth = 30 + round;
-                b = new BloonImpl(BloonType.RED_BLOON,path);
+                b = new BloonImpl(BloonType.BLACK_BLOON,path);
                 b.setPath(path);
                 b.setPosition(path.getSpawnPosition().getX(), path.getSpawnPosition().getY());
             }
@@ -73,9 +74,6 @@ public class LevelImpl implements Level{
         return this.round;
     }
 
-    public void setPath(final Path path) {
-        this.path = path;
-    }
 
     public long getTimeBetweenWaves() {
         return this.timeBetweenWaves;

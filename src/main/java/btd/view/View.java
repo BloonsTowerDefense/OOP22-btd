@@ -50,7 +50,7 @@ public class View extends JFrame{
         this.menuPanel.setVisible(true);
         this.gameView.setVisible(false);
         this.menuPanel.requestFocus();
-        //this.repaint();
+        this.menuPanel.repaint();
     }
 
     public void renderGame() {
@@ -59,7 +59,7 @@ public class View extends JFrame{
         this.menuPanel.setVisible(false);
         this.gameView.setVisible(true);
         this.gameView.requestFocus();
-        //this.repaint();
+        this.gameView.repaint();
     }
 
 

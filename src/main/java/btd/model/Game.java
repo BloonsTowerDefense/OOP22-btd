@@ -35,7 +35,7 @@ public class Game extends Thread {
         this.view = new View(this);
         view.setGameEngine(this);
         //System.out.print("\nfine costruttore");
-        this.view.renderMenu();
+        //this.view.renderMenu();
     }
     /*public void start() {
         if (running) {

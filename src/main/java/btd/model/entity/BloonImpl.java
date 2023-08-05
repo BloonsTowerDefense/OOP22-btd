@@ -122,7 +122,7 @@ public class BloonImpl extends EntityImpl implements Bloon{
         return this.type;
     }
 
-    @Override
+    /*@Override
     public void draw(Graphics2D g) {
         if (this.image != null) {
             g.drawImage(this.image, (int) this.getX(), (int) this.getY(), null);
@@ -131,5 +131,5 @@ public class BloonImpl extends EntityImpl implements Bloon{
             g.setColor(Color.RED);
             g.fillOval((int) this.getX(), (int) this.getY(), 48, 48);
         }
-    }
+    }*/
 }
