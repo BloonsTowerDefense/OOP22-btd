@@ -136,6 +136,10 @@ public class BloonImpl extends EntityImpl implements Bloon{
         return this.type;
     }
 
+    public int getCurrentPathIndex(){
+        return this.currentPathIndex;
+    }
+
     /*@Override
     public void draw(Graphics2D g) {
         if (this.image != null) {

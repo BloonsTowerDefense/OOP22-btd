@@ -90,13 +90,13 @@ public class MapPanel extends JPanel {
             final int y = (int) position.getY();
             switch (f.getType().name()){
                 case "RED_BLOON":
-                    g.drawImage(Resources.getRes().getTextures(ItemType.RED_BLOON), x, y, null);
+                    g.drawImage(Resources.getRes().getTextures(ItemType.RED_BLOON), x, y, 48, 48, null);
                     break;
                 case "BLUE_BLOON":
-                    g.drawImage(Resources.getRes().getTextures(ItemType.BLUE_BLOON), x, y, null);
+                    g.drawImage(Resources.getRes().getTextures(ItemType.BLUE_BLOON), x, y, 48, 48,  null);
                     break;
                 case "BLACK_BLOON":
-                    g.drawImage(Resources.getRes().getTextures(ItemType.BLACK_BLOON), x, y, null);
+                    g.drawImage(Resources.getRes().getTextures(ItemType.BLACK_BLOON), x, y,  48, 48,  null);
                     break;
                 default:
                     break;
