@@ -2,8 +2,12 @@ package btd.model.map;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.imageio.ImageIO;
+import btd.utils.Position;
 
 public class MapManagerImpl implements MapManager{
 
@@ -11,10 +15,12 @@ public class MapManagerImpl implements MapManager{
     private int[][] mapNum;
     private MapLoader mapLoader;
     private Path bloonPath;
+    private Map<Position, Boolean> currentTower;
     //private String mapName;
 
     public MapManagerImpl(String mapName){
         System.out.println("Sto creando un MapManagerImpl con il seguente mapName: " + mapName);
+        this.currentTower = new HashMap<>();
         //this.mapName = mapName;
         this.mapElementList = new ArrayList<>();
         //this.mapPanel = mp;
@@ -82,6 +88,13 @@ public class MapManagerImpl implements MapManager{
     public String getMapName(){
         //return this.mapName;
         return "";
+    }
+
+    public Boolean canPlace(int x, int y){
+        int newX = x/48;
+        int newY = y/48;
+        
+        return this.mapNum[newX][newY] == 2;
     }
     
 }
