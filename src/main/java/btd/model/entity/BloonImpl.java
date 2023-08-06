@@ -73,26 +73,27 @@ public class BloonImpl extends EntityImpl implements Bloon{
     @Override
     public void move(final long time) {
         if(currentPathIndex < this.path.getDirections().size()) {
-            this.currentDirection = path.getDirections().get(this.currentPathIndex);
+            this.currentDirection = this.path.getDirections().get(this.currentPathIndex);
             double actualSpeed = speed * (time / 1000);
             double x = this.getPosition().get().getX();
             double y = this.getPosition().get().getY();
             switch (currentDirection) {
                 case UP:
-                    y -= path.getTileSize() + actualSpeed;
+                    y -= path.getTileSize() - actualSpeed;
                     break;
                 case DOWN:
-                    y += path.getTileSize() + actualSpeed;
+                    y += path.getTileSize() - actualSpeed;
                     break;
                 case LEFT:
-                    x -= path.getTileSize() + actualSpeed;
+                    x -= path.getTileSize() - actualSpeed;
                     break;
                 case RIGHT:
-                    x += path.getTileSize() + actualSpeed;
+                    x += path.getTileSize() - actualSpeed;
                     break;
                 default:
                     break;
             }
+            System.out.println("\nposizione: " + "X: " + this.getX() + " Y: " + this.getY() + " TileSize: " + this.path.getTileSize());
             this.setPosition(x,y);
         }
 
@@ -100,7 +101,7 @@ public class BloonImpl extends EntityImpl implements Bloon{
 
     @Override
     public void update(long time) {
-        if(!this.hasReachedEnd() || !this.isDead()){
+        if(!this.hasReachedEnd()){
             if (this.currentPathIndex < this.path.getDirections().size()) {
                 this.currentDirection = this.path.getDirections().get(this.currentPathIndex);
                 System.out.println("\n" + this.currentDirection);
@@ -115,6 +116,7 @@ public class BloonImpl extends EntityImpl implements Bloon{
         } else {
             this.alive = false;
         }
+        System.out.println("\nBloon position: " + this.getPosition());
     }
 
 
