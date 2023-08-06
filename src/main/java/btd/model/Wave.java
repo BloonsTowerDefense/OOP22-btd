@@ -11,6 +11,6 @@ public interface Wave {
 
     public boolean isOver();
 
-    public void nextBloons();
+    public void removeBloon(Bloon bloon);
 
 }

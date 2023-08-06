@@ -33,7 +33,7 @@ public class WaveImpl implements Wave{
     }
 
     @Override
-    public void nextBloons() {
-
+    public void removeBloon(Bloon bloon) {
+        bloons.remove(bloon);
     }
 }

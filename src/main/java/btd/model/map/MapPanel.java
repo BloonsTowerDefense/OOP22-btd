@@ -85,17 +85,17 @@ public class MapPanel extends JPanel {
         System.out.print(this.game.getGameModel().getAliveBloons());
         this.game.getGameModel().getAliveBloons().forEach(f -> {
             final Position position = f.getPosition().get();
-            //System.out.println("POSIZIONE: " + position);
+            System.out.println("POSIZIONE: " + position);
             final int x = (int) position.getX();
             final int y = (int) position.getY();
             switch (f.getType().name()){
-                case "red_bloon":
+                case "RED_BLOON":
                     g.drawImage(Resources.getRes().getTextures(ItemType.RED_BLOON), x, y, null);
                     break;
-                case "blue_bloon":
+                case "BLUE_BLOON":
                     g.drawImage(Resources.getRes().getTextures(ItemType.BLUE_BLOON), x, y, null);
                     break;
-                case "black_bloon":
+                case "BLACK_BLOON":
                     g.drawImage(Resources.getRes().getTextures(ItemType.BLACK_BLOON), x, y, null);
                     break;
                 default:

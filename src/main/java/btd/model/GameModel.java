@@ -24,6 +24,7 @@ public class GameModel {
     private boolean waveInProgress;
     private boolean bloonSpawnInProgress;
     private List<Bloon> aliveBloons;
+    private int bloonsSpawned;
     private long lastSpawnTime;
     private long lastWaveEndTime;
     private final long bloonSpawnInterval = 1500; // 1.5 secondi
@@ -46,7 +47,7 @@ public class GameModel {
         this.lastSpawnTime = 0;
         this.lastWaveEndTime = 0;
         //this.mapManager = new MapManagerImpl("map01");
-        initGame("norm", "map01"); //In questo modo mapManager non è null
+        //initGame("norm", "map01"); //In questo modo mapManager non è null
     }
 
     public void startWave() {
@@ -56,6 +57,7 @@ public class GameModel {
             aliveBloons.clear();
             wave = (WaveImpl) level.getWave();
             lastSpawnTime = System.currentTimeMillis(); // Memorizziamo il tempo di inizio dello spawn
+            this.bloonsSpawned = 0;
         }
     }
     public void setDifficulty(String difficulty){
@@ -80,16 +82,14 @@ public class GameModel {
                 lastSpawnTime = currentTime;
             }
         }
-        startWave();
 
         // Aggiornamento delle torri
         for (Tower tower : towers) {
-//            tower.update(time);
+            // tower.update(time);
         }
 
         // Aggiornamento delle wave e dei bloons
         if (waveInProgress && !wave.isOver()) {
-            System.out.print("update bloon");
             for (Bloon bloon : aliveBloons) {
                 ((BloonImpl) bloon).update(time);
             }
@@ -101,10 +101,12 @@ public class GameModel {
             if (bloon.hasReachedEnd()) {
                 int healthDecrease = 1;
                 player.loseHealth(healthDecrease);
-            }else if (bloon.isDead()) {
+                wave.removeBloon(bloon);
+            } else if (bloon.isDead()) {
                 int moneyIncrease = 1;
                 player.gainCoins(bloon.getType().getMoney());
                 player.gainScore(1);
+                wave.removeBloon(bloon);
             }
         });
 
@@ -113,17 +115,34 @@ public class GameModel {
             bloonSpawnInProgress = false;
             waveInProgress = false;
             lastWaveEndTime = System.currentTimeMillis(); // Memorizziamo il tempo di fine wave
+        } else {
+            startWave(); // Inizia una nuova wave se possibile
         }
     }
 
-    private void spawnBloons() {
+
+    /*private void spawnBloons() {
         if (wave != null && !wave.isOver()) {
             List<Bloon> newBloons = wave.getBloons();
             aliveBloons.addAll(newBloons);
         } else {
             bloonSpawnInProgress = false;
         }
+    }*/
+    private void spawnBloons() {
+        if (wave != null && !wave.isOver()) {
+            List<Bloon> newBloons = wave.getBloons();
+            if(bloonsSpawned < newBloons.size()) {
+                Bloon bloon = newBloons.get(bloonsSpawned);
+                aliveBloons.add(bloon);
+                bloonsSpawned++;
+                System.out.println("\nSpawned Bloon position: " + bloon.getPosition());
+            }
+        } else {
+            bloonSpawnInProgress = false;
+        }
     }
+
 
     public List<Bloon> getAliveBloons(){
         return this.aliveBloons;
