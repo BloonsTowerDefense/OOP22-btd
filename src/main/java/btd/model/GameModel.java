@@ -46,7 +46,7 @@ public class GameModel {
         this.lastSpawnTime = 0;
         this.lastWaveEndTime = 0;
         //this.mapManager = new MapManagerImpl("map01");
-        initGame("norm", "map02"); //In questo modo mapManager non è null
+        initGame("norm", "map01"); //In questo modo mapManager non è null
     }
 
     public void startWave() {
@@ -89,6 +89,7 @@ public class GameModel {
 
         // Aggiornamento delle wave e dei bloons
         if (waveInProgress && !wave.isOver()) {
+            System.out.print("update bloon");
             for (Bloon bloon : aliveBloons) {
                 ((BloonImpl) bloon).update(time);
             }
@@ -100,6 +101,10 @@ public class GameModel {
             if (bloon.hasReachedEnd()) {
                 int healthDecrease = 1;
                 player.loseHealth(healthDecrease);
+            }else if (bloon.isDead()) {
+                int moneyIncrease = 1;
+                player.gainCoins(bloon.getType().getMoney());
+                player.gainScore(1);
             }
         });
 

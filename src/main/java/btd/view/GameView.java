@@ -47,6 +47,7 @@ public class GameView extends JPanel {
           //  System.out.println("MapManager null");
         //} else {
             mapPanel.paintComponent(g);
+            System.out.println("\n paint gameView");
        // }
         
         //towerPurchaseMenu.render(g);
@@ -61,6 +62,7 @@ public class GameView extends JPanel {
         return purchasedTowersMenu;
     }
     */
+
     public MapPanel getMapPanel() {
         return mapPanel;
     }
