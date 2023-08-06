@@ -5,5 +5,6 @@ public interface MapManager {
     public int[][] getMapNum();
     public Path getBloonPath();
     public String getMapName();
+    public Boolean canPlace(int x, int y);
     //TODO getMap();
 }
