@@ -73,4 +73,9 @@ public class HelpingTower implements Tower {
         return towerSpriteManager.getTowerSpriteList().get(0);
     }
 
+    @Override
+    public TowerSpriteManager getTowerSpriteManager(){
+        return this.towerSpriteManager;
+    }
+
 }

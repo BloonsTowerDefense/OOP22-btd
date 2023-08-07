@@ -18,7 +18,7 @@ public interface TowerSpriteManager {
     void upgrade(String towerName);
 
     /**
-     * Method to get the sprite/sprites of a tower.
+     * Method to get the current sprites of a tower.
      * If the user need the single tower image it can
      * access the first element of the array.
      *
@@ -26,4 +26,15 @@ public interface TowerSpriteManager {
      * usually the list of the tower when it's shooting
      * */
     List<BufferedImage> getTowerSpriteList();
+
+    /**
+     * Method used to get the specific sprites for a tower
+     *
+     * @param towerName The name of the tower.
+     * @param upgradeNumber The number of the upgrade.
+     *
+     * @return Return a list of buffered images
+     * */
+    List<BufferedImage> getUpgradeSprites(String towerName, Integer upgradeNumber);
+
 }

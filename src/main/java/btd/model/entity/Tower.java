@@ -46,6 +46,13 @@ public interface Tower extends Entity {
      * */
     BufferedImage getTowerSprite();
 
+    /**
+     * Method used to get the sprite manager of each tower
+     *
+     * @return returns a TowerSpriteManager
+     * */
+    TowerSpriteManager getTowerSpriteManager();
+
 
     /**
      * Method used to set the position of the tower in the map

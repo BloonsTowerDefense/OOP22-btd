@@ -84,4 +84,9 @@ public class ShootingTower implements Tower {
     public BufferedImage getTowerImage(){
         return this.towerSpriteManager.getTowerSpriteList().get(0);
     }
+
+    @Override
+    public TowerSpriteManager getTowerSpriteManager(){
+        return this.towerSpriteManager;
+    }
 }
