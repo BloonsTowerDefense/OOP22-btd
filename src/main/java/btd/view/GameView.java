@@ -71,7 +71,7 @@ public class GameView extends JPanel {
                     int newX = spriteX/48;
                     int newY = spriteY/48;
                     System.out.println("Nuovi x e y: " + newX + " " + newY);
-                    Tower tower = createTowerByType(newX, newY);
+                    Tower tower = createTowerByType(newX*48, newY*48);
                     if (tower != null) {
                         mapPanel.getGameModel().addTower(tower);
                     }
@@ -83,9 +83,9 @@ public class GameView extends JPanel {
 
     private Tower createTowerByType(int spriteX, int spriteY) {
         return switch (towerToPlace) {
-            case "blackAdam" -> new ShootingTower("blackAdam", 100, 100, new Position(spriteX, spriteY));
-            case "voldelife" -> new ShootingTower("voldelife", 100, 100, new Position(spriteX, spriteY));
-            case "deadColossus" -> new ShootingTower("deadColossus", 100, 100, new Position(spriteX, spriteY));
+            case "blackAdam" -> new ShootingTower("blackAdam", 20, 100, new Position(spriteX, spriteY));
+            case "voldelife" -> new ShootingTower("voldelife", 20, 100, new Position(spriteX, spriteY));
+            case "deadColossus" -> new ShootingTower("deadColossus", 20, 100, new Position(spriteX, spriteY));
             case "rangeEnhancer" -> new HelpingTower("rangeEnhancer", "Range", new Position(spriteX, spriteY));
             case "powerEnhancer" -> new HelpingTower("powerEnhancer", "Power", new Position(spriteX, spriteY));
             default -> null;
