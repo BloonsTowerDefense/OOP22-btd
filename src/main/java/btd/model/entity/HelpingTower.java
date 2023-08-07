@@ -21,7 +21,7 @@ public class HelpingTower implements Tower {
     private Position hittingRange;
     private final TowerSpriteManager towerSpriteManager;
 
-    public HelpingTower(String towerName,final String function){
+    public HelpingTower(String towerName,final String function, Position position){
         this.towerSpriteManager = new TowerSpriteManagerImpl(towerName);
         this.towerName = towerName;
         this.function = function;
@@ -51,7 +51,7 @@ public class HelpingTower implements Tower {
 
     @Override
     public Optional<Position> getPosition() {
-        return Optional.empty();
+        return Optional.ofNullable(this.position);
     }
 
     @Override

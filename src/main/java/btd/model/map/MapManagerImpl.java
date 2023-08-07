@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+
+import btd.model.entity.Tower;
 import btd.utils.Position;
 
 public class MapManagerImpl implements MapManager{
@@ -66,7 +68,7 @@ public class MapManagerImpl implements MapManager{
             graphics2d.drawImage(this.mapElementList.get(tileNum).getImg(), x, y, MapPanel.finalSpritesize,  MapPanel.finalSpritesize, null);
             currentCol++;
             x +=  MapPanel.finalSpritesize;
-            if(currentCol ==  MapPanel.col){
+            if(currentCol == MapPanel.col){
                 currentCol = 0;
                 x = 0;
                 currentRow++;

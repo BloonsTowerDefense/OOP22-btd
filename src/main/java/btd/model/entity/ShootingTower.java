@@ -20,7 +20,7 @@ public class ShootingTower implements Tower {
 
     private final TowerSpriteManager towerSpriteManager;
 
-    public ShootingTower(String towerName,Integer power,Integer price, Position position){
+    public ShootingTower(String towerName,Integer power,Integer price,Position position){
         this.towerSpriteManager = new TowerSpriteManagerImpl(towerName);
         this.towerName = towerName;
         this.power = power;
@@ -60,7 +60,7 @@ public class ShootingTower implements Tower {
 
     @Override
     public Optional<Position> getPosition() {
-        return Optional.empty();
+        return Optional.ofNullable(this.position);
     }
 
     @Override
