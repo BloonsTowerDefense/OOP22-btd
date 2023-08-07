@@ -10,7 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class LevelImpl implements Level{
+/**
+ * Represents an implementation of the Level interface in the tower defense game.
+ * A LevelImpl instance defines a level in the game, including the progression of waves of bloons that spawn.
+ */
+public class LevelImpl implements Level {
+
     private int round;
     private int difficultyMultiplier;
     private Random rand;
@@ -18,7 +23,13 @@ public class LevelImpl implements Level{
     private Path path;
     private long timeBetweenWaves = 10000; // 10 seconds between waves
 
-    public LevelImpl (String difficulty, Path path) {
+    /**
+     * Constructs a LevelImpl object with the specified difficulty and path.
+     *
+     * @param difficulty The difficulty level of the level (e.g., "facile", "normale", "difficile").
+     * @param path       The path that bloons will follow in this level.
+     */
+    public LevelImpl(String difficulty, Path path) {
         this.path = path;
         this.round = 1;
         this.rand = new Random();
@@ -31,6 +42,12 @@ public class LevelImpl implements Level{
             this.difficultyMultiplier = 3;
         }
     }
+
+    /**
+     * Generates and returns the next wave of bloons for this level.
+     *
+     * @return A Wave object representing the next wave of bloons.
+     */
     @Override
     public Wave getWave() {
         if (waveInProgress) {
@@ -38,24 +55,23 @@ public class LevelImpl implements Level{
         }
         List<Bloon> bloons = new ArrayList<>();
         int numBloons = rand.nextInt(10) + round * difficultyMultiplier;
-        for (int i=0; i<numBloons; i++) {
+        for (int i = 0; i < numBloons; i++) {
             int bloonType = i % 3;
             int bloonHealth;
             Bloon b = null;
-            //Path path = new PathImpl("/map/map01/bloonsPath.txt");
             if (bloonType == 0) {
                 bloonHealth = 10 + round;
-                b = new BloonImpl(BloonType.RED_BLOON,this.path);
+                b = new BloonImpl(BloonType.RED_BLOON, this.path);
                 b.setPath(path);
                 b.setPosition(path.getSpawnPosition().getX(), this.path.getSpawnPosition().getY());
             } else if (bloonType == 1) {
                 bloonHealth = 20 + round;
-                b = new BloonImpl(BloonType.BLUE_BLOON,path);
+                b = new BloonImpl(BloonType.BLUE_BLOON, path);
                 b.setPath(path);
                 b.setPosition(path.getSpawnPosition().getX(), path.getSpawnPosition().getY());
             } else {
                 bloonHealth = 30 + round;
-                b = new BloonImpl(BloonType.BLACK_BLOON,path);
+                b = new BloonImpl(BloonType.BLACK_BLOON, path);
                 b.setPath(path);
                 b.setPosition(path.getSpawnPosition().getX(), path.getSpawnPosition().getY());
             }
@@ -66,16 +82,29 @@ public class LevelImpl implements Level{
         return new WaveImpl(bloons);
     }
 
-    public void waveFinished(){
+    /**
+     * Marks the current wave as finished.
+     */
+    public void waveFinished() {
         waveInProgress = false;
     }
 
+    /**
+     * Returns the current round of the level.
+     *
+     * @return The current round of the level.
+     */
     public int getRound() {
         return this.round;
     }
 
-
+    /**
+     * Returns the time interval between waves.
+     *
+     * @return The time interval between waves in milliseconds.
+     */
     public long getTimeBetweenWaves() {
         return this.timeBetweenWaves;
     }
 }
+

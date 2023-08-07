@@ -1,30 +1,15 @@
 package btd.model.map;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.*;
 
-import java.awt.event.MouseAdapter;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.List;
-
 import btd.model.GameModel;
-import btd.model.entity.Bloon;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import btd.model.entity.Tower;
-import btd.model.entity.ShootingTower;
 import btd.utils.Position;
 import btd.model.Game;
 
 import btd.model.LevelImpl;
-import btd.model.Wave;
-import btd.view.BloonViewImpl;
 import btd.view.ItemType;
 import btd.view.Resources;
-
-import java.util.ArrayList;
 
 public class MapPanel extends JPanel {
 
@@ -38,12 +23,9 @@ public class MapPanel extends JPanel {
 
     private MapManager mapManager;
     private Thread gameThread;
-    //private List<Bloon> bloons;
-    //private List<Tower> towers;
     private long lastUpdateTime;
     private Game game;
     private LevelImpl level;
-    private BloonViewImpl bloonView;
 
     public MapPanel(Game game) {
         this.setPreferredSize(new Dimension(1200, 720));

@@ -1,20 +1,14 @@
 package btd.model.entity;
 
 import btd.model.map.Path;
-import btd.model.map.PathImpl;
 import btd.utils.Direction;
-import java.awt.Graphics2D;
-import java.awt.Color;
 
-import btd.utils.ImagePath;
-import btd.view.ImageLoader;
 import java.awt.Image;
 
-import btd.utils.Position;
-import java.util.List;
-
-import java.awt.*;
-
+/**
+ * Implementation of a Bloon in the game.
+ * Bloons are enemies that move along a specified path and can be hit and defeated by towers.
+ */
 public class BloonImpl extends EntityImpl implements Bloon{
 
     private int health;
@@ -29,6 +23,12 @@ public class BloonImpl extends EntityImpl implements Bloon{
     private BloonType type;
     private Image image;
 
+    /**
+     * Constructs a BloonImpl object with the specified BloonType and path.
+     *
+     * @param type The type of the bloon.
+     * @param path The path that the bloon follows.
+     */
     public BloonImpl(final BloonType type, Path path) {
         super(type.name());
         this.type = type;
@@ -136,18 +136,12 @@ public class BloonImpl extends EntityImpl implements Bloon{
         return this.type;
     }
 
+    /**
+     * Returns the current path index of the bloon's movement along the path.
+     *
+     * @return The current path index.
+     */
     public int getCurrentPathIndex(){
         return this.currentPathIndex;
     }
-
-    /*@Override
-    public void draw(Graphics2D g) {
-        if (this.image != null) {
-            g.drawImage(this.image, (int) this.getX(), (int) this.getY(), null);
-        } else {
-            // Fallback to drawing a red circle if the image couldn't be loaded
-            g.setColor(Color.RED);
-            g.fillOval((int) this.getX(), (int) this.getY(), 48, 48);
-        }
-    }*/
 }

@@ -98,6 +98,7 @@ public class GameModel {
         aliveBloons.removeIf(Bloon::isDead);
         aliveBloons.forEach(bloon -> {
             if (bloon.hasReachedEnd()) {
+                System.out.println("\nBloon reached end of path: " + bloon.getPosition());
                 int healthDecrease = 1;
                 player.loseHealth(healthDecrease);
                 wave.removeBloon(bloon);
