@@ -15,8 +15,7 @@ import btd.utils.RankElement;
 public class RankModel{
     private List<RankElement> rank;
     private final static int LIMIT_SCORE = 5;
-    //private final String fileName = "src//main//resources//score//score.txt";
-    private final String fileName = "/score/score.txt";
+    private final File file;
 
     /**
      * Standard constructor for RankModel.
@@ -24,17 +23,21 @@ public class RankModel{
      */
     public RankModel(){
         this.rank = new ArrayList<>();
-        InputStream fileIn = getClass().getResourceAsStream(fileName);
-        if(fileIn != null){
-            this.rank = readRankFromFile();
-        }
-        /*File test = new File("src//main//resources//score//score.txt");
-        if(test.exists() && (test.length() > 0)){
-            System.out.println("condizione file vera");
-            this.rank = readRankFromFile();
-            
-        */ else {
-            System.out.println("\n\nFile non trovato\n\n");
+        this.file = new File("./scoreBTD.txt");
+        if(!this.file.exists()){
+            try {
+                if(this.file.createNewFile()){
+                    System.out.println("Nuovo file creato");
+                    saveRankToFile();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (this.file.length() == 0){
+            System.out.println("Esiste ma è vuoto");
+        } else {
+            System.out.println("Esiste e non è vuoto");
+            this.rank.addAll(readRankFromFile());
         }
     }
 
@@ -69,7 +72,8 @@ public class RankModel{
      * @return a copy of the current ranking as a list of {@link RankElement} elements.
      */
     public List<RankElement> getRank(){
-        this.rank = readRankFromFile();
+        this.rank.clear();
+        this.rank.addAll(readRankFromFile());
         if(this.rank != null){
             orderRank();
         }
@@ -77,38 +81,30 @@ public class RankModel{
     }
 
     private void saveRankToFile(){
-        System.out.println("Salvo il punteggio");
         orderRank();
         try {
-            //OutputStream fileOut = new FileOutputStream(fileName);
-            OutputStream fileOut = new FileOutputStream(fileName);
-            ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-            objOut.writeObject(this.rank);
-            objOut.close();
-        } catch (Exception e) {
+            FileOutputStream fileOut = new FileOutputStream(this.file);
+            ObjectOutputStream oos = new ObjectOutputStream(fileOut);
+            oos.writeObject(this.rank);
+            oos.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private List<RankElement> readRankFromFile(){
-        ArrayList<RankElement> ret = null;
         try {
-            //FileInputStream fileIn = new FileInputStream(fileName);
-            InputStream fileIn = getClass().getResourceAsStream(fileName);
-            if(fileIn!=null){
-                System.out.println("\n\n\n\n\n\nFileIn non è null\n\n\n\n");
-            } else {
-                System.out.println("\n\n\n\n\n\nFileIn è null\n\n\n\n");
-            }
-            ObjectInputStream objIn = new ObjectInputStream(fileIn);
-            //if(objIn instanceof List){
-            ret = (ArrayList<RankElement>) objIn.readObject();
-            //}
-            objIn.close();
-        } catch (Exception e) {
+            ObjectInputStream oos = new ObjectInputStream(
+                new BufferedInputStream(new FileInputStream(this.file.getPath())));
+            return (List<RankElement>) oos.readObject();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return ret;
+        return new ArrayList<>();
     }
 
     private void orderRank(){
