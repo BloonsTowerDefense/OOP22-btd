@@ -46,6 +46,21 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
         }
     }
 
+    public List<BufferedImage> getUpgradeSprites(String towerName,Integer upgradeNumber){
+        List<BufferedImage> sprites = new ArrayList<>();
+        String towerPath = towerResourceMap.get(towerName);
+        if(towerPath != null){
+            for (int i = 0; i < 2; i++){
+                try {
+                    sprites.add(ImageIO.read(Objects.requireNonNull(getClass().getResource(towerPath+ "Upgrade"+upgradeNumber+"/sprite"+ i +".png"))));
+                }catch (IOException e){
+                    System.out.println("No more sprites");
+                }
+            }
+        }
+        return sprites;
+    }
+
     @Override
     public void upgrade(String towerName) {
         setTowerSprites(towerName, 1);

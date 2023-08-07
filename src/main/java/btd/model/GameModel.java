@@ -214,6 +214,19 @@ public class GameModel {
         this.startWave();
     }
 
+    public Tower isTower(int x, int y) {
+        for (Tower tower : towers) {
+            int towerX = (int) tower.getPosition().get().getX();
+            int towerY = (int) tower.getPosition().get().getY();
+
+            // Check if the clicked position is within the tolerance range of the tower's position
+            if (Math.abs(towerX - x) <= 16 && Math.abs(towerY - y) <= 50) {
+                return tower;
+            }
+        }
+        return null;
+    }
+
     public MapManager getMapManager(){
         return this.mapManager;
     }
