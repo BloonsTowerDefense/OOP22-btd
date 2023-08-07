@@ -20,10 +20,9 @@ public class TowerUpgradeMenu extends JPanel{
         GridLayout mainLayout = new GridLayout(4,1);
         setLayout(mainLayout);
 
-        BufferedImage currentTowerImage = tower.getTowerSprite();
+        BufferedImage currentTowerImage = tower.getTowerSpriteManager().getUpgradeSprites(tower.getName(),0).get(0);
         JLabel currentTowerLabel = new JLabel(new ImageIcon(currentTowerImage.getScaledInstance(90,100,Image.SCALE_DEFAULT)));
-        tower.update();
-        BufferedImage nextTowerImage = tower.getTowerSprite();
+        BufferedImage nextTowerImage = tower.getTowerSpriteManager().getUpgradeSprites(tower.getName(),1).get(0);
         JLabel nextTowerLabel = new JLabel(new ImageIcon(nextTowerImage.getScaledInstance(90,100,Image.SCALE_DEFAULT)));
         try{
             BufferedImage arrowDown = ImageIO.read(Objects.requireNonNull(getClass().getResource("/menuSprite/icons/arrow_down.png")));
@@ -35,6 +34,7 @@ public class TowerUpgradeMenu extends JPanel{
         }catch (Exception e){
             e.printStackTrace();
         }
+        this.upgradeButton.addActionListener(e -> tower.update());
     }
 
     public JButton getUpgradeButton(){
