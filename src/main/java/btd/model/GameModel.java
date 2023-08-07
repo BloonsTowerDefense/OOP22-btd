@@ -2,7 +2,6 @@ package btd.model;
 
 import btd.model.entity.Bloon;
 import btd.model.entity.BloonImpl;
-import btd.model.entity.BloonType;
 import btd.model.entity.Entity;
 import btd.model.entity.HelpingTower;
 import btd.model.entity.ShootingTower;
@@ -148,15 +147,10 @@ public class GameModel {
         return this.aliveBloons;
     }
 
-    public void addShootingTower(String name, Integer power, Integer price, double x, double y) {
-        ShootingTower tower = new ShootingTower(name, power, price, new Position(x, y));
+    public void addTower(Tower tower) {
         towers.add(tower);
     }
 
-    public void addHelpingTower(String name, String function) {
-        HelpingTower tower = new HelpingTower(name, function);
-        towers.add(tower);
-    }
 
     public List<Entity> getEntities() {
         List<Entity> entities = new ArrayList<>();

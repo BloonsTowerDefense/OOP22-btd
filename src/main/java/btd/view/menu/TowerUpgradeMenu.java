@@ -12,10 +12,12 @@ public class TowerUpgradeMenu extends JPanel{
 
     private final JButton upgradeButton = new JButton();
 
+    private final JButton sellButton = new JButton("Sell");
+
     public TowerUpgradeMenu(Tower tower){
         setPreferredSize(new Dimension(200,720));
         setBackground(Color.decode("#629D5A"));
-        GridLayout mainLayout = new GridLayout(3,1);
+        GridLayout mainLayout = new GridLayout(4,1);
         setLayout(mainLayout);
 
         BufferedImage currentTowerImage = tower.getTowerSprite();
@@ -29,6 +31,7 @@ public class TowerUpgradeMenu extends JPanel{
             add(currentTowerLabel);
             add(upgradeButton);
             add(nextTowerLabel);
+            add(sellButton);
         }catch (Exception e){
             e.printStackTrace();
         }

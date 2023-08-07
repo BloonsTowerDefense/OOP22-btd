@@ -38,7 +38,7 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
                 try {
                     spriteList.add(ImageIO.read(Objects.requireNonNull(getClass().getResource(towerPath + "Upgrade" + upgradeNumber + "/sprite" + i + ".png"))));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    System.out.println("No more sprites for tower");
                 }
             }
         } else {

@@ -5,8 +5,11 @@ import javax.swing.JPanel;
 import java.awt.*;
 
 import java.awt.event.MouseAdapter;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+
+import btd.model.GameModel;
 import btd.model.entity.Bloon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -51,19 +54,7 @@ public class MapPanel extends JPanel {
             System.out.println("Dentro costruttore di MapPanel il mapManager è null");
         }
         lastUpdateTime = System.currentTimeMillis();
-        // Add a mouse listener
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);;
-                //ShootingTower tower = new ShootingTower("Tower", 100, 100, new Position(e.getX(), e.getY()));
-                //towers.add(tower);
-            }
-        });
-
     }
-
-
 
 
     public void paintComponent(Graphics graphics){
@@ -77,6 +68,9 @@ public class MapPanel extends JPanel {
             this.mapManager.draw(graphics2d);
         //}
         drawBloon(graphics);
+        //Subtract the X=16 width of the wall sprite and the Y=50 height of the tower sprite
+        this.game.getGameModel().getTowers().forEach(tower -> graphics.drawImage(tower.getTowerSprite(), (int) tower.getPosition().get().getX()-16, (int) tower.getPosition().get().getY()-50, null));
+
         System.out.println("\n paint mapPanel");
     }
 
@@ -132,4 +126,7 @@ public class MapPanel extends JPanel {
         this.mapManager = newMapManager;
     }
 
+    public GameModel getGameModel(){
+        return this.game.getGameModel();
+    }
 }
