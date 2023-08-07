@@ -67,7 +67,11 @@ public class GameView extends JPanel {
                 }
 
                 if (mapPanel.getMapManager().canPlace(spriteX, spriteY) && !towerToPlace.isEmpty()) {
-                    Tower tower = createTowerByType(spriteX, spriteY);
+                    System.out.println("Vecchi x e y: " + spriteX + " " + spriteY);
+                    int newX = spriteX/48;
+                    int newY = spriteY/48;
+                    System.out.println("Nuovi x e y: " + newX + " " + newY);
+                    Tower tower = createTowerByType(newX, newY);
                     if (tower != null) {
                         mapPanel.getGameModel().addTower(tower);
                     }
