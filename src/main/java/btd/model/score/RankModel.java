@@ -9,7 +9,8 @@ import java.util.List;
 import btd.utils.RankElement;
 
 /**
- * This class represents a model for managing score.
+ * This class represents a model for managing score, provides methods for adding scores
+ * and getting the rank.
  * The ranked score contains elements of type {@link RankElement}.
  */
 public class RankModel{
@@ -43,7 +44,7 @@ public class RankModel{
 
     /**
      * Adds a score to rank with the provided user name and score.
-     * The addition is followed by ranking ordering and saving to file every time.
+     * The addition is followed by ranking ordering, limiting to 5 scores and saving to file every time.
      *
      * @param user  the user name associated with the score.
      * @param score the score to add to rank.
@@ -57,16 +58,8 @@ public class RankModel{
         saveRankToFile();
     }
 
-    private void limit(){
-        Iterator<RankElement> it = this.rank.iterator();
-        for(int i = 0; i <= LIMIT_SCORE; i++){
-            it.next();
-        }
-        it.remove();
-    }
-
     /**
-     * Returns the current ranking.
+     * Returns a copy of the current ranking.
      * The ranking is always read from the file, ordered, and then returned to be sure that the returned value is updated.
      *
      * @return a copy of the current ranking as a list of {@link RankElement} elements.
@@ -78,6 +71,27 @@ public class RankModel{
             orderRank();
         }
         return new ArrayList<>(this.rank);
+    }
+
+    /**
+     * Used to check if there is at least one score in the list.
+     *
+     * @return 0 only if the ranking is empty or not initialized yet, otherwise it returns 1.
+     */
+    public int getRankDimension(){
+        if(this.rank != null){
+            return (this.rank.size() == 0 || this.rank == null ? 0 :  1);
+        } else {
+            return 0;
+        }
+    }
+
+    private void limit(){
+        Iterator<RankElement> it = this.rank.iterator();
+        for(int i = 0; i <= LIMIT_SCORE; i++){
+            it.next();
+        }
+        it.remove();
     }
 
     private void saveRankToFile(){
@@ -110,18 +124,4 @@ public class RankModel{
     private void orderRank(){
         Collections.sort(this.rank, (o1, o2) -> o2.getScore().compareTo(o1.getScore()));
     }
-
-    /**
-     * Used to check if there is at least one score in the list.
-     *
-     * @return 0 only if the ranking is empty or not initialized yet, otherwise it returns 1.
-     */
-    public int getRankDimension(){
-        if(this.rank != null){
-            return (this.rank.size() == 0 || this.rank == null ? 0 :  1);
-        } else {
-            return 0;
-        }
-    }
-
 }

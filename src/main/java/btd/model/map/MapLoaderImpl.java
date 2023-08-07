@@ -4,18 +4,26 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * This class implements the {@link MapLoader} interface.
+ * It provides functionality to load map data from a file.
+ */
 public class MapLoaderImpl implements MapLoader {
 
+    /**
+     * Standard constructor.
+     */
     public MapLoaderImpl(){
-        System.out.println("Costruttore MAPLOADERIMPL");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int[][] loadMap(String mapName) {
         int ret[][] = new int[MapPanel.col][MapPanel.row];
         try {
-            System.out.println("SONO LOADMAP: " + mapName);
-            InputStream input = getClass().getResourceAsStream(mapName); //da rivedere
+            InputStream input = getClass().getResourceAsStream(mapName);
             BufferedReader buffReader = new BufferedReader(new InputStreamReader(input));
             int currentCol = 0;
             int currentRow = 0;
@@ -32,7 +40,6 @@ public class MapLoaderImpl implements MapLoader {
                     currentRow++;
                 }
             }
-            System.out.println("MapLoader ho finito di leggere la mappa");
             buffReader.close();
         } catch (Exception e) {
             e.printStackTrace();

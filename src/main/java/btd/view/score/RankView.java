@@ -12,7 +12,7 @@ import java.util.Objects;
 
 /**
  * This class represents the GUI for displaying a ranked list of scores.
- * It receives data from the {@link RankController} and displays it in a panel.
+ * It receives data from the {@link RankController} and displays it in a JPanel.
  */
 public class RankView extends JPanel {
     private RankController controller;
@@ -30,16 +30,10 @@ public class RankView extends JPanel {
          backButton = new JButton();
     }
 
-    private void addPadding(JPanel panel){
-        int delta = 3 - this.controller.getRank().size();
-        for(int i = 0; i < delta; i++){
-            JLabel tmp = new JLabel();
-            JLabel tmp2 = new JLabel();
-            panel.add(tmp);
-            panel.add(tmp2);
-        }
-    }
-
+    /**
+     * Paints the graphical components onto the panel, displaying the ranked list of scores.
+     * This method creates various sections for displaying the scores, titles, and navigation.
+     */
     public void paintPanel(){
         // North section with label
         JLabel titleLabel = new JLabel("Migliori punteggi BTD");
@@ -111,7 +105,22 @@ public class RankView extends JPanel {
         add(centerPanel);
     }
 
+    /**
+     * Returns the "Back" button.
+     *
+     * @return "Back" button used for navigation in {@link StartingMenu}.
+     */
     public JButton getBackButton(){
         return this.backButton;
+    }
+
+    private void addPadding(JPanel panel){
+        int delta = 3 - this.controller.getRank().size();
+        for(int i = 0; i < delta; i++){
+            JLabel tmp = new JLabel();
+            JLabel tmp2 = new JLabel();
+            panel.add(tmp);
+            panel.add(tmp2);
+        }
     }
 }
