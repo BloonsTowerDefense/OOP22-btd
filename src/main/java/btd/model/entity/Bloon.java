@@ -26,4 +26,6 @@ public interface Bloon extends Entity{
     public BloonType getType();
 
     //void draw(Graphics2D g);
+
+    int getCurrentPathIndex();
 }
