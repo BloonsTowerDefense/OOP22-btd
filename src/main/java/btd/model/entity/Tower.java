@@ -38,6 +38,12 @@ public interface Tower extends Entity {
      * */
     Integer getPrice();
 
+    /**
+     * Method used to get the hitting/operational range for the tower
+     *
+     * @return return a Position
+     * */
+    Position getHittingRange();
 
     /**
      * Method used to get tower's sprites

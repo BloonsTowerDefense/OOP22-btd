@@ -5,58 +5,71 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import btd.model.entity.Bloon;
 
 import btd.utils.Direction;
 import btd.utils.Position;
 
+/**
+ * This class implements the {@link Path} interface.
+ */
 public class PathImpl implements Path{
     
     private List<Direction> path;
     private Position spawnPosition;
 	private String source;
-	private List<Bloon> bloonsOnPath;
-	private List<Position> positions;
 
+	/**
+     * Standard constructor of this class.
+     *
+     * @param source source from which to load path information.
+     */
     public PathImpl(final String source){
         this.path = new ArrayList<>();
 		this.source = source;
         loadPath(this.source);
-		System.out.println("Ho letto il seguente path: " + this.path.toString());
-		this.bloonsOnPath = new ArrayList<>();
+		//System.out.println("Ho letto il seguente path: " + this.path.toString());
     }
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<Direction> getDirections() {
 		return this.path;
 	}
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public Position getSpawnPosition() {
 		return this.spawnPosition;
 	}
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public int getPathDistance() {
 		return this.path.size();
 	}
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
-	public List<Position> getPositions() {
-		return positions;
+	public int getTileSize() {
+		return 48;
 	}
 
 	private void loadPath(final String source){
 		try {
-			//InputStream input = getClass().getResourceAsStream("/map/map01/bloonsPath.txt");
 			String realSource = "/map/" + source + "/bloonsPath.txt";
-			System.out.println("Sono loadPath in PATHIMPL, src è: " + realSource);
 			InputStream input = getClass().getResourceAsStream(realSource);
 			BufferedReader br = new BufferedReader(new InputStreamReader(input));
 			String read = br.readLine();
 			String spawnPosition[] = read.split(" ");
 			this.spawnPosition = new Position(Double.parseDouble(spawnPosition[0]), Double.parseDouble(spawnPosition[1]));
-			//this.spawnPosition.set(Double.parseDouble(spawnPosition[0]), Double.parseDouble(spawnPosition[1]));
 			int step = Integer.parseInt(spawnPosition[2]);
 			read = br.readLine();
 			String path[] = read.split(" ");
@@ -76,20 +89,6 @@ public class PathImpl implements Path{
 			case 3: return Direction.RIGHT;
 			case 4: return Direction.LEFT;
 		}
-		return null; /*Da rivedere */
+		return null;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((path == null) ? 0 : path.hashCode());
-		return result;
-	}
-
-	@Override
-	public int getTileSize() {
-		return 48;
-	}
-    
 }
