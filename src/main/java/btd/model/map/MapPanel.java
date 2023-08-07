@@ -68,6 +68,7 @@ public class MapPanel extends JPanel {
             this.mapManager.draw(graphics2d);
         //}
         drawBloon(graphics);
+        //Subtract the X=16 width of the wall sprite and the Y=50 height of the tower sprite
         this.game.getGameModel().getTowers().forEach(tower -> graphics.drawImage(tower.getTowerSprite(), (int) tower.getPosition().get().getX()-16, (int) tower.getPosition().get().getY()-50, null));
 
         System.out.println("\n paint mapPanel");
@@ -95,10 +96,6 @@ public class MapPanel extends JPanel {
                     break;
             }
         });
-    }
-
-    public void drawTower(int x,int y,Tower tower, Graphics g) {
-
     }
 
     public void update(){
