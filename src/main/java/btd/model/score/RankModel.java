@@ -15,8 +15,8 @@ import btd.utils.RankElement;
 public class RankModel{
     private List<RankElement> rank;
     private final static int LIMIT_SCORE = 5;
-    private final String fileName = "src//main//resources//score//score.txt";
-    //private final String fileName = "/score/score.txt";
+    //private final String fileName = "src//main//resources//score//score.txt";
+    private final String fileName = "/score/score.txt";
 
     /**
      * Standard constructor for RankModel.
@@ -24,16 +24,16 @@ public class RankModel{
      */
     public RankModel(){
         this.rank = new ArrayList<>();
-        /*InputStream fileIn = getClass().getResourceAsStream(fileName);
+        InputStream fileIn = getClass().getResourceAsStream(fileName);
         if(fileIn != null){
             this.rank = readRankFromFile();
-        }*/
-        File test = new File("src//main//resources//score//score.txt");
+        }
+        /*File test = new File("src//main//resources//score//score.txt");
         if(test.exists() && (test.length() > 0)){
             System.out.println("condizione file vera");
             this.rank = readRankFromFile();
             
-        } else {
+        */ else {
             System.out.println("\n\nFile non trovato\n\n");
         }
     }
@@ -80,7 +80,8 @@ public class RankModel{
         System.out.println("Salvo il punteggio");
         orderRank();
         try {
-            FileOutputStream fileOut = new FileOutputStream(fileName);
+            //OutputStream fileOut = new FileOutputStream(fileName);
+            OutputStream fileOut = new FileOutputStream(fileName);
             ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
             objOut.writeObject(this.rank);
             objOut.close();
@@ -92,8 +93,8 @@ public class RankModel{
     private List<RankElement> readRankFromFile(){
         ArrayList<RankElement> ret = null;
         try {
-            FileInputStream fileIn = new FileInputStream(fileName);
-            //InputStream fileIn = getClass().getResourceAsStream(fileName);
+            //FileInputStream fileIn = new FileInputStream(fileName);
+            InputStream fileIn = getClass().getResourceAsStream(fileName);
             if(fileIn!=null){
                 System.out.println("\n\n\n\n\n\nFileIn non è null\n\n\n\n");
             } else {

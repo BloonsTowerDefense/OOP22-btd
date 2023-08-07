@@ -27,7 +27,6 @@ public class StartingMenu extends JPanel {
         this.mainMenu = new MainMenu();
         this.difficultyMenu = new DifficultyMenu();
         RankModel rankModel = new RankModel();
-        RankController rac = new RankController(rankModel);
         RankController rankController = new RankController(rankModel);
         this.rankView = new RankView(rankController);
 
@@ -37,6 +36,7 @@ public class StartingMenu extends JPanel {
 
         mainMenu.getPlayButton().addActionListener(e -> cardLayout.show(this, "DIFFICULTY"));
         mainMenu.getLeaderboardButton().addActionListener(e -> {
+            //rankController.addScore("Francesco", 172502);
             this.rankView.paintPanel();
             cardLayout.show(this, "LEADERBOARD");
         });
