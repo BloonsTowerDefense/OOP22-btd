@@ -67,20 +67,12 @@ public class PathImpl implements Path {
 		try {
 			String realSource;
 			if(test){
-				System.out.println("TESTING MODE");
 				realSource = "/testResources/bloonsPath.txt";
-				System.out.println("REal source: "+ realSource);
 			} else {
 				realSource = "/map/" + source + "/bloonsPath.txt";
 			}
 			InputStream input = getClass().getResourceAsStream(realSource);
-			if(input == null){
-				System.out.println("Input è null");
-			}
 			BufferedReader br = new BufferedReader(new InputStreamReader(input));
-			if(br == null){
-				System.out.println("Br è null");
-			}
 			String read = br.readLine();
 			String[] spawnPosition = read.split(" ");
 			this.spawnPosition = new Position(Double.parseDouble(spawnPosition[0]), 

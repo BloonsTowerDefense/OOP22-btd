@@ -3,6 +3,8 @@ package btd.model.map;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
+
 import javax.imageio.ImageIO;
 
 /**
@@ -33,24 +35,18 @@ public class MapManagerImpl implements MapManager{
      */
     @Override
     public void draw(Graphics2D graphics2d) {
-        int currentCol = 0;
-        int currentRow = 0;
-        int x = 0;
-        int y = 0;
-        while(currentCol < MapPanel.col && currentRow < MapPanel.row){
-            int tileNum = this.mapNum[currentCol][currentRow];
-            graphics2d.drawImage(this.mapElementList.get(tileNum).getImg(), x, y, MapPanel.finalSpritesize,  MapPanel.finalSpritesize, null);
-            currentCol++;
-            x +=  MapPanel.finalSpritesize;
-            if(currentCol == MapPanel.col){
-                currentCol = 0;
-                x = 0;
-                currentRow++;
-                y +=  MapPanel.finalSpritesize;
-            }
-        }
+        IntStream.range(0, MapPanel.row).forEach(currentRow -> {
+            IntStream.range(0, MapPanel.col).forEach(currentCol -> {
+                int tileNum = this.mapNum[currentCol][currentRow];
+                MapElement mapElement = this.mapElementList.get(tileNum);
+                int x = currentCol * MapPanel.finalSpritesize;
+                int y = currentRow * MapPanel.finalSpritesize;
+                graphics2d.drawImage(mapElement.getImg(), x, y, MapPanel.finalSpritesize, MapPanel.finalSpritesize,
+                        null);
+            });
+        });
     }
-
+    
     /**
      * {@inheritDoc}
      */
