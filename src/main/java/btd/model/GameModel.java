@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Iterator;
+
 
 public class GameModel {
     private LevelImpl level;
@@ -30,6 +32,8 @@ public class GameModel {
     private final long waveInterval = 10000; // 10 secondi
     private String difficulty;
     private MapManager mapManager;
+
+
 
     public enum GameState {
         PLAYING,
@@ -88,35 +92,44 @@ public class GameModel {
         }
 
         // Aggiornamento delle wave e dei bloons
-        if (waveInProgress && !wave.isOver()) {
+        if (waveInProgress  && !wave.isOver()) {
             for (Bloon bloon : aliveBloons) {
                 ((BloonImpl) bloon).update(time);
             }
         }
 
         // Controllo dei bloon morti e arrivati a fine percorso
-        aliveBloons.removeIf(Bloon::isDead);
-        aliveBloons.forEach(bloon -> {
+        //   aliveBloons.removeIf(Bloon::isDead);
+        Iterator<Bloon> iterator = aliveBloons.iterator();
+        while (iterator.hasNext()) {
+            Bloon bloon = iterator.next();
             if (bloon.hasReachedEnd()) {
                 int healthDecrease = 1;
                 player.loseHealth(healthDecrease);
                 wave.removeBloon(bloon);
+                iterator.remove(); // Removing the bloon from the aliveBloons list
+                System.out.println("Bloon has reached the end. Bloons in map: " + aliveBloons.size()); // Print statement
             } else if (bloon.isDead()) {
                 int moneyIncrease = 1;
                 player.gainCoins(bloon.getType().getMoney());
                 player.gainScore(1);
                 wave.removeBloon(bloon);
+                iterator.remove(); // Removing the bloon from the aliveBloons list
+                System.out.println("Bloon is dead. Bloons in map: " + aliveBloons.size()); // Print statement
             }
-        });
+        }
+
 
         // Controllo fine wave
-        if (waveInProgress && wave.isOver() && aliveBloons.isEmpty()) {
+        if (waveInProgress && wave != null && wave.isOver() && aliveBloons.isEmpty()) {
             bloonSpawnInProgress = false;
             waveInProgress = false;
             lastWaveEndTime = System.currentTimeMillis(); // Memorizziamo il tempo di fine wave
-        } else {
-            startWave(); // Inizia una nuova wave se possibile
+            level.waveFinished(); // wave finsihed
         }
+
+        startWave();
+
     }
 
 
