@@ -15,26 +15,26 @@ public interface Path {
      *
      * @return a list of directions {@link Direction}.
      */
-    public List<Direction> getDirections();
+    List<Direction> getDirections();
 
     /**
      * Returns the spawn position of bloons at the beginning of the path.
      *
      * @return spawn position as a {@link Position}.
      */
-    public Position getSpawnPosition();
+    Position getSpawnPosition();
 
     /**
      * Returns the distance of the path as the number of steps.
      *
      * @return distance of the path.
      */
-    public int getPathDistance();
+    int getPathDistance();
 
     /**
      * Returns the size of each tile.
      *
      * @return the size of each tile.
      */
-    public int getTileSize();
+    int getTileSize();
 }
