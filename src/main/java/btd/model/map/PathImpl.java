@@ -24,10 +24,10 @@ public class PathImpl implements Path {
      *
      * @param source source from which to load path information.
      */
-    public PathImpl(final String source) {
+    public PathImpl(final String source, Boolean test) {
         this.path = new ArrayList<>();
 		this.source = source;
-        loadPath(this.source);
+        loadPath(this.source, test);
 		//System.out.println("Ho letto il seguente path: " + this.path.toString());
     }
 
@@ -63,11 +63,24 @@ public class PathImpl implements Path {
 		return this.tileDim;
 	}
 
-	private void loadPath(final String source) {
+	private void loadPath(final String source, Boolean test) {
 		try {
-			String realSource = "/map/" + source + "/bloonsPath.txt";
+			String realSource;
+			if(test){
+				System.out.println("TESTING MODE");
+				realSource = "/testResources/bloonsPath.txt";
+				System.out.println("REal source: "+ realSource);
+			} else {
+				realSource = "/map/" + source + "/bloonsPath.txt";
+			}
 			InputStream input = getClass().getResourceAsStream(realSource);
+			if(input == null){
+				System.out.println("Input è null");
+			}
 			BufferedReader br = new BufferedReader(new InputStreamReader(input));
+			if(br == null){
+				System.out.println("Br è null");
+			}
 			String read = br.readLine();
 			String[] spawnPosition = read.split(" ");
 			this.spawnPosition = new Position(Double.parseDouble(spawnPosition[0]), 

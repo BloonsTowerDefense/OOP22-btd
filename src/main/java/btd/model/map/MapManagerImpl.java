@@ -93,7 +93,7 @@ public class MapManagerImpl implements MapManager{
     private void setMap(String mapName){
         String src = "/map/" + mapName + "/" + mapName + ".txt";
         this.mapNum = this.mapLoader.loadMap(src);
-        this.bloonPath = new PathImpl(mapName);
+        this.bloonPath = new PathImpl(mapName, false);
     }
     
 }

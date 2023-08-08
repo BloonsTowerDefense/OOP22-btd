@@ -102,6 +102,10 @@ public class RankModel {
         return this.LIMIT_SCORE;
     }
 
+    public void deleteRank(){
+        this.file.delete();
+    }
+
     private void limit() {
         Iterator<RankElement> it = this.rank.iterator();
         for (int i = 0; i <= LIMIT_SCORE; i++) {
