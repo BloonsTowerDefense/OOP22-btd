@@ -36,7 +36,6 @@ public class StartingMenu extends JPanel {
 
         mainMenu.getPlayButton().addActionListener(e -> cardLayout.show(this, "DIFFICULTY"));
         mainMenu.getLeaderboardButton().addActionListener(e -> {
-            //rankController.addScore("Francesco", 172502);
             this.rankView.paintPanel();
             cardLayout.show(this, "LEADERBOARD");
         });

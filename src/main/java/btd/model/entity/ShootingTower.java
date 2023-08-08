@@ -9,7 +9,6 @@ public class ShootingTower implements Tower {
 
     private final static int SELL_PRICE_FACTOR = 100;
     private final String towerName;
-
     private Integer power;
 
     private final Integer price;
@@ -26,8 +25,7 @@ public class ShootingTower implements Tower {
         this.power = power;
         this.price = price;
         this.position = position;
-        this.hittingRange = new Position(10,10);
-        
+        this.hittingRange = new Position(5,5);
     }
 
     @Override
@@ -75,6 +73,14 @@ public class ShootingTower implements Tower {
 
     public void setHittingRange(double x,double y){
         this.hittingRange = new Position(x,y);
+    }
+
+    public boolean hit(int x,int y){
+        return this.position.getX() - x <= this.hittingRange.getX() && this.position.getX() - y <= this.hittingRange.getY();
+    }
+    @Override
+    public Position getHittingRange(){
+        return this.hittingRange;
     }
 
     public Integer getPower(){

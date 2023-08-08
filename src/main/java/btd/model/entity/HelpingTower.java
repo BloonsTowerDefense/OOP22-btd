@@ -50,6 +50,11 @@ public class HelpingTower implements Tower {
     }
 
     @Override
+    public Position getHittingRange() {
+        return this.hittingRange;
+    }
+
+    @Override
     public Optional<Position> getPosition() {
         return Optional.ofNullable(this.position);
     }

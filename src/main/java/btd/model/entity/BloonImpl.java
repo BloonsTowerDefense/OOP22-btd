@@ -136,6 +136,7 @@ public class BloonImpl extends EntityImpl implements Bloon{
         return this.type;
     }
 
+    @Override
     public int getCurrentPathIndex(){
         return this.currentPathIndex;
     }

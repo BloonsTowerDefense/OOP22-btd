@@ -227,6 +227,14 @@ public class GameModel {
         return null;
     }
 
+    public void towerHit(ShootingTower shootingTower){
+        for (Bloon bloon: aliveBloons){
+            if(shootingTower.hit((int)bloon.getPosition().get().getX(),(int)bloon.getPosition().get().getY())){
+                bloon.hit(10);
+            }
+        }
+    }
+
     public MapManager getMapManager(){
         return this.mapManager;
     }
