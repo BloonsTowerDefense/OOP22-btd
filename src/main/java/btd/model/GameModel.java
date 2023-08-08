@@ -125,7 +125,7 @@ public class GameModel {
             bloonSpawnInProgress = false;
             waveInProgress = false;
             lastWaveEndTime = System.currentTimeMillis(); // Memorizziamo il tempo di fine wave
-            level.waveFinished(); // Indica che wave e' finito
+            level.waveFinished(); // wave finsihed
         }
 
         startWave();
