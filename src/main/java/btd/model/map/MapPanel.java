@@ -67,8 +67,19 @@ public class MapPanel extends JPanel {
         drawBloon(graphics);
         //Subtract the X=16 width of the wall sprite and the Y=50 height of the tower sprite
         this.game.getGameModel().getTowers().forEach(tower -> graphics.drawImage(tower.getTowerSprite(), (int) tower.getPosition().get().getX(), (int) tower.getPosition().get().getY(), null));
-        this.game.getGameModel().towerShoot(graphics);
+        this.game.getGameModel().towerShoot();
+        drawBullet(graphics);
         System.out.println("\n paint mapPanel");
+    }
+
+    private void drawBullet(Graphics graphics){
+        List<Bullet> bullets = this.game.getGameModel().getBullets();
+        if(bullets != null && !bullets.isEmpty()){
+            for(Bullet bullet: bullets){
+                bullet.updatePosition(1,graphics);
+                //bullets.remove(bullet);
+            }
+        }
     }
 
     private void drawBloon(Graphics g) {

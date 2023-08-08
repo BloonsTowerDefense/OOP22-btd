@@ -4,7 +4,6 @@ import btd.model.entity.*;
 import btd.model.map.MapManager;
 import btd.model.map.MapManagerImpl;
 import btd.model.map.Path;
-import btd.utils.Position;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -25,6 +24,8 @@ public class GameModel {
     private boolean waveInProgress;
     private boolean bloonSpawnInProgress;
     private List<Bloon> aliveBloons;
+
+    private List<Bullet> bullets;
     private int bloonsSpawned;
     private long lastSpawnTime;
     private long lastWaveEndTime;
@@ -43,6 +44,7 @@ public class GameModel {
 
     public GameModel() {
         this.towers = new ArrayList<>();
+        this.bullets = new ArrayList<>();
         this.player = new Player();
         this.waveInProgress = false;
         this.bloonSpawnInProgress = false;
@@ -207,6 +209,8 @@ public class GameModel {
         return towers;
     }
 
+    public List<Bullet> getBullets(){return bullets;}
+
     public Player getPlayer() {
         return player;
     }
@@ -241,7 +245,8 @@ public class GameModel {
         return null;
     }
 
-    public void towerShoot(Graphics graphics){
+    public void towerShoot(){
+        bullets.clear();
         for (Tower tower : towers) {
             if (tower instanceof ShootingTower shootingTower) {
                 List<Bloon> bloonsInRange = findBloonsInRange(shootingTower);
@@ -259,8 +264,10 @@ public class GameModel {
                     }
                     Bullet bullet = new Bullet(tower.getPosition().get(),bulletImage);
                     bullet.setTargetPosition(targetBloon.getPosition().get());
-                    bullet.updatePosition(1,graphics);
+                    bullets.add(bullet);
+                    //bullet.updatePosition(1,graphics);
                     targetBloon.hit(((ShootingTower) tower).getPower());
+
                     System.out.println("BLOON POSITION :"+targetBloon.getPosition().get().getX()+"BLOON HEALTH AFTER HIT :"+targetBloon.getHealth());
                 }
             }
