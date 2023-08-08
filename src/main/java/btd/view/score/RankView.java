@@ -16,6 +16,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -109,6 +110,7 @@ public class RankView extends JPanel {
                 RankElement en = it.next();
                 String name = en.getUser();
                 int score = en.getScore();
+                System.out.println("Ora aggiungo: " + name + " " + score);
                 JLabel nameLabel = new JLabel(name);
                 nameLabel.setFont(new Font("Arial", Font.BOLD, fontNormalLabelDim));
                 nameLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -122,7 +124,13 @@ public class RankView extends JPanel {
             addPadding(centerPanel);
             }
         }
+        //centerPanel.revalidate();
+        //centerPanel.repaint();
         add(centerPanel);
+    }
+
+    public void resetPanel(){
+        this.removeAll();
     }
 
     /**

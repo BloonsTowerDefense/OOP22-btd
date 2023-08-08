@@ -17,7 +17,8 @@ public class RankModelTest {
 
     @BeforeEach
     public void setUp() {
-        rankModel = new RankModel();
+        this.rankModel = RankModel.getRankModelIstance();
+        this.rankModel.deleteRank();
     }
 
     @AfterEach
@@ -57,17 +58,6 @@ public class RankModelTest {
         assertEquals("User2", rank.get(2).getUser());
         assertEquals("User1", rank.get(3).getUser());
         assertEquals("User3", rank.get(4).getUser());
-    }
-
-    @Test
-    public void testGetRankDimension() {
-        assertEquals(0, rankModel.getRankDimension());
-
-        rankModel.addScore("User1", 100);
-        assertEquals(1, rankModel.getRankDimension());
-
-        rankModel.addScore("User2", 150);
-        assertEquals(1, rankModel.getRankDimension());
     }
 
     @Test

@@ -24,6 +24,7 @@ public class RankModel {
     private List<RankElement> rank;
     private final int LIMIT_SCORE = 5;
     private final File file;
+    private static RankModel rankModelIstance;
 
     /**
      * Standard constructor for RankModel.
@@ -47,6 +48,13 @@ public class RankModel {
             System.out.println("Esiste e non è vuoto");
             this.rank.addAll(readRankFromFile());
         }
+    }
+
+    public static synchronized RankModel getRankModelIstance() {
+        if(rankModelIstance == null){
+            rankModelIstance = new RankModel();
+        }
+        return rankModelIstance;
     }
 
     /**
@@ -103,7 +111,10 @@ public class RankModel {
     }
 
     public void deleteRank(){
-        this.file.delete();
+        if(this.file != null){
+            this.file.delete();
+        }
+        
     }
 
     private void limit() {

@@ -26,7 +26,8 @@ public class StartingMenu extends JPanel {
         setLayout(cardLayout);
         this.mainMenu = new MainMenu();
         this.difficultyMenu = new DifficultyMenu();
-        RankModel rankModel = new RankModel();
+        //RankModel rankModel = new RankModel();
+        RankModel rankModel = RankModel.getRankModelIstance();
         RankController rankController = new RankController(rankModel);
         this.rankView = new RankView(rankController);
 
@@ -39,7 +40,10 @@ public class StartingMenu extends JPanel {
             this.rankView.paintPanel();
             cardLayout.show(this, "LEADERBOARD");
         });
-        rankView.getBackButton().addActionListener(e -> cardLayout.show(this,"MAIN"));
+        rankView.getBackButton().addActionListener(e -> {
+            cardLayout.show(this,"MAIN");
+            this.rankView.resetPanel();
+        });
         difficultyMenu.getBackButton().addActionListener(e -> cardLayout.show(this,"MAIN"));
         difficultyMenu.getStartButton().addActionListener(e -> {
             System.out.println("\n\n\n\nTASTO PLAY PREMUTO\n\n\n");
