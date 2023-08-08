@@ -1,6 +1,13 @@
 package btd.model.score;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -13,28 +20,28 @@ import btd.utils.RankElement;
  * and getting the rank.
  * The ranked score contains elements of type {@link RankElement}.
  */
-public class RankModel{
+public class RankModel {
     private List<RankElement> rank;
-    private final static int LIMIT_SCORE = 5;
+    private final int LIMIT_SCORE = 5;
     private final File file;
 
     /**
      * Standard constructor for RankModel.
      * It loads the score from memory only if the file exists and is not empty.
      */
-    public RankModel(){
+    public RankModel() {
         this.rank = new ArrayList<>();
         this.file = new File("./scoreBTD.txt");
-        if(!this.file.exists()){
+        if (!this.file.exists()) {
             try {
-                if(this.file.createNewFile()){
+                if (this.file.createNewFile()) {
                     System.out.println("Nuovo file creato");
                     saveRankToFile();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if (this.file.length() == 0){
+        } else if (this.file.length() == 0) {
             System.out.println("Esiste ma è vuoto");
         } else {
             System.out.println("Esiste e non è vuoto");
@@ -49,10 +56,10 @@ public class RankModel{
      * @param user  the user name associated with the score.
      * @param score the score to add to rank.
      */
-    public void addScore(String user, Integer score){
+    public void addScore(final String user, final Integer score) {
         this.rank.add(new RankElement(user, score));
         orderRank();
-        if(this.rank.size() > LIMIT_SCORE){
+        if (this.rank.size() > LIMIT_SCORE) {
             limit();
         }
         saveRankToFile();
@@ -64,10 +71,10 @@ public class RankModel{
      *
      * @return a copy of the current ranking as a list of {@link RankElement} elements.
      */
-    public List<RankElement> getRank(){
+    public List<RankElement> getRank() {
         this.rank.clear();
         this.rank.addAll(readRankFromFile());
-        if(this.rank != null){
+        if (this.rank != null) {
             orderRank();
         }
         return new ArrayList<>(this.rank);
@@ -78,39 +85,47 @@ public class RankModel{
      *
      * @return 0 only if the ranking is empty or not initialized yet, otherwise it returns 1.
      */
-    public int getRankDimension(){
-        if(this.rank != null){
+    public int getRankDimension() {
+        if (this.rank != null) {
             return (this.rank.size() == 0 || this.rank == null ? 0 :  1);
         } else {
             return 0;
         }
     }
 
-    private void limit(){
+    /**
+     * Returns the score limit.
+     *
+     * @return score limit.
+     */
+    public int getLimit() {
+        return this.LIMIT_SCORE;
+    }
+
+    private void limit() {
         Iterator<RankElement> it = this.rank.iterator();
-        for(int i = 0; i <= LIMIT_SCORE; i++){
+        for (int i = 0; i <= LIMIT_SCORE; i++) {
             it.next();
         }
         it.remove();
     }
 
-    private void saveRankToFile(){
+    private void saveRankToFile() {
         orderRank();
         try {
             FileOutputStream fileOut = new FileOutputStream(this.file);
-            ObjectOutputStream oos = new ObjectOutputStream(fileOut);
-            oos.writeObject(this.rank);
-            oos.close();
+            ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+            objOut.writeObject(this.rank);
+            objOut.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private List<RankElement> readRankFromFile(){
-        try {
-            ObjectInputStream oos = new ObjectInputStream(
-                new BufferedInputStream(new FileInputStream(this.file.getPath())));
-            return (List<RankElement>) oos.readObject();
+    private List<RankElement> readRankFromFile() {
+        try (ObjectInputStream objIn = new ObjectInputStream(
+                new BufferedInputStream(new FileInputStream(this.file.getPath())))){ 
+            return (List<RankElement>) objIn.readObject();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -121,7 +136,7 @@ public class RankModel{
         return new ArrayList<>();
     }
 
-    private void orderRank(){
+    private void orderRank() {
         Collections.sort(this.rank, (o1, o2) -> o2.getScore().compareTo(o1.getScore()));
     }
 }
