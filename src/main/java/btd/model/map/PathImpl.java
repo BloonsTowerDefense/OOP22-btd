@@ -12,21 +12,22 @@ import btd.utils.Position;
 /**
  * This class implements the {@link Path} interface.
  */
-public class PathImpl implements Path{
+public class PathImpl implements Path {
     
     private List<Direction> path;
     private Position spawnPosition;
-	private String source;
+    private String source;
+	private int tileDim = 48;
 
 	/**
      * Standard constructor of this class.
      *
      * @param source source from which to load path information.
      */
-    public PathImpl(final String source){
+    public PathImpl(final String source, Boolean test) {
         this.path = new ArrayList<>();
 		this.source = source;
-        loadPath(this.source);
+        loadPath(this.source, test);
 		//System.out.println("Ho letto il seguente path: " + this.path.toString());
     }
 
@@ -59,21 +60,35 @@ public class PathImpl implements Path{
      */
 	@Override
 	public int getTileSize() {
-		return 48;
+		return this.tileDim;
 	}
 
-	private void loadPath(final String source){
+	private void loadPath(final String source, Boolean test) {
 		try {
-			String realSource = "/map/" + source + "/bloonsPath.txt";
+			String realSource;
+			if(test){
+				System.out.println("TESTING MODE");
+				realSource = "/testResources/bloonsPath.txt";
+				System.out.println("REal source: "+ realSource);
+			} else {
+				realSource = "/map/" + source + "/bloonsPath.txt";
+			}
 			InputStream input = getClass().getResourceAsStream(realSource);
+			if(input == null){
+				System.out.println("Input è null");
+			}
 			BufferedReader br = new BufferedReader(new InputStreamReader(input));
+			if(br == null){
+				System.out.println("Br è null");
+			}
 			String read = br.readLine();
-			String spawnPosition[] = read.split(" ");
-			this.spawnPosition = new Position(Double.parseDouble(spawnPosition[0]), Double.parseDouble(spawnPosition[1]));
+			String[] spawnPosition = read.split(" ");
+			this.spawnPosition = new Position(Double.parseDouble(spawnPosition[0]), 
+				Double.parseDouble(spawnPosition[1]));
 			int step = Integer.parseInt(spawnPosition[2]);
 			read = br.readLine();
-			String path[] = read.split(" ");
-			for(int i = 0; i < step; i++){
+			String[] path = read.split(" ");
+			for (int i = 0; i < step; i++) {
 				this.path.add(decodeDirection(Integer.parseInt(path[i])));
 			}
 			br.close();
@@ -82,13 +97,13 @@ public class PathImpl implements Path{
 		}
 	}
 
-	private Direction decodeDirection(int in){
-		switch(in){
+	private Direction decodeDirection(final int in) {
+		switch (in) {
 			case 1: return Direction.UP;
 			case 2: return Direction.DOWN;
 			case 3: return Direction.RIGHT;
 			case 4: return Direction.LEFT;
+			default: return null;
 		}
-		return null;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import btd.model.score.RankModel;
 import btd.utils.RankElement;
+import btd.view.score.RankView;
 
 /**
  * This class acts as a connection between {@link RankView} and {@link RankModel}.
@@ -46,5 +47,14 @@ public class RankController {
      */
     public int getRankDimension(){
         return this.model.getRankDimension();
+    }
+
+    /**
+     * Returns the score limit.
+     *
+     * @return score limit.
+     */
+    public int getLimit(){
+        return this.model.getLimit();
     }
 }

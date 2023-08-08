@@ -6,8 +6,8 @@ import java.io.Serializable;
  * This class represents an element in a ranking system, it contains
  * information about a user and its associated score.
  */
-public class RankElement implements Serializable{
-    
+public class RankElement implements Serializable {
+
     private String user;
     private Integer score;
 
@@ -17,11 +17,11 @@ public class RankElement implements Serializable{
      * @param user  name of the user associated with the score.
      * @param score score value associated with the user.
      */
-    public RankElement(String user, Integer score) {
+    public RankElement(final String user, final Integer score) {
         this.user = user;
         this.score = score;
     }
-    
+
      /**
      * Returns the user name associated with the RankElement.
      *
@@ -49,5 +49,4 @@ public class RankElement implements Serializable{
     public String toString() {
         return "RankElement [user=" + user + ", score=" + score + "]";
     }
-    
 }

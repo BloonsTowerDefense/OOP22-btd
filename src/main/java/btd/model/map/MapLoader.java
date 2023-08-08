@@ -1,5 +1,7 @@
 package btd.model.map;
 
+import java.io.InputStream;
+
 /**
  * This interface defines methods for loading map data from a file.
  */
