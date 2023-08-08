@@ -1,18 +1,18 @@
 package btd.model;
 
-import btd.model.entity.Bloon;
-import btd.model.entity.BloonImpl;
-import btd.model.entity.Entity;
-import btd.model.entity.HelpingTower;
-import btd.model.entity.ShootingTower;
-import btd.model.entity.Tower;
+import btd.model.entity.*;
 import btd.model.map.MapManager;
 import btd.model.map.MapManagerImpl;
 import btd.model.map.Path;
 import btd.utils.Position;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GameModel {
     private LevelImpl level;
@@ -227,13 +227,62 @@ public class GameModel {
         return null;
     }
 
-    public void towerHit(ShootingTower shootingTower){
-        for (Bloon bloon: aliveBloons){
-            if(shootingTower.hit((int)bloon.getPosition().get().getX(),(int)bloon.getPosition().get().getY())){
-                bloon.hit(10);
+    public void towerShoot(Graphics graphics){
+        for (Tower tower : towers) {
+            if (tower instanceof ShootingTower shootingTower) {
+                List<Bloon> bloonsInRange = findBloonsInRange(shootingTower);
+
+                // Hit Bloon with the greatest currentPathIndex
+                if (!bloonsInRange.isEmpty()) {
+                    Bloon targetBloon = findTargetBloon(bloonsInRange);
+                    System.out.println("TOWER POSITION: "+tower.getPosition().get().getX());
+                    System.out.println("BLOON POSITION :"+targetBloon.getPosition().get().getX()+" BLOON HEALTH :"+targetBloon.getHealth());
+                    BufferedImage bulletImage = null;
+                    try {
+                        bulletImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/towers/bullet.png")));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Bullet bullet = new Bullet(tower.getPosition().get(),bulletImage);
+                    bullet.setTargetPosition(targetBloon.getPosition().get());
+                    bullet.updatePosition(1,graphics);
+                    targetBloon.hit(((ShootingTower) tower).getPower());
+                    System.out.println("BLOON POSITION :"+targetBloon.getPosition().get().getX()+"BLOON HEALTH AFTER HIT :"+targetBloon.getHealth());
+                }
             }
         }
     }
+
+    private List<Bloon> findBloonsInRange(ShootingTower tower) {
+        List<Bloon> bloonsInRange = new ArrayList<>();
+        for (Bloon bloon : this.aliveBloons) {
+            if(isBloonInRange(bloon,tower)){
+                bloonsInRange.add(bloon);
+            }
+        }
+        return bloonsInRange;
+    }
+
+    private boolean isBloonInRange(Bloon bloon, ShootingTower shootingTower){
+        return Math.abs(shootingTower.getPosition().get().getX() - bloon.getPosition().get().getX()) < (int) shootingTower.getHittingRange().getX()*16
+                && Math.abs(shootingTower.getPosition().get().getY() - bloon.getPosition().get().getY()) < (int) shootingTower.getHittingRange().getY()*16;
+    }
+
+    private Bloon findTargetBloon(List<Bloon> bloons) {
+        Bloon targetBloon = null;
+        int maxCurrentPathIndex = -1;
+
+        // Find bloon with the greatest currentPathIndex
+        for (Bloon bloon : bloons) {
+            if (bloon.getCurrentPathIndex() > maxCurrentPathIndex) {
+                maxCurrentPathIndex = bloon.getCurrentPathIndex();
+                targetBloon = bloon;
+            }
+        }
+
+        return targetBloon;
+    }
+
 
     public MapManager getMapManager(){
         return this.mapManager;
