@@ -86,7 +86,7 @@ public class RankModelTest {
 
     @Test
     public void testGetLimit() {
-        assertEquals(5, rankModel.getLimit());
+        assertEquals(5, RankModel.LIMIT_SCORE);
     }
 }
 

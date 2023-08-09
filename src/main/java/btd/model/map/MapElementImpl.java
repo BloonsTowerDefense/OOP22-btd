@@ -17,7 +17,8 @@ public class MapElementImpl implements MapElement {
      * @param img image to be saved and then displayed.
      */
     public MapElementImpl(final BufferedImage img) {
-        this.img = img;
+        //this.img = img;
+        this.img = clone(img);
     }
 
     /**
@@ -25,8 +26,8 @@ public class MapElementImpl implements MapElement {
      */
     @Override
     public BufferedImage getImg() {
-        return this.img;
-        //return clone(this.img);
+        //return this.img;
+        return clone(this.img);
     }
 
     public static BufferedImage clone(BufferedImage bufferImage) {

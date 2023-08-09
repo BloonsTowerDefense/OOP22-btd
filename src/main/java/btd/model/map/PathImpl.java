@@ -65,7 +65,7 @@ public class PathImpl implements Path {
 		return MapPanel.finalSpritesize;
 	}
 
-	private void loadPath(final String source, final Boolean test) {
+	private final void loadPath(final String source, final Boolean test) {
         try {
             String realSource;
             if (test) {
@@ -73,7 +73,7 @@ public class PathImpl implements Path {
             } else {
                 realSource = "/map/" + source + "/bloonsPath.txt";
             }
-            InputStream input = getClass().getResourceAsStream(realSource);
+            InputStream input = PathImpl.class.getResourceAsStream(realSource);
             if (input != null) {
                 BufferedReader br = new BufferedReader(new InputStreamReader(input,  "UTF-8"));
                 String read = br.readLine();

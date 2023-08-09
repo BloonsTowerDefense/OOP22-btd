@@ -25,6 +25,7 @@ public class RankController {
     /**
      * Adds a score to the ranking system.
      *
+     * @param mapName the name of the map palyed, it's used as key in the HashMap.
      * @param user  the user name associated with the score.
      * @param score the score to add to rank.
      */
@@ -35,7 +36,7 @@ public class RankController {
     /**
      * Returns the current rank.
      *
-     * @return a list of {@link RankElement} objects representing the current rank.
+     * @return an HashMap<String, List<RankElement>> representing the current rank.
      */
     public HashMap<String, List<RankElement>> getRank(){
         return this.model.getRank();

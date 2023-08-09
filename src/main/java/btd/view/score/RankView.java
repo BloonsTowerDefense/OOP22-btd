@@ -26,7 +26,7 @@ import java.util.Objects;
  * It receives data from the {@link RankController} and displays it in a panel.
  */
 public class RankView extends JPanel {
-    private RankController controller;
+    private transient RankController controller;
     private JButton backButton;
     private int titleLableFontDim = 30;
 
@@ -40,6 +40,11 @@ public class RankView extends JPanel {
         this.backButton = new JButton();
         setPreferredSize(new Dimension(MapPanel.screenWidth, MapPanel.screenHeight));
         setLayout(new BorderLayout());
+        //paintPanel();
+        init();
+    }
+
+    public void init() {
         paintPanel();
     }
 
@@ -47,7 +52,7 @@ public class RankView extends JPanel {
      * Paints the GUI components on the panel. At the bottom paints a title. On the left side and on the 
      * right side paints the 2 ranking.
      */
-    public void paintPanel() {
+    public final void paintPanel() {
         // North section with label
         JLabel titleLabel = new JLabel("Migliori punteggi BTD");
         titleLabel.setFont(new Font("Arial", Font.BOLD, titleLableFontDim));

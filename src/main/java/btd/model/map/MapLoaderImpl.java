@@ -16,9 +16,9 @@ public class MapLoaderImpl implements MapLoader {
      * {@inheritDoc}
      */
     @Override
-    public int[][] loadMap(final String mapName) {
+    public final int[][] loadMap(final String mapName) {
         int[][] ret = new int[MapPanel.col][MapPanel.row];
-        try (InputStream input = getClass().getResourceAsStream(mapName)) {
+        try (InputStream input = MapLoaderImpl.class.getResourceAsStream(mapName)) {
             if (input == null) {
                 throw new IllegalArgumentException("Map file not found: " + mapName);
             }

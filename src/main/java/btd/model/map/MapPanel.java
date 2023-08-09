@@ -32,8 +32,8 @@ public class MapPanel extends JPanel {
     public static final int screenWidth = finalSpritesize * col;
     public static final int screenHeight = finalSpritesize * row;
 
-    private MapManager mapManager;
-    private Game game;
+    private transient MapManager mapManager;
+    private transient Game game;
 
     /**
      * Standard constructor of MapPanel with the specified Game instance.

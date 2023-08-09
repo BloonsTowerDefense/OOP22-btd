@@ -54,7 +54,15 @@ public class MapManagerImpl implements MapManager {
      */
     @Override
     public int[][] getMapNum() {
-        return this.mapNum;
+        //return this.mapNum;
+        int rows = mapNum.length;
+        int cols = mapNum[0].length;
+        int[][] copy = new int[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+        System.arraycopy(mapNum[i], 0, copy[i], 0, cols);
+        }
+        return copy;
     }
     /**
      * {@inheritDoc}
@@ -82,11 +90,11 @@ public class MapManagerImpl implements MapManager {
         return this.mapName;
     }
 
-    private void loadMapImage() {
+    private final void loadMapImage() {
         try {
-            this.mapElementList.add(new MapElementImpl(ImageIO.read(getClass().getResourceAsStream("/mapSprite/sand.png"))));
-            this.mapElementList.add(new MapElementImpl(ImageIO.read(getClass().getResourceAsStream("/mapSprite/tree.png"))));
-            this.mapElementList.add(new MapElementImpl(ImageIO.read(getClass().getResourceAsStream("/mapSprite/wall.png"))));
+            this.mapElementList.add(new MapElementImpl(ImageIO.read(MapManagerImpl.class.getResourceAsStream("/mapSprite/sand.png"))));
+            this.mapElementList.add(new MapElementImpl(ImageIO.read(MapManagerImpl.class.getResourceAsStream("/mapSprite/tree.png"))));
+            this.mapElementList.add(new MapElementImpl(ImageIO.read(MapManagerImpl.class.getResourceAsStream("/mapSprite/wall.png"))));
         } catch (Exception e) {
             e.printStackTrace();
         }
