@@ -3,6 +3,7 @@ package btd.model.entity;
 import btd.utils.Position;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Optional;
 
 public class ShootingTower implements Tower {
@@ -75,8 +76,8 @@ public class ShootingTower implements Tower {
         this.hittingRange = new Position(x,y);
     }
 
-    public boolean hit(int x,int y){
-        return this.position.getX() - x <= this.hittingRange.getX() && this.position.getX() - y <= this.hittingRange.getY();
+    public void setPower(Integer power){
+        this.power = power;
     }
     @Override
     public Position getHittingRange(){

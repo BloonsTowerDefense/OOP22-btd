@@ -83,7 +83,7 @@ public class GameView extends JPanel {
 
     private Tower createTowerByType(int spriteX, int spriteY) {
         return switch (towerToPlace) {
-            case "blackAdam" -> new ShootingTower("blackAdam", 5, 100, new Position(spriteX, spriteY));
+            case "blackAdam" -> new ShootingTower("blackAdam", 0, 100, new Position(spriteX, spriteY));
             case "voldelife" -> new ShootingTower("voldelife", 5, 100, new Position(spriteX, spriteY));
             case "deadColossus" -> new ShootingTower("deadColossus", 5, 100, new Position(spriteX, spriteY));
             case "rangeEnhancer" -> new HelpingTower("rangeEnhancer", "Range", new Position(spriteX, spriteY));

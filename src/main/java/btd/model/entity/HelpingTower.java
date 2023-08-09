@@ -16,6 +16,8 @@ public class HelpingTower implements Tower {
 
     private Integer price;
 
+    private Integer functionFactor;
+
     private Position position;
 
     private Position hittingRange;
@@ -25,7 +27,9 @@ public class HelpingTower implements Tower {
         this.towerSpriteManager = new TowerSpriteManagerImpl(towerName);
         this.towerName = towerName;
         this.function = function;
+        this.functionFactor = 10;
         this.position = position;
+        this.hittingRange = new Position(this.functionFactor,this.functionFactor);
     }
 
     @Override
@@ -37,6 +41,7 @@ public class HelpingTower implements Tower {
     public void update() {
         this.towerSpriteManager.upgrade(this.towerName);
         this.hittingRange = new Position(hittingRange.getX()+10, hittingRange.getY()+10);
+        this.functionFactor += 5;
     }
 
     @Override
@@ -52,6 +57,14 @@ public class HelpingTower implements Tower {
     @Override
     public Position getHittingRange() {
         return this.hittingRange;
+    }
+
+    public Integer getFunctionFactor(){
+        return this.functionFactor;
+    }
+
+    public void setFunctionFactor(Integer functionFactor){
+        this.functionFactor = functionFactor;
     }
 
     @Override

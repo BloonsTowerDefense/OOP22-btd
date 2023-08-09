@@ -274,6 +274,31 @@ public class GameModel {
         }
     }
 
+    public void towerHelp(){
+        for (Tower tower1 : towers){
+            if (tower1 instanceof HelpingTower helpingTower1){
+                List<ShootingTower> towersInRange = findTowersInRange((HelpingTower) tower1);
+                for (ShootingTower shootingTower : towersInRange){
+                    if(helpingTower1.getFunction().equals("Range")){
+                        shootingTower.setHittingRange(helpingTower1.getFunctionFactor()+10,helpingTower1.getFunctionFactor()+10);
+                    }else{
+                        shootingTower.setPower(helpingTower1.getFunctionFactor()+10);
+                    }
+                }
+            }
+        }
+    }
+
+    private List<ShootingTower> findTowersInRange(HelpingTower helpingTower){
+        List<ShootingTower> towersInRange = new ArrayList<>();
+        for (Tower tower : towers){
+            if(tower instanceof ShootingTower && isTowerInRange(helpingTower,tower)){
+                towersInRange.add((ShootingTower) tower);
+            }
+        }
+        return towersInRange;
+    }
+
     private List<Bloon> findBloonsInRange(ShootingTower tower) {
         List<Bloon> bloonsInRange = new ArrayList<>();
         for (Bloon bloon : this.aliveBloons) {
@@ -282,6 +307,11 @@ public class GameModel {
             }
         }
         return bloonsInRange;
+    }
+
+    private boolean isTowerInRange(HelpingTower helpingTower, Tower shootingTower){
+        return Math.abs(shootingTower.getPosition().get().getX() - helpingTower.getPosition().get().getX()) <= (int) helpingTower.getHittingRange().getX()*16
+                && Math.abs(shootingTower.getPosition().get().getY() - helpingTower.getPosition().get().getY()) <= (int) helpingTower.getHittingRange().getY()*16;
     }
 
     private boolean isBloonInRange(Bloon bloon, ShootingTower shootingTower){
