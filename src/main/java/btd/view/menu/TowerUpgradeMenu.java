@@ -1,6 +1,7 @@
 package btd.view.menu;
 
 import btd.model.entity.Tower;
+import btd.utils.SoundManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -34,7 +35,10 @@ public class TowerUpgradeMenu extends JPanel{
         }catch (Exception e){
             e.printStackTrace();
         }
-        this.upgradeButton.addActionListener(e -> tower.update());
+        this.upgradeButton.addActionListener(e -> {
+            tower.update();
+            SoundManager.getInstance().playSound(SoundManager.SoundType.BUTTON, false);
+        });
     }
 
     public JButton getUpgradeButton(){
