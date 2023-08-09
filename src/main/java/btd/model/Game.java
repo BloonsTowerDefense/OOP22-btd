@@ -84,7 +84,7 @@ public class Game extends Thread {
         while(exitGame()){
             //System.out.println("Is running");
             this.currentTime = System.currentTimeMillis();
-            long elapsedTime = this.currentTime - currentTime;
+            long elapsedTime = this.currentTime - lastUpdateTime;
             this.update(elapsedTime);
             this.waitForNextFrame(currentTime);
             this.lastUpdateTime = this.currentTime;

@@ -22,6 +22,7 @@ public class BloonImpl extends EntityImpl implements Bloon{
 
     private BloonType type;
     private Image image;
+    private double remainingDistance;
 
     /**
      * Constructs a BloonImpl object with the specified BloonType and path.
@@ -44,7 +45,7 @@ public class BloonImpl extends EntityImpl implements Bloon{
         if (!path.getDirections().isEmpty()) {
             this.currentDirection = path.getDirections().get(0);
         }
-
+        this.remainingDistance = this.path.getTileSize();
     }
 
     @Override
@@ -74,21 +75,31 @@ public class BloonImpl extends EntityImpl implements Bloon{
     public void move(final long time) {
         if(currentPathIndex < this.path.getDirections().size()) {
             this.currentDirection = this.path.getDirections().get(this.currentPathIndex);
-            double actualSpeed = speed * (time / 1000);
+            double actualSpeed = speed;
             double x = this.getPosition().get().getX();
             double y = this.getPosition().get().getY();
+
+            if (remainingDistance <= actualSpeed) {
+                // Move remainingDistance and update currentPathIndex
+                actualSpeed = remainingDistance;
+                remainingDistance = path.getTileSize();
+                currentPathIndex++;
+            } else {
+                remainingDistance -= actualSpeed;
+            }
+            System.out.println("\n speed: " + this.speed + " actualSpeed: " + actualSpeed);
             switch (currentDirection) {
                 case UP:
-                    y -= path.getTileSize() - actualSpeed;
+                    y -= actualSpeed;
                     break;
                 case DOWN:
-                    y += path.getTileSize() - actualSpeed;
+                    y += actualSpeed;
                     break;
                 case LEFT:
-                    x -= path.getTileSize() - actualSpeed;
+                    x -= actualSpeed;
                     break;
                 case RIGHT:
-                    x += path.getTileSize() - actualSpeed;
+                    x += actualSpeed;
                     break;
                 default:
                     break;
@@ -103,11 +114,11 @@ public class BloonImpl extends EntityImpl implements Bloon{
     public void update(long time) {
         if(!this.hasReachedEnd()){
             if (this.currentPathIndex < this.path.getDirections().size()) {
-                this.currentDirection = this.path.getDirections().get(this.currentPathIndex);
+                /*this.currentDirection = this.path.getDirections().get(this.currentPathIndex);
                 System.out.println("\n" + this.currentDirection);
                 System.out.println("\n pathIndex: " + this.currentPathIndex);
                 System.out.println(this.path.getDirections().size());
-                this.currentPathIndex++;
+                this.currentPathIndex++;*/
                 this.move(time);
             } else {
                 // Gestisci qui la situazione in cui currentPathIndex >= path.getDirections().size()

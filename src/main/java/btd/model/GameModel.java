@@ -43,8 +43,7 @@ public class GameModel {
 
     public enum GameState {
         PLAYING,
-        GAME_OVER,
-        VICTORY
+        GAME_OVER;
     }
 
     public GameModel() {

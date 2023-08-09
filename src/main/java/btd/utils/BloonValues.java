@@ -29,7 +29,7 @@ public final class BloonValues {
     /**
      * The default speed value for a blue bloon.
      */
-    public static final double BLUE_BLOON_SPEED = 10;
+    public static final double BLUE_BLOON_SPEED = 20;
 
     /**
      * The default money value gained when a blue bloon is defeated.
@@ -44,7 +44,7 @@ public final class BloonValues {
     /**
      * The default speed value for a black bloon.
      */
-    public static final double BLACK_BLOON_SPEED = 2.0;
+    public static final double BLACK_BLOON_SPEED = 30;
 
     /**
      * The default money value gained when a black bloon is defeated.
