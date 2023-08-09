@@ -30,10 +30,11 @@ public class GameModel {
     private long lastSpawnTime;
     private long lastWaveEndTime;
     private final long bloonSpawnInterval = 1500; // 1.5 secondi
-    private final long waveInterval = 10000; // 10 secondi
+    private final long waveInterval = 2000; // 10 secondi
     private String difficulty;
     private MapManager mapManager;
-
+    private int waveSize;
+    private int deadBloons;
 
 
     public enum GameState {
@@ -60,9 +61,11 @@ public class GameModel {
             waveInProgress = true;
             bloonSpawnInProgress = true;
             aliveBloons.clear();
-            wave = (WaveImpl) level.getWave();
+            this.wave = (WaveImpl) level.getWave();
+            this.waveSize = this.wave.getBloons().size();
             lastSpawnTime = System.currentTimeMillis(); // Memorizziamo il tempo di inizio dello spawn
             this.bloonsSpawned = 0;
+            this.deadBloons = 0;
         }
     }
     public void setDifficulty(String difficulty){
@@ -87,14 +90,14 @@ public class GameModel {
                 lastSpawnTime = currentTime;
             }
         }
-
+        System.out.println("\nSize waveImpl: " + this.wave.getBloons().size() + " Size bloonsSpawned: " + this.bloonsSpawned + " Size aliveBloons: " + this.aliveBloons.size());
         // Aggiornamento delle torri
         for (Tower tower : towers) {
             // tower.update(time);
         }
 
         // Aggiornamento delle wave e dei bloons
-        if (waveInProgress  && !wave.isOver()) {
+        if (waveInProgress  /*&& !this.wave.isOver()*/) {
             for (Bloon bloon : aliveBloons) {
                 ((BloonImpl) bloon).update(time);
             }
@@ -109,22 +112,24 @@ public class GameModel {
                 System.out.println("\nBloon reached end of path: " + bloon.getPosition());
                 int healthDecrease = 1;
                 player.loseHealth(healthDecrease);
-                wave.removeBloon(bloon);
+                //wave.removeBloon(bloon);
                 iterator.remove(); // Removing the bloon from the aliveBloons list
                 System.out.println("Bloon has reached the end. Bloons in map: " + aliveBloons.size()); // Print statement
+                this.deadBloons++;
             } else if (bloon.isDead()) {
                 int moneyIncrease = 1;
                 player.gainCoins(bloon.getType().getMoney());
                 player.gainScore(1);
-                wave.removeBloon(bloon);
+                //wave.removeBloon(bloon);
                 iterator.remove(); // Removing the bloon from the aliveBloons list
-                System.out.println("Bloon is dead. Bloons in map: " + aliveBloons.size()); // Print statement
+                System.out.println("Bloon is dead. Bloons in map: " + aliveBloons.size()); // Print
+                this.deadBloons++;
             }
         }
 
-
+        System.out.println("\n waveInProgress: " + waveInProgress + " bloonSpawnInProgress: " + bloonSpawnInProgress + " aliveBloons: " + aliveBloons.size() + " waveNull: " + (this.wave == null));
         // Controllo fine wave
-        if (waveInProgress && wave != null && wave.isOver() && aliveBloons.isEmpty()) {
+        if (waveInProgress && this.wave != null && deadBloons == waveSize) {
             bloonSpawnInProgress = false;
             waveInProgress = false;
             lastWaveEndTime = System.currentTimeMillis(); // Memorizziamo il tempo di fine wave
@@ -145,7 +150,7 @@ public class GameModel {
         }
     }*/
     private void spawnBloons() {
-        if (wave != null && !wave.isOver()) {
+        if (this.wave != null /*&& !wave.isOver()*/) {
             List<Bloon> newBloons = wave.getBloons();
             if(bloonsSpawned < newBloons.size()) {
                 Bloon bloon = newBloons.get(bloonsSpawned);
@@ -198,21 +203,21 @@ public class GameModel {
     }
 
     public WaveImpl getWave() {
-        return wave;
+        return this.wave;
     }
 
     public Path getPath() {
-        return path;
+        return this.path;
     }
 
     public List<Tower> getTowers() {
-        return towers;
+        return this.towers;
     }
 
-    public List<Bullet> getBullets(){return bullets;}
+    public List<Bullet> getBullets(){return this.bullets;}
 
     public Player getPlayer() {
-        return player;
+        return this.player;
     }
 
     public void initGame(String difficulty, String mapName){

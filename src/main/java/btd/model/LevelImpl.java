@@ -54,7 +54,7 @@ public class LevelImpl implements Level {
             return null;
         }
         List<Bloon> bloons = new ArrayList<>();
-        int numBloons = rand.nextInt(10) + round * difficultyMultiplier;
+        int numBloons = rand.nextInt(3,10) + round * difficultyMultiplier;
         for (int i = 0; i < numBloons; i++) {
             int bloonType = i % 3;
             int bloonHealth;
@@ -63,22 +63,26 @@ public class LevelImpl implements Level {
                 bloonHealth = 10 + round;
                 b = new BloonImpl(BloonType.RED_BLOON, this.path);
                 b.setPath(path);
+                b.setHealth(bloonHealth);
                 b.setPosition(path.getSpawnPosition().getX(), this.path.getSpawnPosition().getY());
             } else if (bloonType == 1) {
                 bloonHealth = 20 + round;
                 b = new BloonImpl(BloonType.BLUE_BLOON, path);
                 b.setPath(path);
+                b.setHealth(bloonHealth);
                 b.setPosition(path.getSpawnPosition().getX(), path.getSpawnPosition().getY());
             } else {
                 bloonHealth = 30 + round;
                 b = new BloonImpl(BloonType.BLACK_BLOON, path);
                 b.setPath(path);
+                b.setHealth(bloonHealth);
                 b.setPosition(path.getSpawnPosition().getX(), path.getSpawnPosition().getY());
             }
             bloons.add(b);
         }
         round++;
         waveInProgress = true;
+        System.out.println("\n Wave generated: " + bloons + " round: " + round);
         return new WaveImpl(bloons);
     }
 

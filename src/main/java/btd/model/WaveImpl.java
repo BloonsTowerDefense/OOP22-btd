@@ -59,7 +59,15 @@ public class WaveImpl implements Wave {
      */
     @Override
     public void removeBloon(Bloon bloon) {
-        bloons.remove(bloon);
+        System.out.println("\n Bloon removed: " + bloon + " bloons size  before: " + bloons.size());
+        boolean removed = bloons.remove(bloon);
+        if (removed) {
+            System.out.println("Bloon successfully removed.");
+        } else {
+            System.out.println("Failed to remove bloon.");
+        }
+        System.out.println("\n bloons size after: " + bloons.size());
     }
+
 }
 

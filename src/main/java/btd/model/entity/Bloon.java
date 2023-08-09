@@ -71,5 +71,18 @@ public interface Bloon extends Entity {
      * @return The type of the bloon.
      */
     BloonType getType();
+
+    /**
+     * Returns the current path index of the bloon's movement along the path.
+     *
+     * @return The current path index.
+     */
+    int getCurrentPathIndex();
+
+    /**
+     * Sets the health of the bloon.
+     * @param health
+     */
+    void setHealth(int health);
 }
 

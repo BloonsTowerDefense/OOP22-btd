@@ -119,8 +119,6 @@ public class BloonImpl extends EntityImpl implements Bloon{
         System.out.println("\nBloon position: " + this.getPosition());
     }
 
-
-
     @Override
     public boolean isDead() {
         return !alive;
@@ -136,12 +134,13 @@ public class BloonImpl extends EntityImpl implements Bloon{
         return this.type;
     }
 
-    /**
-     * Returns the current path index of the bloon's movement along the path.
-     *
-     * @return The current path index.
-     */
+    @Override
     public int getCurrentPathIndex(){
         return this.currentPathIndex;
+    }
+
+    @Override
+    public void setHealth(int health) {
+        this.health = health;
     }
 }
