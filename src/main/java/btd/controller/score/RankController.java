@@ -1,10 +1,11 @@
 package btd.controller.score;
 
+
+import java.util.HashMap;
 import java.util.List;
 
 import btd.model.score.RankModel;
 import btd.utils.RankElement;
-import btd.view.score.RankView;
 
 /**
  * This class acts as a connection between {@link RankView} and {@link RankModel}.
@@ -27,8 +28,8 @@ public class RankController {
      * @param user  the user name associated with the score.
      * @param score the score to add to rank.
      */
-    public void addScore(String user, Integer score){
-        this.model.addScore(user, score);
+    public void addScore(String mapName, String user, Integer score){
+        this.model.addScore(mapName, user, score);
     }
 
     /**
@@ -36,7 +37,7 @@ public class RankController {
      *
      * @return a list of {@link RankElement} objects representing the current rank.
      */
-    public List<RankElement> getRank(){
+    public HashMap<String, List<RankElement>> getRank(){
         return this.model.getRank();
     }
 
@@ -47,14 +48,5 @@ public class RankController {
      */
     public int getRankDimension(){
         return this.model.getRankDimension();
-    }
-
-    /**
-     * Returns the score limit.
-     *
-     * @return score limit.
-     */
-    public int getLimit(){
-        return this.model.getLimit();
     }
 }
