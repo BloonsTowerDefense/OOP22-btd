@@ -27,9 +27,9 @@ public class GameView extends JPanel {
         setLayout(new BorderLayout());
         towerShopMenu = new ShopMenu();
         mapPanel = new MapPanel(this.gameEngine);
-
-        //this.gameEngine.getRankController().addScore(this.gameEngine.getGameModel().getMapManager().getMapName(), "Nome", 1028);
     
+        //gameEngine.getRankController().addScore(gameEngine.getGameModel().getMapManager().getMapName(), "Nome", 1028);
+
         CardLayout cardLayout = new CardLayout();
         JPanel shopUpgradePanel = new JPanel(cardLayout);
         shopUpgradePanel.setPreferredSize(new Dimension(200, 720));
@@ -56,6 +56,7 @@ public class GameView extends JPanel {
         mapPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                
                 int spriteX = e.getX();
                 int spriteY = e.getY();
 
@@ -69,6 +70,7 @@ public class GameView extends JPanel {
                 }
 
                 if (mapPanel.getMapManager().canPlace(spriteX, spriteY) && !towerToPlace.isEmpty()) {
+                    gameEngine.getRankController().addScore(gameEngine.getGameModel().getMapManager().getMapName(), "Nome", 1028);
                     System.out.println("Vecchi x e y: " + spriteX + " " + spriteY);
                     int newX = spriteX/48;
                     int newY = spriteY/48;
