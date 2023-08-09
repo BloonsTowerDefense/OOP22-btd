@@ -4,6 +4,7 @@ import btd.controller.score.RankController;
 import btd.model.Game;
 import btd.model.map.MapPanel;
 import btd.model.score.RankModel;
+import btd.utils.SoundManager;
 import btd.view.GameCondition;
 import btd.view.score.RankView;
 
@@ -31,18 +32,27 @@ public class StartingMenu extends JPanel {
         add(difficultyMenu, "DIFFICULTY");
         add(rankView, "LEADERBOARD");
 
-        mainMenu.getPlayButton().addActionListener(e -> cardLayout.show(this, "DIFFICULTY"));
-        mainMenu.getLeaderboardButton().addActionListener(e -> { 
+        mainMenu.getPlayButton().addActionListener(e -> {
+            cardLayout.show(this, "DIFFICULTY");
+            SoundManager.getInstance().playSound(SoundManager.SoundType.BUTTON, false);
+        });
+        mainMenu.getLeaderboardButton().addActionListener(e -> {
+            SoundManager.getInstance().playSound(SoundManager.SoundType.BUTTON, false);
             this.rankView.paintPanel();
             cardLayout.show(this, "LEADERBOARD");
         });
         rankView.getBackButton().addActionListener(e -> {
             cardLayout.show(this,"MAIN");
+            SoundManager.getInstance().playSound(SoundManager.SoundType.BUTTON, false);
             this.rankView.resetPanel();
         });
-        difficultyMenu.getBackButton().addActionListener(e -> cardLayout.show(this,"MAIN"));
+        difficultyMenu.getBackButton().addActionListener(e -> {
+            cardLayout.show(this,"MAIN");
+            SoundManager.getInstance().playSound(SoundManager.SoundType.BUTTON, false);
+        });
         difficultyMenu.getStartButton().addActionListener(e -> {
             System.out.println("\n\n\n\nTASTO PLAY PREMUTO\n\n\n");
+            SoundManager.getInstance().playSound(SoundManager.SoundType.BUTTON, false);
             MapPanel tmp = this.gameEngine.getView().getGameView().getMapPanel();
             System.out.println("Diff: " + this.getDifficulty() + "\n\nMapName " + this.getMapName());
             this.gameEngine.getGameModel().initGame(this.getDifficulty(),this.getMapName());

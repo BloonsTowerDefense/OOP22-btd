@@ -112,7 +112,7 @@ public class RankView extends JPanel {
 
     private void addPadding(JPanel panel){
         int delta = 3 - this.controller.getRank().size();
-        for(int i = 0; i < delta; i++){
+        for(int i = 0; i <= delta; i++){
             JLabel tmp = new JLabel();
             JLabel tmp2 = new JLabel();
             panel.add(tmp);
