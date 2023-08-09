@@ -16,6 +16,7 @@ public class MapManagerImpl implements MapManager{
     private int[][] mapNum;
     private MapLoader mapLoader;
     private Path bloonPath;
+    private String mapName;
 
     /**
      * Standard constructor of MapManagerImpl.
@@ -23,6 +24,7 @@ public class MapManagerImpl implements MapManager{
      * @param mapName the name of the map to manage.
      */
     public MapManagerImpl(String mapName){
+        this.mapName = mapName;
         this.mapElementList = new ArrayList<>();
         this.mapNum = new int[MapPanel.col][MapPanel.row];
         this.mapLoader = new MapLoaderImpl();
@@ -90,6 +92,11 @@ public class MapManagerImpl implements MapManager{
         String src = "/map/" + mapName + "/" + mapName + ".txt";
         this.mapNum = this.mapLoader.loadMap(src);
         this.bloonPath = new PathImpl(mapName, false);
+    }
+
+    @Override
+    public String getMapName() {
+        return this.mapName;
     }
     
 }

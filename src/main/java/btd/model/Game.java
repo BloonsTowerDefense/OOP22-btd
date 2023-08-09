@@ -7,6 +7,8 @@ import btd.view.GameCondition;
 import btd.view.View;
 import btd.view.menu.MainMenu;
 import btd.model.map.MapPanel;
+import btd.model.score.RankModel;
+import btd.controller.score.RankController;
 import btd.model.entity.Bloon;
 import java.util.List;
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class Game extends Thread {
 
 
     public Game(){
-        this.frameTime = 800;
+        this.frameTime = 200;
         //System.out.print("\ninizio costruttore");
         this.gameCondition = GameCondition.MENU;
         //System.out.print("\n1 costruttore");
@@ -143,5 +145,13 @@ public class Game extends Thread {
 
     public View getView(){
         return this.view;
+    }
+
+    public RankModel getRankModel(){
+        return this.gameModel.getRankModel();
+    }
+
+    public RankController getRankController(){
+        return this.gameModel.getRankController();
     }
 }

@@ -1,9 +1,11 @@
 package btd.model;
 
+import btd.controller.score.RankController;
 import btd.model.entity.*;
 import btd.model.map.MapManager;
 import btd.model.map.MapManagerImpl;
 import btd.model.map.Path;
+import btd.model.score.RankModel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -36,6 +38,8 @@ public class GameModel {
     private int waveSize;
     private int deadBloons;
 
+    private RankModel rankModel;
+    private RankController rankController;
 
     public enum GameState {
         PLAYING,
@@ -52,6 +56,8 @@ public class GameModel {
         this.aliveBloons = new ArrayList<>();
         this.lastSpawnTime = 0;
         this.lastWaveEndTime = 0;
+        this.rankModel = RankModel.getRankModelIstance();
+        this.rankController = new RankController(rankModel);
         //this.mapManager = new MapManagerImpl("map01");
         //initGame("norm", "map01"); //In questo modo mapManager non è null
     }
@@ -292,6 +298,14 @@ public class GameModel {
                 }
             }
         }
+    }
+
+    public RankModel getRankModel() {
+        return this.rankModel;
+    }
+
+     public RankController getRankController() {
+        return this.rankController;
     }
 
     private List<ShootingTower> findTowersInRange(HelpingTower helpingTower){

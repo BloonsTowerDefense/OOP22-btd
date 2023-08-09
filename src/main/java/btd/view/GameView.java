@@ -28,6 +28,8 @@ public class GameView extends JPanel {
         towerShopMenu = new ShopMenu();
         mapPanel = new MapPanel(this.gameEngine);
 
+        //this.gameEngine.getRankController().addScore(this.gameEngine.getGameModel().getMapManager().getMapName(), "Nome", 1028);
+    
         CardLayout cardLayout = new CardLayout();
         JPanel shopUpgradePanel = new JPanel(cardLayout);
         shopUpgradePanel.setPreferredSize(new Dimension(200, 720));

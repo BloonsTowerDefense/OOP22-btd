@@ -4,7 +4,6 @@ import btd.controller.score.RankController;
 import btd.model.Game;
 import btd.model.map.MapPanel;
 import btd.model.score.RankModel;
-import btd.utils.RankElement;
 import btd.view.GameCondition;
 import btd.view.score.RankView;
 
@@ -26,17 +25,14 @@ public class StartingMenu extends JPanel {
         setLayout(cardLayout);
         this.mainMenu = new MainMenu();
         this.difficultyMenu = new DifficultyMenu();
-        //RankModel rankModel = new RankModel();
-        RankModel rankModel = RankModel.getRankModelIstance();
-        RankController rankController = new RankController(rankModel);
-        this.rankView = new RankView(rankController);
+        this.rankView = new RankView(this.gameEngine.getRankController());
 
         add(mainMenu, "MAIN");
         add(difficultyMenu, "DIFFICULTY");
         add(rankView, "LEADERBOARD");
 
         mainMenu.getPlayButton().addActionListener(e -> cardLayout.show(this, "DIFFICULTY"));
-        mainMenu.getLeaderboardButton().addActionListener(e -> {
+        mainMenu.getLeaderboardButton().addActionListener(e -> { 
             this.rankView.paintPanel();
             cardLayout.show(this, "LEADERBOARD");
         });

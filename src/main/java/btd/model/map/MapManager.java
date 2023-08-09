@@ -35,4 +35,6 @@ public interface MapManager {
      * @return true if a tower can be placed at the specified coordinates, otherwise returns false.
      */
     Boolean canPlace(int x, int y);
+
+    String getMapName();
 }
