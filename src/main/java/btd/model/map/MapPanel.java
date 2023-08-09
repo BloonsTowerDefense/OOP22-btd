@@ -16,7 +16,6 @@ import btd.utils.Position;
 import btd.model.Game;
 
 import btd.model.LevelImpl;
-import btd.view.BloonViewImpl;
 import btd.view.ItemType;
 import btd.view.Resources;
 
@@ -40,7 +39,6 @@ public class MapPanel extends JPanel {
     private long lastUpdateTime;
     private Game game;
     private LevelImpl level;
-    private BloonViewImpl bloonView;
 
     public MapPanel(Game game) {
         this.setPreferredSize(new Dimension(1200, 720));
