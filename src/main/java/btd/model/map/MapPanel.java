@@ -1,11 +1,11 @@
 package btd.model.map;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import java.awt.*;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.List;
 
 import btd.model.GameModel;
@@ -15,13 +15,13 @@ import btd.model.entity.*;
 import btd.utils.Position;
 import btd.model.Game;
 
-import btd.model.LevelImpl;
 import btd.view.ItemType;
 import btd.view.Resources;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
+/**
+ * This class rapresents a JPanel that displays the game map and the entity in the map, like
+ * bloons, tower and bullets. It extends {@link JPanel}.
+ */
 public class MapPanel extends JPanel {
 
     private final static int originalSpriteSize = 16; //16 px originali
@@ -29,58 +29,61 @@ public class MapPanel extends JPanel {
     public final static int finalSpritesize = originalSpriteSize * scale; //48px finali
     public final static int col = 25; //25 colonne per avere la lunghezza 1200px
     public final static int row = 15; //15 righe per avere l'altezza 720px
-    private final int screenWidth = this.finalSpritesize * this.col;
-    private final int screenHeight = this.finalSpritesize * this.row;
+    public static final int screenWidth = finalSpritesize * col;
+    public static final int screenHeight = finalSpritesize * row;
 
     private MapManager mapManager;
-    private Thread gameThread;
-    //private List<Bloon> bloons;
-    //private List<Tower> towers;
-    private long lastUpdateTime;
     private Game game;
-    private LevelImpl level;
 
-    public MapPanel(Game game) {
-        this.setPreferredSize(new Dimension(1200, 720));
+    /**
+     * Standard constructor of MapPanel with the specified Game instance.
+     *
+     * @param game Game instance.
+     */
+    public MapPanel(final Game game) {
+        this.setPreferredSize(new Dimension(MapPanel.screenWidth, MapPanel.screenHeight));
         this.setDoubleBuffered(true);
         this.game = game;
         this.mapManager = game.getGameModel().getMapManager();
-        if(this.mapManager == null){
-            System.out.println("Dentro costruttore di MapPanel il mapManager è null");
-        }
-        lastUpdateTime = System.currentTimeMillis();
     }
 
-
-    public void paintComponent(Graphics graphics){
+    /**
+     * Paints the components on the panel.
+     *
+     * @param graphics Graphics object to paint element on.
+     */
+    public void paintComponent(final Graphics graphics) {
         super.paintComponent(graphics);
         Graphics2D graphics2d = (Graphics2D) graphics;
         graphics2d.setColor(Color.black);
-        if(this.mapManager == null){
-            System.out.println("MapManager è null");
-            System.exit(0);
-        } //else {
-            this.mapManager.draw(graphics2d);
-        //}
+        this.mapManager.draw(graphics2d);
         drawBloon(graphics);
-        //Subtract the X=16 width of the wall sprite and the Y=50 height of the tower sprite
         this.game.getGameModel().getTowers().forEach(tower -> graphics.drawImage(tower.getTowerSprite(), (int) tower.getPosition().get().getX(), (int) tower.getPosition().get().getY(), null));
         this.game.getGameModel().towerShoot();
         this.game.getGameModel().towerHelp();
         drawBullet(graphics);
-        System.out.println("\n paint mapPanel");
     }
 
-    private void drawBullet(Graphics graphics){
+    /**
+     * Draws the bullets on the panel.
+     *
+     * @param graphics Graphics object to paint bullets on.
+     */
+    private void drawBullet(final Graphics graphics) {
         List<Bullet> bullets = this.game.getGameModel().getBullets();
-        if(bullets != null && !bullets.isEmpty()){
-            for(Bullet bullet: bullets){
+        if (bullets != null && !bullets.isEmpty()) {
+            for (Bullet bullet: bullets) {
                 bullet.updatePosition(1,graphics);
             }
         }
     }
 
-    private void drawBloon(Graphics g) {
+    /**
+     * Draws the bloons on the panel.
+     *
+     * @param g The Graphics object to draw on.
+     */
+    private void drawBloon(final Graphics g) {
         //System.out.println("SONO DRAWBLOON");
         System.out.print(this.game.getGameModel().getAliveBloons());
         this.game.getGameModel().getAliveBloons().forEach(f -> {
@@ -88,7 +91,7 @@ public class MapPanel extends JPanel {
             System.out.println("POSIZIONE: " + position);
             final int x = (int) position.getX();
             final int y = (int) position.getY();
-            switch (f.getType().name()){
+            switch (f.getType().name()) {
                 case "RED_BLOON":
                     g.drawImage(Resources.getRes().getTextures(ItemType.RED_BLOON), x, y, 48, 48, null);
                     break;
@@ -113,27 +116,30 @@ public class MapPanel extends JPanel {
 
     }
 
-    public int getCol(){
-        return this.col;
-    }
-
-    public int getRow(){
-        return this.row;
-    }
-
-    public int getFinalSpriteSize(){
-        return this.finalSpritesize;
-    }
-
-    public MapManager getMapManager(){
+    /**
+     * Returns the {@link MapManager} associated with the panel.
+     *
+     * @return the MapManager instance.
+     */
+    public MapManager getMapManager() {
         return this.mapManager;
     }
 
-    public void setNewMapManager(MapManager newMapManager){
+     /**
+     * Sets a new {@link MapManager} for the panel.
+     *
+     * @param newMapManager the new MapManager instance.
+     */
+    public void setNewMapManager(final MapManager newMapManager) {
         this.mapManager = newMapManager;
     }
 
-    public GameModel getGameModel(){
+    /**
+     * Returns the {@link GameModel} associated with the panel.
+     *
+     * @return The GameModel instance.
+     */
+    public GameModel getGameModel() {
         return this.game.getGameModel();
     }
 }

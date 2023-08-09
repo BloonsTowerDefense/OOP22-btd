@@ -7,7 +7,7 @@ import java.io.Serializable;
  * information about a user and its associated score.
  */
 public class RankElement implements Serializable {
-
+    private static final long serialVersionUID = 1717L;
     private String user;
     private Integer score;
 

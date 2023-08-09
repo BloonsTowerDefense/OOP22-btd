@@ -13,27 +13,5 @@ public interface MapElement {
      *
      * @return an image representing the map element.
      */
-    public BufferedImage getImg();
-
-
-    /**
-     * Sets the image for the map element.
-     *
-     * @param img image to set for the element.
-     */
-    public void setImg(BufferedImage img);
-
-    /**
-     * Checks if a tower can be placed on the map element.
-     *
-     * @return true if a tower can be placed on the element otherwise returns false.
-     */
-    public boolean canPlaceTower();
-
-    /**
-     * Sets if a tower can be placed on the map element.
-     *
-     * @param flag pass true if a tower can be placed, false if it can't.
-     */
-    public void setCanPlaceTower(boolean flag);
+    BufferedImage getImg();
 }

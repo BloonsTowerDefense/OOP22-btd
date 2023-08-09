@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 /**
  * This class implements the {@link MapManager} interface.
  */
-public class MapManagerImpl implements MapManager{
+public class MapManagerImpl implements MapManager {
 
     private List<MapElement> mapElementList;
     private int[][] mapNum;
@@ -23,7 +23,7 @@ public class MapManagerImpl implements MapManager{
      *
      * @param mapName the name of the map to manage.
      */
-    public MapManagerImpl(String mapName){
+    public MapManagerImpl(final String mapName) {
         this.mapName = mapName;
         this.mapElementList = new ArrayList<>();
         this.mapNum = new int[MapPanel.col][MapPanel.row];
@@ -36,7 +36,7 @@ public class MapManagerImpl implements MapManager{
      * {@inheritDoc}
      */
     @Override
-    public void draw(Graphics2D graphics2d) {
+    public void draw(final Graphics2D graphics2d) {
         IntStream.range(0, MapPanel.row).forEach(currentRow -> {
             IntStream.range(0, MapPanel.col).forEach(currentCol -> {
                 int tileNum = this.mapNum[currentCol][currentRow];
@@ -48,7 +48,7 @@ public class MapManagerImpl implements MapManager{
             });
         });
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -60,7 +60,7 @@ public class MapManagerImpl implements MapManager{
      * {@inheritDoc}
      */
     @Override
-    public Path getBloonPath(){
+    public Path getBloonPath() {
         return this.bloonPath;
     }
 
@@ -68,35 +68,33 @@ public class MapManagerImpl implements MapManager{
      * {@inheritDoc}
      */
     @Override
-    public Boolean canPlace(int x, int y){
-        int newX = x/48;
-        int newY = y/48;
+    public Boolean canPlace(final int x, final int y) {
+        int newX = x / MapPanel.finalSpritesize;
+        int newY = y / MapPanel.finalSpritesize;
         return this.mapNum[newX][newY] == 2;
     }
 
-    private void loadMapImage(){
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getMapName() {
+        return this.mapName;
+    }
+
+    private void loadMapImage() {
         try {
-            this.mapElementList.add(new MapElementImpl());
-            this.mapElementList.get(0).setImg(ImageIO.read(getClass().getResourceAsStream("/mapSprite/sand.png")));
-            this.mapElementList.add(new MapElementImpl());
-            this.mapElementList.get(1).setImg(ImageIO.read(getClass().getResourceAsStream("/mapSprite/tree.png")));
-            this.mapElementList.add(new MapElementImpl());
-            this.mapElementList.get(2).setImg(ImageIO.read(getClass().getResourceAsStream("/mapSprite/wall.png")));
-            this.mapElementList.get(2).setCanPlaceTower(true);
+            this.mapElementList.add(new MapElementImpl(ImageIO.read(getClass().getResourceAsStream("/mapSprite/sand.png"))));
+            this.mapElementList.add(new MapElementImpl(ImageIO.read(getClass().getResourceAsStream("/mapSprite/tree.png"))));
+            this.mapElementList.add(new MapElementImpl(ImageIO.read(getClass().getResourceAsStream("/mapSprite/wall.png"))));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void setMap(String mapName){
+    private void setMap(final String mapName) {
         String src = "/map/" + mapName + "/" + mapName + ".txt";
         this.mapNum = this.mapLoader.loadMap(src);
         this.bloonPath = new PathImpl(mapName, false);
     }
-
-    @Override
-    public String getMapName() {
-        return this.mapName;
-    }
-    
 }

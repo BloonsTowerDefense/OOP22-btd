@@ -1,20 +1,23 @@
 package btd.model.map;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
 
 /**
  * This class implements the {@link MapElement} interface.
  * It represents an element of the map.
  */
-public class MapElementImpl implements MapElement{
-    
-    private BufferedImage img;
-    private boolean canPlaceTower = false;
+public class MapElementImpl implements MapElement {
+
+    private final BufferedImage img;
 
     /**
      * Standard constructor.
+     * 
+     * @param img image to be saved and then displayed.
      */
-    public MapElementImpl(){
+    public MapElementImpl(final BufferedImage img) {
+        this.img = img;
     }
 
     /**
@@ -23,30 +26,13 @@ public class MapElementImpl implements MapElement{
     @Override
     public BufferedImage getImg() {
         return this.img;
+        //return clone(this.img);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setImg(BufferedImage img) {
-        this.img = img;
+    public static BufferedImage clone(BufferedImage bufferImage) {
+        ColorModel colorModel = bufferImage.getColorModel();
+        java.awt.image.WritableRaster raster = bufferImage.copyData(null);
+        boolean isAlphaPremultiplied = colorModel.isAlphaPremultiplied();
+        return new BufferedImage(colorModel, raster, isAlphaPremultiplied, null);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean canPlaceTower() {
-        return this.canPlaceTower;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setCanPlaceTower(boolean flag) {
-        this.canPlaceTower = flag;
-    }
-    
 }

@@ -40,13 +40,4 @@ public class RankController {
     public HashMap<String, List<RankElement>> getRank(){
         return this.model.getRank();
     }
-
-    /**
-     * Returns the dimension of the current rank.
-     *
-     * @return the dimension of rank, which is the number of saved scores.
-     */
-    public int getRankDimension(){
-        return this.model.getRankDimension();
-    }
 }

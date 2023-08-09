@@ -36,5 +36,10 @@ public interface MapManager {
      */
     Boolean canPlace(int x, int y);
 
+    /**
+     * Returns current map name.
+     * 
+     * @return current map name as a String.
+     */
     String getMapName();
 }

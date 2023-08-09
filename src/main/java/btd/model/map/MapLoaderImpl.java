@@ -4,31 +4,44 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.stream.IntStream;
 
+/**
+ * This class implements {@link MapLoader} interface.
+ */
 public class MapLoaderImpl implements MapLoader {
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int[][] loadMap(String mapName) {
+    public int[][] loadMap(final String mapName) {
         int[][] ret = new int[MapPanel.col][MapPanel.row];
-        try (InputStream input = getClass().getResourceAsStream(mapName);
-                BufferedReader buffReader = new BufferedReader(new InputStreamReader(input))) {
-
-            IntStream.range(0, MapPanel.row).forEach(row -> {
-                try {
-                    String line = buffReader.readLine();
-                    String[] numbers = line.split(" ");
-                    IntStream.range(0, MapPanel.col).forEach(col -> {
-                        int currentNum = Integer.parseInt(numbers[col]);
-                        ret[col][row] = currentNum;
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+        try (InputStream input = getClass().getResourceAsStream(mapName)) {
+            if (input == null) {
+                throw new IllegalArgumentException("Map file not found: " + mapName);
+            }
+            try (BufferedReader buffReader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8))) {
+                IntStream.range(0, MapPanel.row).forEach(row -> {
+                    try {
+                        String line = buffReader.readLine();
+                        if (line == null) {
+                            throw new IOException("Line is null");
+                        }
+                        String[] numbers = line.split(" ");
+                        if (numbers.length != MapPanel.col) {
+                            throw new IllegalArgumentException("Incorrect number of values in row: " + line);
+                        }
+                        IntStream.range(0, MapPanel.col).forEach(col -> {
+                            int currentNum = Integer.parseInt(numbers[col]);
+                            ret[col][row] = currentNum;
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

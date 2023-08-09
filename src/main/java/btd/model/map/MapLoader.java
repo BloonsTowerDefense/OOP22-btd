@@ -12,5 +12,5 @@ public interface MapLoader {
      * @param mapName the name of the map to be loaded.
      * @return a two-dimensional int array representing the loaded map data.
      */
-    public int[][] loadMap(String mapName);
+    int[][] loadMap(String mapName);
 }

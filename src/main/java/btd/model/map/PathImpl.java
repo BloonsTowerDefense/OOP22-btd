@@ -1,6 +1,7 @@
 package btd.model.map;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ public class PathImpl implements Path {
     private List<Direction> path;
     private Position spawnPosition;
     private String source;
-	private int tileDim = 48;
 
 	/**
      * Standard constructor of this class.
@@ -36,7 +36,8 @@ public class PathImpl implements Path {
      */
 	@Override
 	public List<Direction> getDirections() {
-		return this.path;
+		//return this.path;
+		return new ArrayList<>(this.path);
 	}
 
 	/**
@@ -45,6 +46,7 @@ public class PathImpl implements Path {
 	@Override
 	public Position getSpawnPosition() {
 		return this.spawnPosition;
+		//return new Position(this.spawnPosition.getX(), this.spawnPosition.getX());
 	}
 
 	/**
@@ -60,34 +62,40 @@ public class PathImpl implements Path {
      */
 	@Override
 	public int getTileSize() {
-		return this.tileDim;
+		return MapPanel.finalSpritesize;
 	}
 
-	private void loadPath(final String source, Boolean test) {
-		try {
-			String realSource;
-			if(test){
-				realSource = "/testResources/bloonsPath.txt";
-			} else {
-				realSource = "/map/" + source + "/bloonsPath.txt";
-			}
-			InputStream input = getClass().getResourceAsStream(realSource);
-			BufferedReader br = new BufferedReader(new InputStreamReader(input));
-			String read = br.readLine();
-			String[] spawnPosition = read.split(" ");
-			this.spawnPosition = new Position(Double.parseDouble(spawnPosition[0]), 
-				Double.parseDouble(spawnPosition[1]));
-			int step = Integer.parseInt(spawnPosition[2]);
-			read = br.readLine();
-			String[] path = read.split(" ");
-			for (int i = 0; i < step; i++) {
-				this.path.add(decodeDirection(Integer.parseInt(path[i])));
-			}
-			br.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private void loadPath(final String source, final Boolean test) {
+        try {
+            String realSource;
+            if (test) {
+                realSource = "/testResources/bloonsPath.txt";
+            } else {
+                realSource = "/map/" + source + "/bloonsPath.txt";
+            }
+            InputStream input = getClass().getResourceAsStream(realSource);
+            if (input != null) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(input,  "UTF-8"));
+                String read = br.readLine();
+                if (read != null) {
+                    String[] spawnPosition = read.split(" ");
+                    this.spawnPosition = new Position(Double.parseDouble(spawnPosition[0]),
+                            Double.parseDouble(spawnPosition[1]));
+                    int step = Integer.parseInt(spawnPosition[2]);
+                    read = br.readLine();
+                    if (read != null) {
+                        String[] path = read.split(" ");
+                        for (int i = 0; i < step; i++) {
+                            this.path.add(decodeDirection(Integer.parseInt(path[i])));
+                        }
+                    }
+                }
+                br.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	private Direction decodeDirection(final int in) {
 		switch (in) {
