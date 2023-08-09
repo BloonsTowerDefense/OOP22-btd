@@ -8,6 +8,9 @@ import java.util.stream.IntStream;
 
 public class MapLoaderImpl implements MapLoader {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int[][] loadMap(String mapName) {
         int[][] ret = new int[MapPanel.col][MapPanel.row];

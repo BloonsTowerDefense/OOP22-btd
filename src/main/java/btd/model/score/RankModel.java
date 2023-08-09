@@ -30,7 +30,7 @@ public class RankModel {
      * Standard constructor for RankModel.
      * It loads the score from memory only if the file exists and is not empty.
      */
-    public RankModel() {
+    private RankModel() {
         this.rank = new ArrayList<>();
         this.file = new File("./scoreBTD.txt");
         if (!this.file.exists()) {
