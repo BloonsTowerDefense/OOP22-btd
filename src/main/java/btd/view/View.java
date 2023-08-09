@@ -37,7 +37,6 @@ public class View extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().add(mainPanel);
         this.pack();
-        this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setSize(new Dimension(1200,720));
         this.setVisible(true);
