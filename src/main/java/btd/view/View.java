@@ -28,6 +28,7 @@ public class View extends JFrame{
         this.menuPanel = new StartingMenu(this.gameEngine);
 
         this.gameOverMenu = new GameOverMenu();
+        this.gameOverMenu.setScore(this.gameEngine.getGameModel().getPlayer().getScore());
         this.gameOverMenu.getSaveScore().addActionListener(e -> {
             String userName = this.gameOverMenu.getPlayerName();
             if(!userName.isEmpty()){
