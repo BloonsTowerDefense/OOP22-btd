@@ -38,6 +38,12 @@ public interface Tower extends Entity {
      * */
     Integer getPrice();
 
+
+    /**
+     * Method used to get the upgrade price of the current tower
+     *
+     * @return returns the tower's upgrade price
+     * */
     Integer getUpgradePrice();
 
     /**
