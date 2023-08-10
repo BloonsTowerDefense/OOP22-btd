@@ -5,27 +5,21 @@ import java.awt.image.BufferedImage;
 import java.util.Optional;
 
 /**
- * Implementation of towers of type Helping tower. Helping Towers are towers used to help shooting
+ * Implementation of towers of type Helping. Helping Towers are towers used to help shooting
  * towers to enhance their shooting range or their power.
  * */
 public class HelpingTower implements Tower {
   private final String towerName;
 
-
   private final String function;
-
 
   private final Integer price;
 
-
   private Integer functionFactor;
-
 
   private Position position;
 
-
   private Position hittingRange;
-
 
   private final TowerSpriteManager towerSpriteManager;
 

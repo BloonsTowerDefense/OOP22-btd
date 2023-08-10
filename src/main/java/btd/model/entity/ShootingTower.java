@@ -10,6 +10,7 @@ import java.util.Optional;
  * */
 public class ShootingTower implements Tower {
   private final String towerName;
+
   private Integer power;
 
   private final Integer price;

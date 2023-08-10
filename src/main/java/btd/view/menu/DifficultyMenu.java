@@ -92,15 +92,11 @@ public class DifficultyMenu extends JPanel {
     JButton map1 = createMapButton("/map/map01/map1.png");
     JButton map2 = createMapButton("/map/map02/map2.png");
 
-    map1.addActionListener(e -> {
-      setMap("map01", map1, map2);
-    });
+    map1.addActionListener(e -> setMap("map01", map1, map2));
     map1.setBorder(BorderFactory.createLineBorder(Color.WHITE, 4));
     map1.setFocusPainted(false);
 
-    map2.addActionListener(e -> {
-      setMap("map02", map1, map2);
-    });
+    map2.addActionListener(e -> setMap("map02", map1, map2));
     map2.setFocusPainted(false);
 
     GridLayout gridLayout = new GridLayout(1, 3);
