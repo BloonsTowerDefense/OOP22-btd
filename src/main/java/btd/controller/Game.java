@@ -1,106 +1,82 @@
 package btd.controller;
 
-import javax.swing.*;
-import java.awt.*;
-
 import btd.Main;
 import btd.model.GameModel;
-import btd.model.LevelImpl;
 import btd.view.GameCondition;
 import btd.view.View;
-import btd.view.menu.MainMenu;
-import btd.model.map.MapPanel;
 import btd.model.score.RankModel;
 import btd.controller.score.RankController;
-import btd.model.entity.Bloon;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Represents the game engine, which is responsible for the game loop and the game state.
+ */
 public class Game extends Thread {
 
-    private long frameTime;
-    private long lastUpdateTime;
-    private long currentTime;
-    private GameModel gameModel;
-    private View view;
+    private final long fTime = 200;
+    private final long frameTime;
+    private final GameModel gameModel;
+    private final View view;
     private boolean running;
     private Thread gameThread;
     private GameCondition gameCondition;
-    private LevelImpl level;
-    private List<Bloon> bloons = new CopyOnWriteArrayList<>(); // CopyOnWriteArrayList per evitare errori di Concurrent Modification durante update di bloon.
 
-
-    public Game(){
-        this.frameTime = 1;
-        //System.out.print("\ninizio costruttore");
+    /**
+     * Creates a new game engine.
+     */
+    public Game() {
+        this.frameTime = fTime;
         this.gameCondition = GameCondition.MENU;
-        //System.out.print("\n1 costruttore");
         this.gameModel = new GameModel();
-        //System.out.print("\n2 costruttore");
         this.view = new View(this);
         view.setGameEngine(this);
-        //System.out.print("\nfine costruttore");
         this.view.renderMenu();
     }
-    /*public void start() {
-        if (running) {
-            return;
-        }
-        running = true;
-        gameThread = new Thread(this);
-        gameThread.start();
-        System.out.print("isRunning");
-        this.gameCondition = GameCondition.PLAY;
-        System.out.print("isRunning");
-    }*/
 
-    /*public void stop() {
-        if (!running) {
-            return;
-        }
-        running = false;
-        try {
-            gameThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }*/
-
-    private void waitForNextFrame(long currentTime) {
+    /**
+     * Waits for the next frame.
+     * @param currentTime the start time of the current frame
+     */
+    private void waitForNextFrame(final long currentTime) {
         long dt = System.currentTimeMillis() - currentTime;
         if (dt < frameTime) {
             try {
                 Thread.sleep(frameTime - dt);
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
 
+
+    /**
+     * The loop of the game.
+     */
     @Override
     public void start() {
-        //System.out.print("\nsono arrivato qui");
-        this.lastUpdateTime = System.currentTimeMillis();
-        //double interval = 1000000000/4; //60
-        //double nextDraw = System.nanoTime() + interval;
-        //System.out.print("\nci sono quasi");
-        while(runningGame()){
-            //System.out.println("Is running");
-            this.currentTime = System.currentTimeMillis();
-            long elapsedTime = this.currentTime - lastUpdateTime;
+        long lastUpdateTime = System.currentTimeMillis();
+        while (runningGame()) {
+            long currentTime = System.currentTimeMillis();
+            long elapsedTime = currentTime - lastUpdateTime;
             this.update(elapsedTime);
             this.waitForNextFrame(currentTime);
-            this.lastUpdateTime = this.currentTime;
+            lastUpdateTime = currentTime;
             this.render();
         }
-        }
+    }
 
-    public boolean runningGame(){
+    /**
+     * Check if the game is running.
+     * @return {@code true} if the game is running, {@code false} otherwise.
+     */
+    public boolean runningGame() {
         return this.gameCondition != GameCondition.EXIT;
     }
 
-    public void render(){
-        switch (this.gameCondition){
+    /**
+     * Render the current view based on the game condition.
+     */
+    public void render() {
+        switch (this.gameCondition) {
             case MENU:
                 this.view.renderMenu();
                 break;
@@ -114,8 +90,13 @@ public class Game extends Thread {
                 break;
         }
     }
-    public void update(long elapsedTime){
-        switch (this.gameCondition){
+
+    /**
+     * Updates the game state based on the elapsed time.
+     * @param elapsedTime The elapsed time since the last update.
+     */
+    public void update(final long elapsedTime) {
+        switch (this.gameCondition) {
             case PLAY:
                 if (this.getGameModel().getGameCondition() == GameCondition.PLAY) {
                     this.gameModel.update(elapsedTime);
@@ -127,52 +108,71 @@ public class Game extends Thread {
                 break;
         }
     }
+
+    /**
+     * restart the game.
+     */
     public void restart() {
         this.view.restart();
         this.gameCondition = GameCondition.MENU;
         Main.startGame();
     }
 
+    /**
+     * exit the game.
+     */
     public void exit() {
         this.gameCondition = GameCondition.EXIT;
         this.view.dispose();
         System.exit(0);
     }
 
-    public GameModel getGameModel(){
+    /**
+     * return the game model.
+     * @return the game model.
+     */
+    public GameModel getGameModel() {
         return this.gameModel;
     }
 
-
-    /*public void update() {
-        this.gameModel.update();
-    }*/
-
-
-    /*private void repaint() {
-        // Redraw
-        if (mapPanel != null) {
-            mapPanel.repaint();
-        }
-    }*/
-
-    public void setGameCondition(GameCondition gameCondition) {
+    /**
+     * set the game condition.
+     * @param gameCondition the game condition.
+     */
+    public void setGameCondition(final GameCondition gameCondition) {
         this.gameCondition = gameCondition;
     }
 
+    /**
+     * return the game condition.
+     * @return the game condition.
+     */
     public GameCondition getGameCondition() {
         return this.gameCondition;
     }
 
-    public View getView(){
+    /**
+     * return the view.
+     * @return the view.
+     */
+    public View getView() {
         return this.view;
     }
 
-    public RankModel getRankModel(){
+    /**
+     * return the rank model.
+     * @return the rank model.
+     */
+    public RankModel getRankModel() {
         return this.gameModel.getRankModel();
     }
 
-    public RankController getRankController(){
+    /**
+     * return the rank controller.
+     * @return the rank controller.
+     */
+    public RankController getRankController() {
         return this.gameModel.getRankController();
     }
+
 }

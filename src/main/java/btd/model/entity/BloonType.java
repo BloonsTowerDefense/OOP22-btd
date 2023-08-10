@@ -4,7 +4,7 @@ import btd.utils.BloonValues;
 import btd.view.ItemType;
 import btd.view.Resources;
 
-import java.awt.*;
+import java.awt.Image;
 
 /**
  * An enumeration representing different types of Bloons in the tower defense game.
@@ -53,7 +53,7 @@ public enum BloonType {
      * @param money  The amount of money earned by defeating the bloon.
      * @param img    The image associated with the BloonType.
      */
-    BloonType(String name, double speed, int health, int money, Image img) {
+    BloonType(final String name, final double speed, final int health, final int money, final Image img) {
         this.speed = speed;
         this.health = health;
         this.money = money;

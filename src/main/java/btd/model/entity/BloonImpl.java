@@ -3,16 +3,15 @@ package btd.model.entity;
 import btd.model.map.Path;
 import btd.utils.Direction;
 
-import java.awt.Image;
 
 /**
  * Implementation of a Bloon in the game.
  * Bloons are enemies that move along a specified path and can be hit and defeated by towers.
  */
-public class BloonImpl extends EntityImpl implements Bloon{
+public class BloonImpl extends EntityImpl implements Bloon {
 
     private int health;
-    private double speed;
+    private final double speed;
     private int damage;
     private final int money;
     private Path path;
@@ -21,7 +20,6 @@ public class BloonImpl extends EntityImpl implements Bloon{
     private boolean alive;
 
     private BloonType type;
-    private Image image;
     private double remainingDistance;
 
     /**
@@ -30,7 +28,7 @@ public class BloonImpl extends EntityImpl implements Bloon{
      * @param type The type of the bloon.
      * @param path The path that the bloon follows.
      */
-    public BloonImpl(final BloonType type, Path path) {
+    public BloonImpl(final BloonType type, final Path path) {
         super(type.name());
         this.type = type;
         this.health = type.getHealth();
@@ -38,9 +36,6 @@ public class BloonImpl extends EntityImpl implements Bloon{
         this.money = type.getMoney();
         this.currentPathIndex = 0;
         this.alive = true;
-        this.image = this.type.getImage();
-//        this.image = ImageLoader.loadImage(BloonImpl.class, ImagePath.RED_BLOON);
-
         this.path = path;
         if (!path.getDirections().isEmpty()) {
             this.currentDirection = path.getDirections().get(0);
@@ -48,32 +43,47 @@ public class BloonImpl extends EntityImpl implements Bloon{
         this.remainingDistance = this.path.getTileSize();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getHealth() {
         return this.health;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getMoney() {
         return this.money;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasReachedEnd() {
         return this.currentPathIndex == path.getDirections().size();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void hit(int amount) {
+    public void hit(final int amount) {
         this.health -= amount;
         if (health <= 0) {
             this.alive = false;
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void move(final long time) {
-        if(currentPathIndex < this.path.getDirections().size()) {
+        if (currentPathIndex < this.path.getDirections().size()) {
             this.currentDirection = this.path.getDirections().get(this.currentPathIndex);
             double actualSpeed = speed;
             double x = this.getPosition().get().getX();
@@ -104,15 +114,17 @@ public class BloonImpl extends EntityImpl implements Bloon{
                 default:
                     break;
             }
-            System.out.println("\nposizione: " + "X: " + this.getX() + " Y: " + this.getY() + " TileSize: " + this.path.getTileSize());
-            this.setPosition(x,y);
+            this.setPosition(x, y);
         }
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void update(long time) {
-        if(!this.hasReachedEnd()){
+    public void update(final long time) {
+        if (!this.hasReachedEnd()) {
             if (this.currentPathIndex < this.path.getDirections().size()) {
                 /*this.currentDirection = this.path.getDirections().get(this.currentPathIndex);
                 System.out.println("\n" + this.currentDirection);
@@ -130,28 +142,43 @@ public class BloonImpl extends EntityImpl implements Bloon{
         System.out.println("\nBloon position: " + this.getPosition());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isDead() {
         return !alive;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setPath(Path path) {
+    public void setPath(final Path path) {
         this.path = path;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public BloonType getType(){
+    public BloonType getType() {
         return this.type;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public int getCurrentPathIndex(){
+    public int getCurrentPathIndex() {
         return this.currentPathIndex;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setHealth(int health) {
+    public void setHealth(final int health) {
         this.health = health;
     }
 }

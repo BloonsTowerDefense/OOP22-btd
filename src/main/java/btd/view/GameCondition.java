@@ -1,5 +1,8 @@
 package btd.view;
 
+/**
+ * An enumeration representing the different states of the game.
+ */
 public enum GameCondition {
     /**
      * The game is running.
@@ -10,9 +13,11 @@ public enum GameCondition {
      */
     OVER,
     /**
-     * Main menu
+     * Main menu.
      */
     MENU,
-
+    /**
+     * Exit the game.
+     */
     EXIT;
 }

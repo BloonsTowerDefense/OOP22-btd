@@ -14,7 +14,7 @@ public class Position {
      * @param x The x-coordinate of the position.
      * @param y The y-coordinate of the position.
      */
-    public Position(double x, double y) {
+    public Position(final double x, final double y) {
         set(x, y);
     }
 
@@ -41,7 +41,7 @@ public class Position {
      *
      * @param x The new x-coordinate value.
      */
-    public void setX(double x) {
+    public void setX(final double x) {
         this.x = x;
     }
 
@@ -50,7 +50,7 @@ public class Position {
      *
      * @param y The new y-coordinate value.
      */
-    public void setY(double y) {
+    public void setY(final double y) {
         this.y = y;
     }
 
@@ -60,7 +60,7 @@ public class Position {
      * @param x The new x-coordinate value.
      * @param y The new y-coordinate value.
      */
-    public void set(double x, double y) {
+    public void set(final double x, final double y) {
         this.x = x;
         this.y = y;
     }
