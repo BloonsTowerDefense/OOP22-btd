@@ -2,37 +2,54 @@ package btd.model.entity;
 
 import btd.utils.Position;
 
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+/**
+ * The Bullet class represents a bullet fired from a tower.
+ * Bullets travel from a starting position to a target position, leaving a trail behind them.
+ */
 public class Bullet {
 
-    private BufferedImage sprite;
+    private final static int SPRITE_DIMENSION = 20;
 
-    private Position startingPosition;
+    private final static double POSITION_FACTOR = 0.3;
+
+    private final BufferedImage sprite;
+
+    private final Position startingPosition;
 
     private Position targetPosition;
 
     private double elapsedTime = 1;
 
-    public Bullet(Position startingPosition, BufferedImage sprite){
+    /**
+     * Constructs a new Bullet object with the specified starting position and sprite.
+     *
+     * @param startingPosition The starting position of the bullet.
+     * @param sprite           The image sprite of the bullet.
+     */
+    public Bullet(final Position startingPosition, final BufferedImage sprite) {
         this.startingPosition = startingPosition;
         this.sprite = sprite;
     }
 
-    public Position getStartingPosition() {
-        return startingPosition;
-    }
-
-    public void setTargetPosition(Position position){
+    /**
+     * Sets the target position for the bullet.
+     *
+     * @param position The target position.
+     */
+    public void setTargetPosition(final Position position) {
         this.targetPosition = position;
     }
 
-    public void setStartingPosition(Position position){
-        this.startingPosition = position;
-    }
-
-    public void updatePosition(double deltaTime, Graphics g) {
+    /**
+     * Updates the position of the bullet and draws it along with its trail.
+     *
+     * @param deltaTime The time interval for the update.
+     * @param g         The Graphics object for drawing.
+     */
+    public void updatePosition(final double deltaTime, final Graphics g) {
         double startX = startingPosition.getX();
         double startY = startingPosition.getY();
         double endX = targetPosition.getX();
@@ -47,17 +64,15 @@ public class Bullet {
 
         // Draw the bullet trail behind the current position
         for (int i = 0; i < trailCount; i++) {
-            double trailX = currentX - i * (endX - startX) * 0.3;
-            double trailY = currentY - i * (endY - startY) * 0.3;
-            g.drawImage(this.sprite, (int) trailX, (int) trailY, 20, 20, null);
+            double trailX = currentX - i * (endX - startX) * POSITION_FACTOR;
+            double trailY = currentY - i * (endY - startY) * POSITION_FACTOR;
+            g.drawImage(this.sprite, (int) trailX, (int) trailY, SPRITE_DIMENSION, SPRITE_DIMENSION, null);
         }
 
         // Draw the bullet at the current position
-        g.drawImage(this.sprite, (int) currentX, (int) currentY, 20, 20, null);
+        g.drawImage(this.sprite, (int) currentX, (int) currentY, SPRITE_DIMENSION, SPRITE_DIMENSION, null);
 
         this.elapsedTime += deltaTime;
     }
-
-
-
 }
+

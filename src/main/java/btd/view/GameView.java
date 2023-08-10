@@ -88,11 +88,11 @@ public class GameView extends JPanel {
    * @param cardLayout         The CardLayout used for switching between menus.
    * @param shopUpgradePanel   The panel containing the tower shop and upgrade menus.
    */
-  private void setupMapPanel(CardLayout cardLayout, JPanel shopUpgradePanel) {
+  private void setupMapPanel(final CardLayout cardLayout, final JPanel shopUpgradePanel) {
     mapPanel.addMouseListener(
         new MouseAdapter() {
           @Override
-          public void mouseClicked(MouseEvent e) {
+          public void mouseClicked(final MouseEvent e) {
 
             int spriteX = e.getX();
             int spriteY = e.getY();
@@ -151,7 +151,7 @@ public class GameView extends JPanel {
    * @param spriteY The y-coordinate of the tower's position.
    * @return The created tower, or null if the tower cannot be created.
    */
-  private Tower createTowerByType(int spriteX, int spriteY) {
+  private Tower createTowerByType(final int spriteX, final int spriteY) {
     Tower tower =
         switch (towerToPlace) {
           case "blackAdam" -> new ShootingTower(
@@ -167,11 +167,11 @@ public class GameView extends JPanel {
           default -> null;
         };
 
-    return this.statsMenu.getMoney() >= tower.getPrice() ? tower : null;
+    return tower != null && this.statsMenu.getMoney() >= tower.getPrice() ? tower : null;
   }
 
   @Override
-  public void paintComponent(Graphics g) {
+  public void paintComponent(final Graphics g) {
     super.paintComponent(g);
     mapPanel.paintComponent(g);
     System.out.println("\n paint gameView");
@@ -191,7 +191,7 @@ public class GameView extends JPanel {
    *
    * @param life The new value for the player's life.
    */
-  public void setPlayerLife(String life) {
+  public void setPlayerLife(final String life) {
     this.statsMenu.setLifeLabel(life);
   }
 
@@ -200,7 +200,7 @@ public class GameView extends JPanel {
    *
    * @param money The new value for the player's money.
    */
-  public void setPlayerMoney(String money) {
+  public void setPlayerMoney(final String money) {
     this.statsMenu.setMoneyLabel(money);
   }
 }

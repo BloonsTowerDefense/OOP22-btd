@@ -9,6 +9,13 @@ import java.util.Optional;
  * towers to enhance their shooting range or their power.
  * */
 public class HelpingTower implements Tower {
+
+  private final static int FUNCTION_FACTOR = 5;
+
+  private final static int RANGE_FACTOR = 10;
+
+  private final static int PRICE_FACTOR = 50;
+
   private final String towerName;
 
   private final String function;
@@ -31,7 +38,7 @@ public class HelpingTower implements Tower {
    * @param price The price of the tower.
    * @param position The position of the tower.
    **/
-  public HelpingTower(String towerName, final String function, Integer price, Position position) {
+  public HelpingTower(final String towerName, final String function, final Integer price, final Position position) {
     this.towerSpriteManager = new TowerSpriteManagerImpl(towerName);
     this.towerName = towerName;
     this.price = price;
@@ -49,8 +56,8 @@ public class HelpingTower implements Tower {
   @Override
   public void update() {
     this.towerSpriteManager.upgrade(this.towerName);
-    this.hittingRange = new Position(hittingRange.getX() + 10, hittingRange.getY() + 10);
-    this.functionFactor += 5;
+    this.hittingRange = new Position(hittingRange.getX() + RANGE_FACTOR, hittingRange.getY() + RANGE_FACTOR);
+    this.functionFactor += FUNCTION_FACTOR;
   }
 
   @Override
@@ -60,7 +67,7 @@ public class HelpingTower implements Tower {
 
   @Override
   public Integer getUpgradePrice() {
-    return this.price + 50;
+    return this.price + PRICE_FACTOR;
   }
 
   @Override
@@ -100,7 +107,7 @@ public class HelpingTower implements Tower {
   }
 
   @Override
-  public void setPosition(double x, double y) {
+  public void setPosition(final double x, final double y) {
     this.position = new Position(x, y);
   }
 

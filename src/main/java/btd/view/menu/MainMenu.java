@@ -72,7 +72,7 @@ public class MainMenu extends JPanel {
    * @param backgroundColor the background color of the button
    * @return the created JButton
    */
-  private JButton createButton(String imagePath, Color backgroundColor) {
+  private JButton createButton(final String imagePath, final Color backgroundColor) {
     JButton button = new JButton();
     try {
       Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePath)));
@@ -91,7 +91,7 @@ public class MainMenu extends JPanel {
    * @param font the font to use for the label
    * @return the created JLabel
    */
-  private JLabel createLabel(Font font) {
+  private JLabel createLabel(final Font font) {
     JLabel label = new JLabel("BLOONS TD");
     label.setFont(font);
     label.setForeground(Color.WHITE);
@@ -100,7 +100,7 @@ public class MainMenu extends JPanel {
   }
 
   @Override
-  public void paintComponent(Graphics g) {
+  public void paintComponent(final Graphics g) {
     super.paintComponent(g);
     g.drawImage(this.menuBackground, 0, 0, WIDTH, HEIGHT, null);
   }
@@ -110,7 +110,7 @@ public class MainMenu extends JPanel {
    *
    * @param button the button to configure
    */
-  private void buttonProperties(JButton button) {
+  private void buttonProperties(final JButton button) {
     button.setPreferredSize(new Dimension(250, 250));
     button.setOpaque(false);
     button.setContentAreaFilled(false);

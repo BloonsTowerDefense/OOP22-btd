@@ -56,7 +56,7 @@ public class StatsMenu extends JPanel {
    *
    * @param life the value to be displayed as remaining life
    */
-  public void setLifeLabel(String life) {
+  public void setLifeLabel(final String life) {
     this.lifeLabel.setText(life);
   }
 
@@ -65,7 +65,7 @@ public class StatsMenu extends JPanel {
    *
    * @param money the value to be displayed as available money
    */
-  public void setMoneyLabel(String money) {
+  public void setMoneyLabel(final String money) {
     this.moneyLabel.setText(money);
   }
 
