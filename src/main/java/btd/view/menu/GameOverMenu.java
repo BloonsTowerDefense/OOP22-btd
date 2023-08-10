@@ -19,10 +19,8 @@ public class GameOverMenu extends JPanel {
 
     private final JButton saveScore = new JButton("Save Score");
 
-    private Integer score = 0;
-
     public GameOverMenu(){
-        GridLayout mainLayout = new GridLayout(5,1);
+        GridLayout mainLayout = new GridLayout(4,1);
         mainLayout.setVgap(40);
         setLayout(mainLayout);
 
@@ -37,16 +35,10 @@ public class GameOverMenu extends JPanel {
         gameOver.setForeground(Color.RED);
         gameOver.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JLabel yourScoreLabel = new JLabel("Your Score: "+score);
-        yourScoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        yourScoreLabel.setFont(new Font("Arial",Font.BOLD,60));
-        yourScoreLabel.setForeground(Color.WHITE);
-
-
-        JLabel insertName = new JLabel("Insert your name");
+        JLabel insertName = new JLabel("Insert your name to save score");
         insertName.setHorizontalAlignment(SwingConstants.CENTER);
-        insertName.setFont(new Font("Arial",Font.ITALIC,40));
-        insertName.setForeground(Color.WHITE);
+        insertName.setForeground(Color.GREEN);
+        insertName.setFont(new Font("Arial",Font.ITALIC,60));
 
         JPanel playerNamePanel = new JPanel();
         playerName = new JTextField(20);
@@ -59,7 +51,6 @@ public class GameOverMenu extends JPanel {
         buttonPanel.setPreferredSize(new Dimension(100,40));
 
         add(gameOver);
-        add(yourScoreLabel);
         add(insertName);
         add(playerNamePanel);
         add(buttonPanel);
@@ -72,10 +63,6 @@ public class GameOverMenu extends JPanel {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         g.drawImage(this.menuBackground,0,0,WIDTH,HEIGHT,null);
-    }
-
-    public void setScore(Integer newScore){
-        this.score = newScore;
     }
 
     public String getPlayerName(){
