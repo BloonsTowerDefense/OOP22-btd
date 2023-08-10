@@ -31,6 +31,7 @@ public class View extends JFrame{
         this.gameOverMenu.setScore(this.gameEngine.getGameModel().getPlayer().getScore());
         this.gameOverMenu.getSaveScore().addActionListener(e -> {
             String userName = this.gameOverMenu.getPlayerName();
+            System.out.println(userName);
             if(!userName.isEmpty()){
                 this.gameEngine.getGameModel().getRankController().addScore(this.gameEngine.getGameModel().getMapManager().getMapName(),this.gameOverMenu.getPlayerName(),this.gameEngine.getGameModel().getPlayer().getScore());
             }
