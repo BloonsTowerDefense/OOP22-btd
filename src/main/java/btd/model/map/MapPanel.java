@@ -59,8 +59,7 @@ public class MapPanel extends JPanel {
         this.mapManager.draw(graphics2d);
         drawBloon(graphics);
         this.game.getGameModel().getTowers().forEach(tower -> graphics.drawImage(tower.getTowerSprite(), (int) tower.getPosition().get().getX(), (int) tower.getPosition().get().getY(), null));
-        this.game.getGameModel().towerShoot();
-        this.game.getGameModel().towerHelp();
+        update();
         drawBullet(graphics);
     }
 
@@ -107,13 +106,11 @@ public class MapPanel extends JPanel {
         });
     }
 
-    public void update(Graphics graphics) {
-        System.out.println("SONO UPDATE");
-        /*for (Bloon bloon : bloons) {
-            bloon.update(System.currentTimeMillis() - lastUpdateTime);
-        }
-        lastUpdateTime = System.currentTimeMillis();*/
-
+    public void update() {
+        this.game.getGameModel().towerShoot();
+        this.game.getGameModel().towerHelp();
+        this.game.getView().getGameView().setPlayerLife(String.valueOf(this.game.getGameModel().getPlayer().getHealth()));
+        this.game.getView().getGameView().setPlayerMoney(String.valueOf(this.game.getGameModel().getMoney()));
     }
 
     /**

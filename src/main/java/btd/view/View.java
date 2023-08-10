@@ -3,8 +3,10 @@ package btd.view;
 import btd.model.Game;
 import btd.model.GameModel;
 import btd.model.map.MapPanel;
+import btd.view.menu.GameOverMenu;
 import btd.view.menu.MainMenu;
 import btd.view.menu.StartingMenu;
+import btd.view.menu.StatsMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +15,9 @@ public class View extends JFrame{
 
     private final JLayeredPane mainPanel;
     private final StartingMenu menuPanel;
+
+    private final GameOverMenu gameOverMenu;
+
     private final GameView gameView;
     private Game gameEngine;
     //private final JFrame frame;
@@ -25,6 +30,8 @@ public class View extends JFrame{
         this.mainPanel = new JLayeredPane();
         //System.out.print("\n 1 view");
         this.menuPanel = new StartingMenu(this.gameEngine);
+
+        this.gameOverMenu = new GameOverMenu();
         //System.out.print("\n 2 view");
         this.gameView = new GameView(this.gameEngine);
         //System.out.print("\n inizo view");
@@ -40,7 +47,6 @@ public class View extends JFrame{
         this.setResizable(false);
         this.setSize(new Dimension(1200,720));
         this.setVisible(true);
-        //System.out.print("fine view");
     }
 
     public void renderMenu() {

@@ -6,7 +6,9 @@ import btd.model.entity.ShootingTower;
 import btd.model.entity.Tower;
 import btd.model.map.MapPanel;
 import btd.utils.Position;
+import btd.view.menu.GameOverMenu;
 import btd.view.menu.ShopMenu;
+import btd.view.menu.StatsMenu;
 import btd.view.menu.TowerUpgradeMenu;
 
 import javax.swing.*;
@@ -18,6 +20,9 @@ public class GameView extends JPanel {
 
     private final ShopMenu towerShopMenu;
     private final MapPanel mapPanel;
+
+    private final StatsMenu statsMenu;
+
     private final Game gameEngine;
 
     private String towerToPlace = "";
@@ -27,12 +32,15 @@ public class GameView extends JPanel {
         setLayout(new BorderLayout());
         towerShopMenu = new ShopMenu();
         mapPanel = new MapPanel(this.gameEngine);
-    
+        statsMenu = new StatsMenu();
         //gameEngine.getRankController().addScore(gameEngine.getGameModel().getMapManager().getMapName(), "Nome", 1028);
+
+        JPanel eastPanel = new JPanel();
+        eastPanel.setLayout(new BoxLayout(eastPanel,BoxLayout.PAGE_AXIS));
 
         CardLayout cardLayout = new CardLayout();
         JPanel shopUpgradePanel = new JPanel(cardLayout);
-        shopUpgradePanel.setPreferredSize(new Dimension(200, 720));
+        shopUpgradePanel.setPreferredSize(new Dimension(200, 620));
         shopUpgradePanel.add(towerShopMenu, "SHOP");
 
         cardLayout.show(shopUpgradePanel, "SHOP");
@@ -40,8 +48,11 @@ public class GameView extends JPanel {
         setupTowerButtons();
         setupMapPanel(cardLayout, shopUpgradePanel);
 
+        eastPanel.add(statsMenu);
+        eastPanel.add(shopUpgradePanel);
+
         add(mapPanel, BorderLayout.CENTER);
-        add(shopUpgradePanel, BorderLayout.EAST);
+        add(eastPanel, BorderLayout.EAST);
     }
 
     private void setupTowerButtons() {
@@ -105,5 +116,13 @@ public class GameView extends JPanel {
 
     public MapPanel getMapPanel() {
         return mapPanel;
+    }
+
+    public void setPlayerLife(String life){
+        this.statsMenu.setLifeLabel(life);
+    }
+
+    public void setPlayerMoney(String money){
+        this.statsMenu.setMoneyLabel(money);
     }
 }
