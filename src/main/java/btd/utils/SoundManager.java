@@ -13,13 +13,27 @@ import java.util.Map;
  */
 public final class SoundManager {
 
+    /**
+     * An enumeration of the different sound types in the game.
+     */
     public enum SoundType {
 
+        /**
+         * The sound type for the button click sound.
+         */
         BUTTON,
+        /**
+         * The sound type for the bloon death sound.
+         */
         BLOON_DEATH,
+        /**
+         * The sound type for the tower shoot sound.
+         */
         SHOOT,
-        BACKGROUND_MUSIC
-        // Add more sound types here...
+        /**
+         * The sound type for the background music.
+         */
+        BACKGROUND_MUSIC;
     }
 
     private final Map<SoundType, Clip> sounds = new HashMap<>();

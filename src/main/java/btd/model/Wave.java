@@ -1,8 +1,6 @@
 package btd.model;
 
 import btd.model.entity.Bloon;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,20 +14,13 @@ public interface Wave {
      *
      * @return A List containing the bloons in the wave.
      */
-    public List<Bloon> getBloons();
+    List<Bloon> getBloons();
 
     /**
      * Checks if the wave is over (all bloons have been defeated or reached their destination).
      *
      * @return {@code true} if the wave is over, {@code false} otherwise.
      */
-    public boolean isOver();
-
-    /**
-     * Removes the specified bloon from the wave.
-     *
-     * @param bloon The bloon to be removed from the wave.
-     */
-    public void removeBloon(Bloon bloon);
+    boolean isOver();
 }
 
