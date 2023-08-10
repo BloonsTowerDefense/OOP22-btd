@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 /**
- * Implementation of the tower sprite manager. This class handles the set-up of the sprites
+ * The interface of the tower sprite manager. This class handles the set-up of the sprites
  * for a tower and the graphics updates.
  * */
 public interface TowerSpriteManager {
