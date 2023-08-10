@@ -9,6 +9,14 @@ import java.util.Optional;
  * kill the bloons.
  * */
 public class ShootingTower implements Tower {
+
+  private final static int UPGRADE_FACTOR = 2;
+
+  private final static int RANGE_FACTOR = 5;
+
+  private final static int PRICE_FACTOR = 50;
+
+
   private final String towerName;
 
   private Integer power;
@@ -29,20 +37,20 @@ public class ShootingTower implements Tower {
    * @param price The price of the tower.
    * @param position The position of the tower.
    **/
-  public ShootingTower(String towerName, Integer power, Integer price, Position position) {
+  public ShootingTower(final String towerName, final Integer power, final Integer price, final Position position) {
     this.towerSpriteManager = new TowerSpriteManagerImpl(towerName);
     this.towerName = towerName;
     this.power = power;
     this.price = price;
     this.position = position;
-    this.hittingRange = new Position(5, 5);
+    this.hittingRange = new Position(RANGE_FACTOR, RANGE_FACTOR);
   }
 
   /**
    * @{inheritdoc} .
    **/
   @Override
-  public boolean upgradable(Integer playerMoney) {
+  public boolean upgradable(final Integer playerMoney) {
     return playerMoney - this.price >= 0;
   }
 
@@ -52,8 +60,8 @@ public class ShootingTower implements Tower {
   @Override
   public void update() {
     this.towerSpriteManager.upgrade(this.towerName);
-    this.power += 2;
-    this.hittingRange = new Position(hittingRange.getX() + 5, hittingRange.getY() + 5);
+    this.power += UPGRADE_FACTOR;
+    this.hittingRange = new Position(hittingRange.getX() + RANGE_FACTOR, hittingRange.getY() + RANGE_FACTOR);
   }
 
   /**
@@ -69,7 +77,7 @@ public class ShootingTower implements Tower {
    **/
   @Override
   public Integer getUpgradePrice() {
-    return this.price + 50;
+    return this.price + PRICE_FACTOR;
   }
 
   /**
@@ -91,15 +99,20 @@ public class ShootingTower implements Tower {
   }
 
   @Override
-  public void setPosition(double x, double y) {
+  public void setPosition(final double x, final double y) {
     this.position = new Position(x, y);
   }
 
-  public void setHittingRange(double x, double y) {
+  /**
+   * Method used to set the hitting range of the tower
+   * @param x the x-coordinate of the range
+   * @param y the y-coordinate of the range
+   */
+  public void setHittingRange(final double x, final double y) {
     this.hittingRange = new Position(x, y);
   }
 
-  public void setPower(Integer power) {
+  public void setPower(final Integer power) {
     this.power = power;
   }
 

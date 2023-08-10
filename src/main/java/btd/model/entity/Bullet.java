@@ -2,37 +2,51 @@ package btd.model.entity;
 
 import btd.utils.Position;
 
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+/**
+ * The Bullet class represents a bullet fired from a tower.
+ * Bullets travel from a starting position to a target position, leaving a trail behind them.
+ */
 public class Bullet {
 
-    private BufferedImage sprite;
+    private final BufferedImage sprite;
 
-    private Position startingPosition;
+    private final Position startingPosition;
 
     private Position targetPosition;
 
     private double elapsedTime = 1;
 
-    public Bullet(Position startingPosition, BufferedImage sprite){
+    /**
+     * Constructs a new Bullet object with the specified starting position and sprite.
+     *
+     * @param startingPosition The starting position of the bullet.
+     * @param sprite           The image sprite of the bullet.
+     */
+    public Bullet(Position startingPosition, BufferedImage sprite) {
         this.startingPosition = startingPosition;
         this.sprite = sprite;
     }
+    
 
-    public Position getStartingPosition() {
-        return startingPosition;
-    }
-
-    public void setTargetPosition(Position position){
+    /**
+     * Sets the target position for the bullet.
+     *
+     * @param position The target position.
+     */
+    public void setTargetPosition(Position position) {
         this.targetPosition = position;
     }
 
-    public void setStartingPosition(Position position){
-        this.startingPosition = position;
-    }
-
-    public void updatePosition(double deltaTime, Graphics g) {
+    /**
+     * Updates the position of the bullet and draws it along with its trail.
+     *
+     * @param deltaTime The time interval for the update.
+     * @param g         The Graphics object for drawing.
+     */
+    public void updatePosition(final double deltaTime, final Graphics g) {
         double startX = startingPosition.getX();
         double startY = startingPosition.getY();
         double endX = targetPosition.getX();
@@ -57,7 +71,5 @@ public class Bullet {
 
         this.elapsedTime += deltaTime;
     }
-
-
-
 }
+
