@@ -49,7 +49,7 @@ public class EntityImpl implements Entity {
      * @param y The y-coordinate of the new position.
      */
     @Override
-    public void setPosition(double x, double y) {
+    public void setPosition(final double x, final double y) {
         this.position = Optional.of(new Position(x, y));
     }
 

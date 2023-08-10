@@ -1,16 +1,19 @@
 package btd.model;
 
 import btd.controller.score.RankController;
-import btd.model.entity.*;
+import btd.model.entity.Bloon;
+import btd.model.entity.BloonImpl;
+import btd.model.entity.Bullet;
+import btd.model.entity.Tower;
+import btd.model.entity.HelpingTower;
+import btd.model.entity.ShootingTower;
 import btd.model.map.MapManager;
 import btd.model.map.MapManagerImpl;
 import btd.model.map.Path;
 import btd.model.score.RankModel;
 import btd.view.GameCondition;
-import btd.utils.SoundManager;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,32 +21,37 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Iterator;
 
-
+/**
+ * This class rapresents the game model, it contains all the information about the game.
+ */
 public class GameModel {
+    private static final long WAVE_WAITING_TIME = 2000;
+    private static final long BLOON_SPAWN_WAITING_TIME = 1500;
+    private static final int X_TOLERANCE = 40;
+    private static final int Y_TOLERANCE = 70;
     private LevelImpl level;
     private WaveImpl wave;
     private Path path;
-    private List<Tower> towers;
-    private Player player;
+    private final List<Tower> towers;
+    private final Player player;
     private boolean waveInProgress;
     private boolean bloonSpawnInProgress;
-    private List<Bloon> aliveBloons;
+    private final List<Bloon> aliveBloons;
 
     private List<Bullet> bullets;
     private int bloonsSpawned;
     private long lastSpawnTime;
     private long lastWaveEndTime;
-    private final long bloonSpawnInterval = 1500; // 1.5 secondi
-    private final long waveInterval = 2000; // 10 secondi
     private String difficulty;
     private MapManager mapManager;
     private int waveSize;
     private int deadBloons;
+    private final RankModel rankModel;
+    private final RankController rankController;
 
-    private RankModel rankModel;
-    private RankController rankController;
-    private GameCondition gameCondition;
-
+    /**
+     * Constructor of GameModel.
+     */
     public GameModel() {
         this.towers = new ArrayList<>();
         this.bullets = new ArrayList<>();
@@ -55,59 +63,78 @@ public class GameModel {
         this.lastWaveEndTime = 0;
         this.rankModel = RankModel.getRankModelIstance();
         this.rankController = new RankController(rankModel);
-        //this.mapManager = new MapManagerImpl("map01");
-        //initGame("norm", "map01"); //In questo modo mapManager non è null
     }
 
+    /**
+     * Start a new wave.
+     */
     public void startWave() {
-        if (!waveInProgress && System.currentTimeMillis() - lastWaveEndTime >= waveInterval) {
+        if (!waveInProgress && System.currentTimeMillis() - lastWaveEndTime >= WAVE_WAITING_TIME) {
             waveInProgress = true;
             bloonSpawnInProgress = true;
             aliveBloons.clear();
             this.wave = (WaveImpl) level.getWave();
             this.waveSize = this.wave.getBloons().size();
-            lastSpawnTime = System.currentTimeMillis(); // Memorizziamo il tempo di inizio dello spawn
+            lastSpawnTime = System.currentTimeMillis(); // Inizializzo il tempo dell'ultimo spawn
             this.bloonsSpawned = 0;
             this.deadBloons = 0;
         }
     }
-    public void setDifficulty(String difficulty){
+
+    /**
+     * Set difficulty of the game.
+     * @param difficulty  difficulty of the game.
+     */
+    public void setDifficulty(final String difficulty) {
         this.difficulty = difficulty;
     }
-    public void setPath(Path path) {
+
+    /**
+     * Set the path of the bloons.
+     * @param path  path of the bloons.
+     */
+    public void setPath(final Path path) {
         this.path = path;
     }
-    public String getDifficulty(){
+
+    /**
+     * return the difficulty of the game.
+     * @return @difficulty
+     */
+    public String getDifficulty() {
         return this.difficulty;
     }
-    public void setLevel(String difficulty, Path path){
+
+    /**
+     * Create a new level.
+     * @param difficulty  difficulty of the game.
+     * @param path path of the bloons.
+     */
+    public void setLevel(final String difficulty, final Path path) {
         this.level = new LevelImpl(difficulty, path);
     }
 
-    public void update(long time) {
+    /**
+     * Update the gameModel.
+     * @param time time since last update.
+     */
+    public void update(final long time) {
         // Controllo dello spawn dei bloon
         if (waveInProgress && bloonSpawnInProgress) {
             long currentTime = System.currentTimeMillis();
+            long bloonSpawnInterval = BLOON_SPAWN_WAITING_TIME;
             if (currentTime - lastSpawnTime >= bloonSpawnInterval) {
                 spawnBloons();
                 lastSpawnTime = currentTime;
             }
         }
-        System.out.println("\nSize waveImpl: " + this.wave.getBloons().size() + " Size bloonsSpawned: " + this.bloonsSpawned + " Size aliveBloons: " + this.aliveBloons.size());
-        // Aggiornamento delle torri
-        for (Tower tower : towers) {
-            // tower.update(time);
-        }
 
-        // Aggiornamento delle wave e dei bloons
         if (waveInProgress  /*&& !this.wave.isOver()*/) {
             for (Bloon bloon : aliveBloons) {
                 ((BloonImpl) bloon).update(time);
             }
         }
 
-        // Controllo dei bloon morti e arrivati a fine percorso
-        //   aliveBloons.removeIf(Bloon::isDead);
         Iterator<Bloon> iterator = aliveBloons.iterator();
         while (iterator.hasNext()) {
             Bloon bloon = iterator.next();
@@ -115,7 +142,6 @@ public class GameModel {
                 System.out.println("\nBloon reached end of path: " + bloon.getPosition());
                 int healthDecrease = 1;
                 player.loseHealth(healthDecrease);
-                //wave.removeBloon(bloon);
                 iterator.remove(); // Removing the bloon from the aliveBloons list
                 System.out.println("Bloon has reached the end. Bloons in map: " + aliveBloons.size()); // Print statement
                 this.deadBloons++;
@@ -123,14 +149,12 @@ public class GameModel {
                 int moneyIncrease = 1;
                 player.gainCoins(bloon.getType().getMoney());
                 player.gainScore(1);
-                //wave.removeBloon(bloon);
                 iterator.remove(); // Removing the bloon from the aliveBloons list
                 System.out.println("Bloon is dead. Bloons in map: " + aliveBloons.size()); // Print
                 this.deadBloons++;
             }
         }
 
-        System.out.println("\n waveInProgress: " + waveInProgress + " bloonSpawnInProgress: " + bloonSpawnInProgress + " aliveBloons: " + aliveBloons.size() + " waveNull: " + (this.wave == null));
         // Controllo fine wave
         if (waveInProgress && this.wave != null && deadBloons == waveSize) {
             bloonSpawnInProgress = false;
@@ -138,54 +162,42 @@ public class GameModel {
             lastWaveEndTime = System.currentTimeMillis(); // Memorizziamo il tempo di fine wave
             level.waveFinished(); // wave finsihed
         }
-
         startWave();
-
     }
-
-
-    /*private void spawnBloons() {
-        if (wave != null && !wave.isOver()) {
-            List<Bloon> newBloons = wave.getBloons();
-            aliveBloons.addAll(newBloons);
-        } else {
-            bloonSpawnInProgress = false;
-        }
-    }*/
     private void spawnBloons() {
-        if (this.wave != null /*&& !wave.isOver()*/) {
+        if (this.wave != null) {
             List<Bloon> newBloons = wave.getBloons();
-            if(bloonsSpawned < newBloons.size()) {
+            if (bloonsSpawned < newBloons.size()) {
                 Bloon bloon = newBloons.get(bloonsSpawned);
                 aliveBloons.add(bloon);
                 bloonsSpawned++;
-                System.out.println("\nSpawned Bloon position: " + bloon.getPosition());
             }
         } else {
             bloonSpawnInProgress = false;
         }
     }
 
-
-    public List<Bloon> getAliveBloons(){
+    /**
+     * Return the list of alive bloons.
+     * @return alive bloons.
+     */
+    public List<Bloon> getAliveBloons() {
         return this.aliveBloons;
     }
 
-    public void addTower(Tower tower) {
+    /**
+     * Add a tower to the list of towers.
+     * @param tower tower to add.
+     */
+    public void addTower(final Tower tower) {
         this.towers.add(tower);
-        this.player.setCoins(this.player.getCoins()-tower.getPrice());
+        this.player.setCoins(this.player.getCoins() - tower.getPrice());
     }
 
-
-    public List<Entity> getEntities() {
-        List<Entity> entities = new ArrayList<>();
-        entities.addAll(towers);
-        if (waveInProgress && !wave.isOver()) {
-            entities.addAll(aliveBloons);
-        }
-        return entities;
-    }
-
+    /**
+     *  Return the game condition.
+     * @return game condition.
+     */
     public GameCondition getGameCondition() {
         if (player.getHealth() <= 0) {
             return GameCondition.OVER;
@@ -194,148 +206,223 @@ public class GameModel {
         }
     }
 
+    /**
+     * Return the life of the player.
+     * @return life of the player.
+     */
     public int getLife() {
         return player.getHealth();
     }
 
+    /**
+     * Return the money of the player.
+     * @return money of the player.
+     */
     public int getMoney() {
         return player.getCoins();
     }
 
+    /**
+     * Return the current level.
+     * @return level.
+     */
     public LevelImpl getLevel() {
         return level;
     }
 
+    /**
+     * Return the current wave.
+     * @return wave.
+     */
     public WaveImpl getWave() {
         return this.wave;
     }
 
+    /**
+     * Return the path of the bloons.
+     * @return path of the bloons.
+     */
     public Path getPath() {
         return this.path;
     }
 
+    /**
+     * Return the list of towers.
+     * @return list of towers.
+     */
     public List<Tower> getTowers() {
         return this.towers;
     }
 
-    public List<Bullet> getBullets(){return this.bullets;}
+    /**
+     * Return the list of bullets.
+     * @return list of bullets.
+     */
+    public List<Bullet> getBullets() {
+        return this.bullets;
+    }
 
+    /**
+     * Return the player.
+     * @return player.
+     */
     public Player getPlayer() {
         return this.player;
     }
 
-    public void initGame(String difficulty, String mapName){
-        System.out.println("Sto passando " + mapName);
+    /**
+     * Initialize the game.
+     * @param difficulty difficulty of the game.
+     * @param mapName  name of the map.
+     */
+    public void initGame(final String difficulty, final String mapName) {
         this.mapManager = new MapManagerImpl(mapName);
-        //System.out.println("Il mapName di questo mapManager è: " + this.mapManager.getMapName());
-        if(this.mapManager != null){
-            System.out.println("\n\n\nMAP MANAGER NON è NULL\n\n");
-        }
         this.setPath(this.mapManager.getBloonPath());
-        System.out.println("LEGGO IL PATH DENTRO INITGAME:\n\n" + this.path);
-        if(this.path == null){
-            System.out.println("PATH VUOTO");
-        }
-        //this.setLevel(difficulty,this.path); MODIFICATO
         this.setLevel(difficulty, this.path);
-        this.gameCondition = GameCondition.PLAY;
+        GameCondition gameCondition = GameCondition.PLAY;
         this.startWave();
     }
 
-    public Tower isTower(int x, int y) {
+    /**
+     * Check if the position is occupied by a tower.
+     * @param x x coordinate.
+     * @param y y coordinate.
+     * @return  tower if the position is occupied, null otherwise.
+     */
+    public Tower isTower(final int x, final int y) {
         for (Tower tower : towers) {
             int towerX = (int) tower.getPosition().get().getX();
             int towerY = (int) tower.getPosition().get().getY();
 
             // Check if the clicked position is within the tolerance range of the tower's position
-            if (Math.abs(towerX - x) <= 16 && Math.abs(towerY - y) <= 50) {
+            if (Math.abs(towerX - x) <= X_TOLERANCE && Math.abs(towerY - y) <= Y_TOLERANCE) {
                 return tower;
             }
         }
         return null;
     }
 
-    public void towerShoot(){
+    /**
+     * Tower shoot.
+     */
+    public void towerShoot() {
         bullets.clear();
         for (Tower tower : towers) {
             if (tower instanceof ShootingTower shootingTower) {
                 List<Bloon> bloonsInRange = findBloonsInRange(shootingTower);
-
                 // Hit Bloon with the greatest currentPathIndex
                 if (!bloonsInRange.isEmpty()) {
                     Bloon targetBloon = findTargetBloon(bloonsInRange);
-                    System.out.println("TOWER POSITION: "+tower.getPosition().get().getX());
-                    System.out.println("BLOON POSITION :"+targetBloon.getPosition().get().getX()+" BLOON HEALTH :"+targetBloon.getHealth());
                     BufferedImage bulletImage = null;
                     try {
                         bulletImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/towers/bullet.png")));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    Bullet bullet = new Bullet(tower.getPosition().get(),bulletImage);
+                    Bullet bullet = new Bullet(tower.getPosition().get(), bulletImage);
                     bullet.setTargetPosition(targetBloon.getPosition().get());
                     bullets.add(bullet);
                     targetBloon.hit(((ShootingTower) tower).getPower());
-                    System.out.println("BLOON POSITION :"+targetBloon.getPosition().get().getX()+"BLOON HEALTH AFTER HIT :"+targetBloon.getHealth());
                 }
             }
         }
     }
 
-    public void towerHelp(){
-        for (Tower tower1 : towers){
-            if (tower1 instanceof HelpingTower helpingTower1){
+    /**
+     * Tower helping.
+     */
+    public void towerHelp() {
+        for (Tower tower1 : towers) {
+            if (tower1 instanceof HelpingTower helpingTower1) {
                 List<ShootingTower> towersInRange = findTowersInRange((HelpingTower) tower1);
-                for (ShootingTower shootingTower : towersInRange){
-                    if(helpingTower1.getFunction().equals("Range")){
-                        shootingTower.setHittingRange(helpingTower1.getFunctionFactor()+10,helpingTower1.getFunctionFactor()+10);
-                    }else{
-                        shootingTower.setPower(helpingTower1.getFunctionFactor()+10);
+                for (ShootingTower shootingTower : towersInRange) {
+                    if (helpingTower1.getFunction().equals("Range")) {
+                        shootingTower.setHittingRange(
+                                helpingTower1.getFunctionFactor() + 10,
+                                helpingTower1.getFunctionFactor() + 10
+                        );
+                    } else {
+                        shootingTower.setPower(helpingTower1.getFunctionFactor() + 10);
                     }
                 }
             }
         }
     }
 
+    /**
+     * Return the rank model.
+     * @return rank model.
+     */
     public RankModel getRankModel() {
         return this.rankModel;
     }
 
+    /**
+     * Return the rank controller.
+     * @return rank controller.
+     */
      public RankController getRankController() {
         return this.rankController;
     }
 
-    private List<ShootingTower> findTowersInRange(HelpingTower helpingTower){
+    /**
+     * Find tower in range of helping tower.
+     * @param helpingTower helping tower.
+     * @return list of towers in range.
+     */
+    private List<ShootingTower> findTowersInRange(final HelpingTower helpingTower) {
         List<ShootingTower> towersInRange = new ArrayList<>();
-        for (Tower tower : towers){
-            if(tower instanceof ShootingTower && isTowerInRange(helpingTower,tower)){
+        for (Tower tower : towers) {
+            if (tower instanceof ShootingTower && isTowerInRange(helpingTower, tower)) {
                 towersInRange.add((ShootingTower) tower);
             }
         }
         return towersInRange;
     }
 
-    private List<Bloon> findBloonsInRange(ShootingTower tower) {
+    /**
+     * Find the bloons in range of shooting tower.
+     * @param tower shooting tower.
+     * @return list of bloons in range.
+     */
+    private List<Bloon> findBloonsInRange(final ShootingTower tower) {
         List<Bloon> bloonsInRange = new ArrayList<>();
         for (Bloon bloon : this.aliveBloons) {
-            if(isBloonInRange(bloon,tower)){
+            if (isBloonInRange(bloon, tower)) {
                 bloonsInRange.add(bloon);
             }
         }
         return bloonsInRange;
     }
 
-    private boolean isTowerInRange(HelpingTower helpingTower, Tower shootingTower){
-        return Math.abs(shootingTower.getPosition().get().getX() - helpingTower.getPosition().get().getX()) <= (int) helpingTower.getHittingRange().getX()*16
-                && Math.abs(shootingTower.getPosition().get().getY() - helpingTower.getPosition().get().getY()) <= (int) helpingTower.getHittingRange().getY()*16;
+    /**
+     * Check if the tower is in range of helping tower.
+     * @param helpingTower helping tower.
+     * @param shootingTower shooting tower.
+     * @return true if the tower is in range, false otherwise.
+     */
+    private boolean isTowerInRange(final HelpingTower helpingTower, final Tower shootingTower) {
+        return Math.abs(shootingTower.getPosition().get().getX() - helpingTower.getPosition().get().getX()) <= (int) helpingTower.getHittingRange().getX() * 16
+                && Math.abs(shootingTower.getPosition().get().getY() - helpingTower.getPosition().get().getY()) <= (int) helpingTower.getHittingRange().getY() * 16;
     }
 
-    private boolean isBloonInRange(Bloon bloon, ShootingTower shootingTower){
-        return Math.abs(shootingTower.getPosition().get().getX() - bloon.getPosition().get().getX()) < (int) shootingTower.getHittingRange().getX()*16
-                && Math.abs(shootingTower.getPosition().get().getY() - bloon.getPosition().get().getY()) < (int) shootingTower.getHittingRange().getY()*16;
+    /**
+     * Check if the bloon is in range of shooting tower.
+     * @param bloon bloon.
+     * @param shootingTower shooting tower.
+     * @return true if the bloon is in range, false otherwise.
+     */
+    private boolean isBloonInRange(final Bloon bloon, final ShootingTower shootingTower) {
+        return Math.abs(shootingTower.getPosition().get().getX() - bloon.getPosition().get().getX()) < (int) shootingTower.getHittingRange().getX() * 16
+                && Math.abs(shootingTower.getPosition().get().getY() - bloon.getPosition().get().getY()) < (int) shootingTower.getHittingRange().getY() * 16;
     }
 
-    private Bloon findTargetBloon(List<Bloon> bloons) {
+    /**
+     * Find the bloon with the greatest currentPathIndex.
+     * @param bloons list of bloons in range.
+     * @return bloon with the greatest currentPathIndex.
+     */
+    private Bloon findTargetBloon(final List<Bloon> bloons) {
         Bloon targetBloon = null;
         int maxCurrentPathIndex = -1;
 
@@ -349,9 +436,11 @@ public class GameModel {
 
         return targetBloon;
     }
-
-
-    public MapManager getMapManager(){
+    /**
+     * Return the map manager.
+     * @return map manager.
+     */
+    public MapManager getMapManager() {
         return this.mapManager;
     }
 }
