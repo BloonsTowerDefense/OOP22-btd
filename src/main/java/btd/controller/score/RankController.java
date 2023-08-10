@@ -1,8 +1,7 @@
 package btd.controller.score;
 
-
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import btd.model.score.RankModel;
 import btd.utils.RankElement;
@@ -11,7 +10,7 @@ import btd.utils.RankElement;
  * This class acts as a connection between {@link RankView} and {@link RankModel}.
  */
 public class RankController {
-    private RankModel model;
+    private final RankModel model;
 
     /**
      * Standard constructs for RankController instance with a given RankModel.
@@ -38,7 +37,7 @@ public class RankController {
      *
      * @return an HashMap<String, List<RankElement>> representing the current rank.
      */
-    public HashMap<String, List<RankElement>> getRank() {
+    public Map<String, List<RankElement>> getRank() {
         return this.model.getRank();
     }
 }

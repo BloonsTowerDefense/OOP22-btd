@@ -1,0 +1,27 @@
+@startuml
+class RankModel {
++ {static} RankModel getRankModelIstance()
++ void addScore(String,String,Integer)
++ HashMap<String,List<RankElement>> getRank()
++ void deleteRank()
++ int getLimit()
+- void saveRankToFile()
+- HashMap<String,List<RankElement>> readRankFromFile()
+- void orderRank(List<RankElement>)
+- void limit(List<RankElement>)
+}
+class RankController {
++ void addScore(String,String,Integer)
++ HashMap<String,List<RankElement>> getRank()
+}
+class RankView {
++ void paintPanel()
++ void resetPanel()
++ JButton getBackButton()
+- JPanel costumizePanel(JPanel,String)
+- void addPadding(JPanel)
+}
+
+RankModel --> RankController
+RankController --> RankView
+@enduml

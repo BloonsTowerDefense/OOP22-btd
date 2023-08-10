@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import btd.utils.Direction;
 import btd.utils.Position;
@@ -15,9 +17,10 @@ import btd.utils.Position;
  */
 public class PathImpl implements Path {
 
-    private List<Direction> path;
+    private static final Logger LOGGER = Logger.getLogger(MapManagerImpl.class.getName());
+    private  final List<Direction> path;
     private Position spawnPosition;
-    private String source;
+    //private String source;
 
     /**
      * Standard constructor of this class.
@@ -27,8 +30,8 @@ public class PathImpl implements Path {
      */
     public PathImpl(final String source, final Boolean test) {
         this.path = new ArrayList<>();
-        this.source = source;
-        loadPath(this.source, test);
+        //this.source = source;
+        loadPath(source, test);
         //System.out.println("Ho letto il seguente path: " + this.path.toString());
     }
 
@@ -77,13 +80,13 @@ public class PathImpl implements Path {
             if (input != null) {
                 String read = br.readLine();
                 if (read != null) {
-                    String[] spawnPosition = read.split(" ");
+                    final String[] spawnPosition = read.split(" ");
                     this.spawnPosition = new Position(Double.parseDouble(spawnPosition[0]),
                             Double.parseDouble(spawnPosition[1]));
-                    int step = Integer.parseInt(spawnPosition[2]);
+                    final int step = Integer.parseInt(spawnPosition[2]);
                     read = br.readLine();
                     if (read != null) {
-                        String[] path = read.split(" ");
+                        final String[] path = read.split(" ");
                         for (int i = 0; i < step; i++) {
                             this.path.add(decodeDirection(Integer.parseInt(path[i])));
                         }
@@ -92,7 +95,7 @@ public class PathImpl implements Path {
                 br.close();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "IOException", e);
         }
     }
 
