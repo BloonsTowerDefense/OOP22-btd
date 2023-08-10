@@ -22,6 +22,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * The GameView class represents the graphical user interface for the game.
+ * It displays the game map, tower shop, tower upgrade menu, and player stats.
+ * Players can interact with the game by placing towers and upgrading them.
+ */
 public class GameView extends JPanel {
 
   private final ShopMenu towerShopMenu;
@@ -33,6 +38,11 @@ public class GameView extends JPanel {
 
   private String towerToPlace = "";
 
+  /**
+   * Constructs a new GameView with the specified game engine.
+   *
+   * @param gameEngine The game engine controlling the game logic.
+   */
   public GameView(Game gameEngine) {
     this.gameEngine = gameEngine;
     setLayout(new BorderLayout());
@@ -61,6 +71,9 @@ public class GameView extends JPanel {
     add(eastPanel, BorderLayout.EAST);
   }
 
+  /**
+   * Sets up the tower buttons in the tower shop menu.
+   */
   private void setupTowerButtons() {
     towerShopMenu.getBlackAdam().addActionListener(e -> towerToPlace = "blackAdam");
     towerShopMenu.getVoldelife().addActionListener(e -> towerToPlace = "voldelife");
@@ -69,6 +82,12 @@ public class GameView extends JPanel {
     towerShopMenu.getPowerEnhancer().addActionListener(e -> towerToPlace = "powerEnhancer");
   }
 
+  /**
+   * Sets up the map panel and handles mouse clicks for tower placement and upgrades.
+   *
+   * @param cardLayout         The CardLayout used for switching between menus.
+   * @param shopUpgradePanel   The panel containing the tower shop and upgrade menus.
+   */
   private void setupMapPanel(CardLayout cardLayout, JPanel shopUpgradePanel) {
     mapPanel.addMouseListener(
         new MouseAdapter() {
@@ -125,6 +144,13 @@ public class GameView extends JPanel {
         });
   }
 
+  /**
+   * Creates a tower of the specified type at the given position.
+   *
+   * @param spriteX The x-coordinate of the tower's position.
+   * @param spriteY The y-coordinate of the tower's position.
+   * @return The created tower, or null if the tower cannot be created.
+   */
   private Tower createTowerByType(int spriteX, int spriteY) {
     Tower tower =
         switch (towerToPlace) {
@@ -151,14 +177,29 @@ public class GameView extends JPanel {
     System.out.println("\n paint gameView");
   }
 
+  /**
+   * Returns the map panel used in the game view.
+   *
+   * @return The map panel.
+   */
   public MapPanel getMapPanel() {
     return mapPanel;
   }
 
+  /**
+   * Sets the player's remaining life.
+   *
+   * @param life The new value for the player's life.
+   */
   public void setPlayerLife(String life) {
     this.statsMenu.setLifeLabel(life);
   }
 
+  /**
+   * Sets the player's available money.
+   *
+   * @param money The new value for the player's money.
+   */
   public void setPlayerMoney(String money) {
     this.statsMenu.setMoneyLabel(money);
   }
