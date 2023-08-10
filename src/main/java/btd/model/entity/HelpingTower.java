@@ -3,7 +3,6 @@ package btd.model.entity;
 import btd.utils.Position;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 import java.util.Optional;
 
 public class HelpingTower implements Tower {
@@ -14,7 +13,7 @@ public class HelpingTower implements Tower {
 
     private final String function;
 
-    private Integer price;
+    private final Integer price;
 
     private Integer functionFactor;
 
@@ -65,6 +64,14 @@ public class HelpingTower implements Tower {
         return this.hittingRange;
     }
 
+    /**
+     * Method used to get the function factor of the helping tower.
+     * The function factor is the analog of the power for shooting tower,
+     * instead the helping tower cannot shoot, so it will enhance only. The
+     * function factor indicates how much to enhance
+     *
+     * @return returns the Integer of the enhancing factor
+     * */
     public Integer getFunctionFactor(){
         return this.functionFactor;
     }
@@ -79,6 +86,11 @@ public class HelpingTower implements Tower {
         return this.towerName;
     }
 
+    /**
+     * Method used to return the function type of the helping tower.
+     *
+     * @return returns the String of the function.
+     * */
     public String getFunction(){
         return this.function;
     }
