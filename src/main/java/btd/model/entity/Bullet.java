@@ -13,7 +13,7 @@ public class Bullet {
 
     private final static int SPRITE_DIMENSION = 20;
 
-    private final static int POSITION_FACTOR = 20;
+    private final static double POSITION_FACTOR = 0.3;
 
     private final BufferedImage sprite;
 
