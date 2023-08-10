@@ -207,7 +207,7 @@ public class DifficultyMenu extends JPanel {
     JButton button = new JButton();
     try {
       BufferedImage mapIcon = ImageIO.read(Objects.requireNonNull(getClass().getResource(mapPath)));
-      button.setIcon(new ImageIcon(mapIcon.getScaledInstance(400, 300, Image.SCALE_DEFAULT)));
+      button.setIcon(new ImageIcon(mapIcon.getScaledInstance(450, 200, Image.SCALE_DEFAULT)));
       button.setBorder(BorderFactory.createEmptyBorder());
       button.setOpaque(true);
       button.setBackground(Color.decode("#629D5A"));
