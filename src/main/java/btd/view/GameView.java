@@ -79,6 +79,10 @@ public class GameView extends JPanel {
                     shopUpgradePanel.add(upgradeMenu, "UPGRADE");
                     upgradeMenu.getUpgradeButton().addActionListener(event -> cardLayout.show(shopUpgradePanel, "SHOP"));
                     cardLayout.show(shopUpgradePanel, "UPGRADE");
+                    JLabel upgradePrice = new JLabel(clickedTower.getUpgradePrice().toString()+" coins");
+                    upgradePrice.setFont(new Font("Arial",Font.BOLD,15));
+                    upgradePrice.setHorizontalAlignment(SwingConstants.CENTER);
+                    upgradeMenu.getUpgradeButton().add(BorderLayout.SOUTH,upgradePrice);
                     upgradeMenu.getUpgradeButton().addActionListener(e1 -> {
                         if(gameEngine.getGameModel().getPlayer().getCoins() >= clickedTower.getUpgradePrice()) {
                             gameEngine.getGameModel().getPlayer().setCoins(gameEngine.getGameModel().getPlayer().getCoins()-clickedTower.getUpgradePrice());
@@ -107,8 +111,8 @@ public class GameView extends JPanel {
             case "blackAdam" -> new ShootingTower("blackAdam", 1, 100, new Position(spriteX, spriteY));
             case "voldelife" -> new ShootingTower("voldelife", 3, 200, new Position(spriteX, spriteY));
             case "deadColossus" -> new ShootingTower("deadColossus", 5, 300, new Position(spriteX, spriteY));
-            case "rangeEnhancer" -> new HelpingTower("rangeEnhancer", "Range", new Position(spriteX, spriteY));
-            case "powerEnhancer" -> new HelpingTower("powerEnhancer", "Power", new Position(spriteX, spriteY));
+            case "rangeEnhancer" -> new HelpingTower("rangeEnhancer", "Range",100, new Position(spriteX, spriteY));
+            case "powerEnhancer" -> new HelpingTower("powerEnhancer", "Power", 200,new Position(spriteX, spriteY));
             default -> null;
         };
 

@@ -22,11 +22,11 @@ public class ShopMenu extends JPanel {
     public ShopMenu(){
         setLayout(new GridLayout(5,1));
         setBackground(Color.decode("#629D5A"));
-        blackAdam = addTowerIcon("Black Adam", "/towers/blackAdam/Upgrade0/sprite0.png");
-        voldelife = addTowerIcon("Voldelife", "/towers/voldelife/Upgrade0/sprite0.png");
-        deadColossus = addTowerIcon("Dead Colossus", "/towers/deadColossus/Upgrade0/sprite0.png");
-        rangeEnhancer = addTowerIcon("Range Enhancer", "/towers/rangeEnhancer/Upgrade0/sprite0.png");
-        powerEnhancer = addTowerIcon("Power Enhancer", "/towers/powerEnhancer/Upgrade0/sprite0.png");
+        blackAdam = addTowerIcon("Black Adam", "/towers/blackAdam/Upgrade0/sprite0.png","100");
+        voldelife = addTowerIcon("Voldelife", "/towers/voldelife/Upgrade0/sprite0.png","200");
+        deadColossus = addTowerIcon("Dead Colossus", "/towers/deadColossus/Upgrade0/sprite0.png","300");
+        rangeEnhancer = addTowerIcon("Range Enhancer", "/towers/rangeEnhancer/Upgrade0/sprite0.png","100");
+        powerEnhancer = addTowerIcon("Power Enhancer", "/towers/powerEnhancer/Upgrade0/sprite0.png","200");
         add(blackAdam);
         add(voldelife);
         add(deadColossus);
@@ -34,14 +34,19 @@ public class ShopMenu extends JPanel {
         add(powerEnhancer);
     }
 
-    private JButton addTowerIcon(String towerName, String spritePath) {
-        JButton button = new JButton(towerName);
+    private JButton addTowerIcon(String towerName, String spritePath, String towerPrice) {
+        JButton button = new JButton();
+        button.setLayout(new BorderLayout());
         // Load the tower icon image
         try{
             BufferedImage sprite = ImageIO.read(Objects.requireNonNull(getClass().getResource(spritePath)));
-            button.setIcon(new ImageIcon(sprite.getScaledInstance(70,80,Image.SCALE_DEFAULT)));
             button.setBackground(Color.WHITE);
             button.setToolTipText(towerName);
+            button.add(BorderLayout.CENTER,new JLabel(new ImageIcon(sprite.getScaledInstance(70,80,Image.SCALE_DEFAULT))));
+            JLabel towerInfo = new JLabel(towerName+ ": "+towerPrice+" coins");
+            towerInfo.setHorizontalAlignment(SwingConstants.CENTER);
+            towerInfo.setFont(new Font("Arial",Font.BOLD,12));
+            button.add(BorderLayout.SOUTH,towerInfo);
         }catch (IOException e){
             e.printStackTrace();
         }

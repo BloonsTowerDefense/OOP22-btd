@@ -13,10 +13,7 @@ public class TowerUpgradeMenu extends JPanel{
 
     private final JButton upgradeButton = new JButton();
 
-    private Integer coins;
-
     public TowerUpgradeMenu(Tower tower){
-        this.coins = coins;
         setPreferredSize(new Dimension(200,720));
         setBackground(Color.decode("#629D5A"));
         GridLayout mainLayout = new GridLayout(3,1);
@@ -28,7 +25,9 @@ public class TowerUpgradeMenu extends JPanel{
         JLabel nextTowerLabel = new JLabel(new ImageIcon(nextTowerImage.getScaledInstance(90,100,Image.SCALE_DEFAULT)));
         try{
             BufferedImage arrowDown = ImageIO.read(Objects.requireNonNull(getClass().getResource("/menuSprite/icons/arrow_down.png")));
-            upgradeButton.setIcon(new ImageIcon(arrowDown.getScaledInstance(100,100,Image.SCALE_DEFAULT)));
+            //upgradeButton.setIcon(new ImageIcon(arrowDown.getScaledInstance(100,100,Image.SCALE_DEFAULT)));
+            upgradeButton.setLayout(new BorderLayout());
+            upgradeButton.add(BorderLayout.CENTER,new JLabel(new ImageIcon(arrowDown.getScaledInstance(100,100,Image.SCALE_DEFAULT))));
             add(currentTowerLabel);
             add(upgradeButton);
             add(nextTowerLabel);
