@@ -55,6 +55,11 @@ public class HelpingTower implements Tower {
     }
 
     @Override
+    public Integer getUpgradePrice(){
+        return this.price+50;
+    }
+
+    @Override
     public Position getHittingRange() {
         return this.hittingRange;
     }

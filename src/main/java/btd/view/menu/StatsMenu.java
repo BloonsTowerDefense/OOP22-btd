@@ -34,4 +34,8 @@ public class StatsMenu extends JPanel {
     public void setMoneyLabel(String money) {
         this.moneyLabel.setText(money);
     }
+
+    public Integer getMoney(){
+        return Integer.parseInt(this.moneyLabel.getText());
+    }
 }

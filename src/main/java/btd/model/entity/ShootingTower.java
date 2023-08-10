@@ -37,8 +37,8 @@ public class ShootingTower implements Tower {
     @Override
     public void update(){
         this.towerSpriteManager.upgrade(this.towerName);
-        this.power += 100;
-        this.hittingRange = new Position(hittingRange.getX()+10,hittingRange.getY()+10);
+        this.power += 2;
+        this.hittingRange = new Position(hittingRange.getX()+5,hittingRange.getY()+5);
     }
 
     @Override
@@ -50,6 +50,11 @@ public class ShootingTower implements Tower {
     @Override
     public Integer getPrice() {
         return this.price;
+    }
+
+    @Override
+    public Integer getUpgradePrice(){
+        return this.price+50;
     }
 
     @Override
@@ -79,6 +84,7 @@ public class ShootingTower implements Tower {
     public void setPower(Integer power){
         this.power = power;
     }
+
     @Override
     public Position getHittingRange(){
         return this.hittingRange;
@@ -86,10 +92,6 @@ public class ShootingTower implements Tower {
 
     public Integer getPower(){
         return this.power;
-    }
-
-    public BufferedImage getTowerImage(){
-        return this.towerSpriteManager.getTowerSpriteList().get(0);
     }
 
     @Override

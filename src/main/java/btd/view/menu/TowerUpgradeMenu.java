@@ -13,7 +13,10 @@ public class TowerUpgradeMenu extends JPanel{
 
     private final JButton upgradeButton = new JButton();
 
+    private Integer coins;
+
     public TowerUpgradeMenu(Tower tower){
+        this.coins = coins;
         setPreferredSize(new Dimension(200,720));
         setBackground(Color.decode("#629D5A"));
         GridLayout mainLayout = new GridLayout(3,1);
@@ -32,10 +35,6 @@ public class TowerUpgradeMenu extends JPanel{
         }catch (Exception e){
             e.printStackTrace();
         }
-        this.upgradeButton.addActionListener(e -> {
-            tower.update();
-            SoundManager.getInstance().playSound(SoundManager.SoundType.BUTTON, false);
-        });
     }
 
     public JButton getUpgradeButton(){

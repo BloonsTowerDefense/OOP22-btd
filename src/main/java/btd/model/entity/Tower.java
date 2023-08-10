@@ -38,6 +38,8 @@ public interface Tower extends Entity {
      * */
     Integer getPrice();
 
+    Integer getUpgradePrice();
+
     /**
      * Method used to get the hitting/operational range for the tower
      *
