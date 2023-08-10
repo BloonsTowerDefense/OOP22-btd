@@ -7,8 +7,6 @@ import java.util.Optional;
 
 public class HelpingTower implements Tower {
 
-    private final static int SELL_PRICE_FACTOR = 100;
-
     private final String towerName;
 
     private final String function;
@@ -42,11 +40,6 @@ public class HelpingTower implements Tower {
         this.towerSpriteManager.upgrade(this.towerName);
         this.hittingRange = new Position(hittingRange.getX()+10, hittingRange.getY()+10);
         this.functionFactor += 5;
-    }
-
-    @Override
-    public Integer sell() {
-        return getPrice() - SELL_PRICE_FACTOR;
     }
 
     @Override
