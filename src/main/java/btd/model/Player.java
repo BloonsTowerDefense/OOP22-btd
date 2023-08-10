@@ -8,7 +8,7 @@ public class Player {
 
     public Player() {
         // Inizializza attributi del giocatore
-        this.health = 100; // valore iniziale health?
+        this.health = 5; // valore iniziale health?
         this.score = 0;
         this.coins = 200;
         this.rank = 1; // valore iniziale per il rank

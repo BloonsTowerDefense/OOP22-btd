@@ -3,6 +3,7 @@ package btd.model;
 import javax.swing.*;
 import java.awt.*;
 
+import btd.Main;
 import btd.view.GameCondition;
 import btd.view.View;
 import btd.view.menu.MainMenu;
@@ -103,19 +104,30 @@ public class Game extends Thread {
                 break;
             case PLAY:
                 this.view.renderGame();
-        }
-    }
-    public void update(long elapsedTime){
-        switch (this.gameCondition){
-            case PLAY:
-                this.gameModel.update(elapsedTime);
+                break;
+            case OVER:
+                this.view.renderGameOver();
                 break;
             default:
                 break;
         }
     }
-    private void init() {
-        // componenti del gioco finestra risorse ecc
+    public void update(long elapsedTime){
+        switch (this.gameCondition){
+            case PLAY:
+                if (this.getGameModel().getGameCondition() == GameCondition.PLAY) {
+                    this.gameModel.update(elapsedTime);
+                } else {
+                    this.gameCondition = GameCondition.OVER;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    private void restart() {
+        this.view.restart();
+        Main.startGame();
     }
 
     public GameModel getGameModel(){

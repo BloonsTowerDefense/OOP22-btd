@@ -6,6 +6,7 @@ import btd.model.map.MapManager;
 import btd.model.map.MapManagerImpl;
 import btd.model.map.Path;
 import btd.model.score.RankModel;
+import btd.view.GameCondition;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -40,11 +41,7 @@ public class GameModel {
 
     private RankModel rankModel;
     private RankController rankController;
-
-    public enum GameState {
-        PLAYING,
-        GAME_OVER;
-    }
+    private GameCondition gameCondition;
 
     public GameModel() {
         this.towers = new ArrayList<>();
@@ -187,11 +184,11 @@ public class GameModel {
         return entities;
     }
 
-    public GameState gameState() {
+    public GameCondition getGameCondition() {
         if (player.getHealth() <= 0) {
-            return GameState.GAME_OVER;
+            return GameCondition.OVER;
         } else {
-            return GameState.PLAYING;
+            return GameCondition.PLAY;
         }
     }
 
@@ -239,6 +236,7 @@ public class GameModel {
         }
         //this.setLevel(difficulty,this.path); MODIFICATO
         this.setLevel(difficulty, this.path);
+        this.gameCondition = GameCondition.PLAY;
         this.startWave();
     }
 

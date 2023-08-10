@@ -67,6 +67,14 @@ public class View extends JFrame{
         this.gameView.repaint();
     }
 
+    public void renderGameOver() {
+        this.mainPanel.setLayer(gameOverMenu, JLayeredPane.PALETTE_LAYER);
+        this.mainPanel.setLayer(gameView, JLayeredPane.DEFAULT_LAYER);
+        this.gameOverMenu.setVisible(true);
+        this.gameView.setVisible(false);
+        this.gameOverMenu.requestFocus();
+        this.gameOverMenu.repaint();
+    }
 
     public void paintComponent(Graphics g) {
         super.paintComponents(g);
@@ -78,5 +86,9 @@ public class View extends JFrame{
 
     public GameView getGameView(){
         return this.gameView;
+    }
+
+    public void restart() {
+        this.dispose();
     }
 }
