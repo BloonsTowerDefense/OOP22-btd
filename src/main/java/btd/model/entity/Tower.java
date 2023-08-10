@@ -2,7 +2,6 @@ package btd.model.entity;
 
 import btd.utils.Position;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 /**
  * The interface of the towers.
