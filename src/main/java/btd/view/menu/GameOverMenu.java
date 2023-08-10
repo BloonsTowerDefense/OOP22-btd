@@ -70,7 +70,9 @@ public class GameOverMenu extends JPanel {
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
 
     }
-
+    public void requestFocusForPlayerName() {
+        this.playerName.requestFocus();
+    }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         g.drawImage(this.menuBackground,0,0,WIDTH,HEIGHT,null);

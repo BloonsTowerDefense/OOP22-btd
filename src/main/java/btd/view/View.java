@@ -81,6 +81,7 @@ public class View extends JFrame{
         this.gameView.setVisible(false);
         this.gameOverMenu.setVisible(true);
         this.gameOverMenu.requestFocus();
+        this.gameOverMenu.requestFocusForPlayerName();
         this.gameOverMenu.repaint();
     }
 
