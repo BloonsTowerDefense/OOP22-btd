@@ -17,7 +17,7 @@ import btd.utils.Position;
  */
 public class PathImpl implements Path {
 
-    private static final Logger LOGGER = Logger.getLogger(MapManagerImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(PathImpl.class.getName());
     private  final List<Direction> path;
     private Position spawnPosition;
     //private String source;

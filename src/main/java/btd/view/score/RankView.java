@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import btd.controller.score.RankController;
-import btd.model.map.MapManagerImpl;
 import btd.model.score.RankModel;
 import btd.utils.RankElement;
 
@@ -40,13 +39,14 @@ public class RankView extends JPanel {
     private static final int BACK_BUTTON_DIM = 80;
     private static final int STANDARD_FONT_DIM = 20;
     private static final String FONT_NAME = "Arial"; 
-    private static final Logger LOGGER = Logger.getLogger(MapManagerImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(RankView.class.getName());
 
     /**
      * Standard constructor for RankView instance with a given RankController.
      *
      * @param controller the RankController instance associated with this view.
      */
+    @SuppressWarnings("EI2")
     public RankView(final RankController controller) {
         this.controller = controller;
         this.backButton = new JButton();

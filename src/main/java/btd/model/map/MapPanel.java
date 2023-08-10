@@ -59,6 +59,7 @@ public class MapPanel extends JPanel {
      *
      * @param game Game instance.
      */
+    @SuppressWarnings("PMD.MVOEI2")
     public MapPanel(final Game game) {
         this.setPreferredSize(new Dimension(MapPanel.SCREEN_WIDTH, MapPanel.SCREEN_HEIGHT));
         this.setDoubleBuffered(true);

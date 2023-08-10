@@ -5,10 +5,12 @@ import java.util.Map;
 
 import btd.model.score.RankModel;
 import btd.utils.RankElement;
+import btd.view.score.RankView;
 
 /**
  * This class acts as a connection between {@link RankView} and {@link RankModel}.
  */
+
 public class RankController {
     private final RankModel model;
 
@@ -17,6 +19,7 @@ public class RankController {
      *
      * @param mod The RankModel instance to associate with the controller.
      */
+    @SuppressWarnings("PMD.MVOEI2")
     public RankController(final RankModel mod) {
         this.model = mod;
     }

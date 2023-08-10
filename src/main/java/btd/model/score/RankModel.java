@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import btd.model.map.MapManagerImpl;
 import btd.utils.RankElement;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -25,7 +24,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * The ranked score contains elements of type {@link RankElement}.
  */
 public final class RankModel {
-    private static final Logger LOGGER = Logger.getLogger(MapManagerImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(RankModel.class.getName());
     private Map<String, List<RankElement>> rank;
     /**
      * The maximum number of score to save in rank.
