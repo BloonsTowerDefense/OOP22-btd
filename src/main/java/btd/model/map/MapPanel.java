@@ -81,6 +81,8 @@ public class MapPanel extends JPanel {
                 (int) tower.getPosition().get().getX(), (int) tower.getPosition().get().getY(), null));
         this.game.getGameModel().towerShoot();
         this.game.getGameModel().towerHelp();
+        this.game.getView().getGameView().setPlayerMoney(String.valueOf(this.game.getGameModel().getPlayer().getCoins()));
+        this.game.getView().getGameView().setPlayerLife(String.valueOf(this.game.getGameModel().getPlayer().getHealth()));
         drawBullet(graphics);
     }
 
