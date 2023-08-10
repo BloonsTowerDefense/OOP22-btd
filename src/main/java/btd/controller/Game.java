@@ -175,4 +175,9 @@ public class Game extends Thread {
         return this.gameModel.getRankController();
     }
 
+    public void restartGame(){
+        setGameCondition(gameCondition.MENU);
+        this.gameModel.restartGame();
+    }
+
 }

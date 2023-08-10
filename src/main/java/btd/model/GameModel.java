@@ -32,11 +32,11 @@ public class GameModel {
     private LevelImpl level;
     private WaveImpl wave;
     private Path path;
-    private final List<Tower> towers;
-    private final Player player;
+    private List<Tower> towers;
+    private Player player;
     private boolean waveInProgress;
     private boolean bloonSpawnInProgress;
-    private final List<Bloon> aliveBloons;
+    private List<Bloon> aliveBloons;
 
     private List<Bullet> bullets;
     private int bloonsSpawned;
@@ -442,5 +442,16 @@ public class GameModel {
      */
     public MapManager getMapManager() {
         return this.mapManager;
+    }
+
+    public void restartGame(){
+        this.towers = new ArrayList<>();
+        this.bullets = new ArrayList<>();
+        this.player = new Player();
+        this.waveInProgress = false;
+        this.bloonSpawnInProgress = false;
+        this.aliveBloons = new ArrayList<>();
+        this.lastSpawnTime = 0;
+        this.lastWaveEndTime = 0;
     }
 }
