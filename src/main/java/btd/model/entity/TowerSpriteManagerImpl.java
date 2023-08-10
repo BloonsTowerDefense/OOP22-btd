@@ -25,7 +25,7 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
    *
    * @param towerName The name of the tower.
    * */
-  public TowerSpriteManagerImpl(String towerName) {
+  public TowerSpriteManagerImpl(final String towerName) {
     spriteList = new ArrayList<>();
     towerResourceMap();
     setTowerSprites(towerName, 0);
@@ -51,7 +51,7 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
   * @param towerName The name of the tower to get the sprites.
   * @param upgradeNumber The number of the upgrade to get the corresponding sprites.
   **/
-  private void setTowerSprites(String towerName, Integer upgradeNumber) {
+  private void setTowerSprites(final String towerName, final Integer upgradeNumber) {
     spriteList.clear();
     String towerPath = towerResourceMap.get(towerName);
     if (towerPath != null) {
@@ -74,7 +74,7 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
   * @param towerName The name of the tower.
   * @param upgradeNumber The number of the upgrade.
   **/
-  public List<BufferedImage> getUpgradeSprites(String towerName, Integer upgradeNumber) {
+  public List<BufferedImage> getUpgradeSprites(final String towerName, final Integer upgradeNumber) {
     List<BufferedImage> sprites = new ArrayList<>();
     String towerPath = towerResourceMap.get(towerName);
     if (towerPath != null) {
@@ -94,7 +94,7 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
    * @{inheritdoc} .
    * */
   @Override
-  public void upgrade(String towerName) {
+  public void upgrade(final String towerName) {
     setTowerSprites(towerName, 1);
   }
 
