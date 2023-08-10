@@ -97,7 +97,7 @@ public class GameView extends JPanel {
             int spriteX = e.getX();
             int spriteY = e.getY();
 
-            Tower clickedTower = gameEngine.getGameModel().isTower(spriteX, spriteY);
+            Tower clickedTower = gameEngine.getGameModel().checkIfIsTower(spriteX, spriteY);
 
             if (clickedTower != null) {
               TowerUpgradeMenu upgradeMenu = new TowerUpgradeMenu(clickedTower);

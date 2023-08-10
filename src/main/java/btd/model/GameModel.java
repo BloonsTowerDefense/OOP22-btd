@@ -19,12 +19,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 import java.util.Iterator;
 
 /**
  * This class rapresents the game model, it contains all the information about the game.
  */
 public class GameModel {
+    private static final Logger LOGGER = Logger.getLogger(GameModel.class.getName());
     private static final long WAVE_WAITING_TIME = 2000;
     private static final long BLOON_SPAWN_WAITING_TIME = 1500;
     private static final int X_TOLERANCE = 40;
@@ -121,8 +123,8 @@ public class GameModel {
     public void update(final long time) {
         // Controllo dello spawn dei bloon
         if (waveInProgress && bloonSpawnInProgress) {
-            long currentTime = System.currentTimeMillis();
-            long bloonSpawnInterval = BLOON_SPAWN_WAITING_TIME;
+            final long currentTime = System.currentTimeMillis();
+            final long bloonSpawnInterval = BLOON_SPAWN_WAITING_TIME;
             if (currentTime - lastSpawnTime >= bloonSpawnInterval) {
                 spawnBloons();
                 lastSpawnTime = currentTime;
@@ -130,27 +132,23 @@ public class GameModel {
         }
 
         if (waveInProgress  /*&& !this.wave.isOver()*/) {
-            for (Bloon bloon : aliveBloons) {
+            for (final Bloon bloon : aliveBloons) {
                 ((BloonImpl) bloon).update(time);
             }
         }
 
-        Iterator<Bloon> iterator = aliveBloons.iterator();
+        final Iterator<Bloon> iterator = aliveBloons.iterator();
         while (iterator.hasNext()) {
-            Bloon bloon = iterator.next();
+            final Bloon bloon = iterator.next();
             if (bloon.hasReachedEnd()) {
-                System.out.println("\nBloon reached end of path: " + bloon.getPosition());
-                int healthDecrease = 1;
+                final int healthDecrease = 1;
                 player.loseHealth(healthDecrease);
                 iterator.remove(); // Removing the bloon from the aliveBloons list
-                System.out.println("Bloon has reached the end. Bloons in map: " + aliveBloons.size()); // Print statement
                 this.deadBloons++;
             } else if (bloon.isDead()) {
-                int moneyIncrease = 1;
                 player.gainCoins(bloon.getType().getMoney());
                 player.gainScore(1);
                 iterator.remove(); // Removing the bloon from the aliveBloons list
-                System.out.println("Bloon is dead. Bloons in map: " + aliveBloons.size()); // Print
                 this.deadBloons++;
             }
         }
@@ -166,9 +164,9 @@ public class GameModel {
     }
     private void spawnBloons() {
         if (this.wave != null) {
-            List<Bloon> newBloons = wave.getBloons();
+            final List<Bloon> newBloons = wave.getBloons();
             if (bloonsSpawned < newBloons.size()) {
-                Bloon bloon = newBloons.get(bloonsSpawned);
+                final Bloon bloon = newBloons.get(bloonsSpawned);
                 aliveBloons.add(bloon);
                 bloonsSpawned++;
             }
@@ -279,7 +277,6 @@ public class GameModel {
         this.mapManager = new MapManagerImpl(mapName);
         this.setPath(this.mapManager.getBloonPath());
         this.setLevel(difficulty, this.path);
-        GameCondition gameCondition = GameCondition.PLAY;
         this.startWave();
     }
 
@@ -289,10 +286,10 @@ public class GameModel {
      * @param y y coordinate.
      * @return  tower if the position is occupied, null otherwise.
      */
-    public Tower isTower(final int x, final int y) {
-        for (Tower tower : towers) {
-            int towerX = (int) tower.getPosition().get().getX();
-            int towerY = (int) tower.getPosition().get().getY();
+    public Tower checkIfIsTower(final int x, final int y) {
+        for (final Tower tower : towers) {
+            final int towerX = (int) tower.getPosition().get().getX();
+            final int towerY = (int) tower.getPosition().get().getY();
 
             // Check if the clicked position is within the tolerance range of the tower's position
             if (Math.abs(towerX - x) <= X_TOLERANCE && Math.abs(towerY - y) <= Y_TOLERANCE) {
@@ -307,22 +304,21 @@ public class GameModel {
      */
     public void towerShoot() {
         bullets.clear();
-        for (Tower tower : towers) {
+        for (final Tower tower : towers) {
             if (tower instanceof ShootingTower shootingTower) {
-                List<Bloon> bloonsInRange = findBloonsInRange(shootingTower);
+                final List<Bloon> bloonsInRange = findBloonsInRange(shootingTower);
                 // Hit Bloon with the greatest currentPathIndex
                 if (!bloonsInRange.isEmpty()) {
                     Bloon targetBloon = findTargetBloon(bloonsInRange);
-                    BufferedImage bulletImage = null;
                     try {
-                        bulletImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/towers/bullet.png")));
+                        final BufferedImage bulletImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/towers/bullet.png")));
+                        final Bullet bullet = new Bullet(tower.getPosition().get(), bulletImage);
+                        bullet.setTargetPosition(targetBloon.getPosition().get());
+                        bullets.add(bullet);
+                        targetBloon.hit(((ShootingTower) tower).getPower());
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        LOGGER.log(java.util.logging.Level.SEVERE, "Exception", e);
                     }
-                    Bullet bullet = new Bullet(tower.getPosition().get(), bulletImage);
-                    bullet.setTargetPosition(targetBloon.getPosition().get());
-                    bullets.add(bullet);
-                    targetBloon.hit(((ShootingTower) tower).getPower());
                 }
             }
         }
@@ -332,11 +328,11 @@ public class GameModel {
      * Tower helping.
      */
     public void towerHelp() {
-        for (Tower tower1 : towers) {
+        for (final Tower tower1 : towers) {
             if (tower1 instanceof HelpingTower helpingTower1) {
-                List<ShootingTower> towersInRange = findTowersInRange((HelpingTower) tower1);
-                for (ShootingTower shootingTower : towersInRange) {
-                    if (helpingTower1.getFunction().equals("Range")) {
+                final List<ShootingTower> towersInRange = findTowersInRange((HelpingTower) tower1);
+                for (final ShootingTower shootingTower : towersInRange) {
+                    if ("Range".equals(helpingTower1.getFunction())) {
                         shootingTower.setHittingRange(
                                 helpingTower1.getFunctionFactor() + 10,
                                 helpingTower1.getFunctionFactor() + 10
@@ -371,8 +367,8 @@ public class GameModel {
      * @return list of towers in range.
      */
     private List<ShootingTower> findTowersInRange(final HelpingTower helpingTower) {
-        List<ShootingTower> towersInRange = new ArrayList<>();
-        for (Tower tower : towers) {
+        final List<ShootingTower> towersInRange = new ArrayList<>();
+        for (final Tower tower : towers) {
             if (tower instanceof ShootingTower && isTowerInRange(helpingTower, tower)) {
                 towersInRange.add((ShootingTower) tower);
             }
@@ -386,8 +382,8 @@ public class GameModel {
      * @return list of bloons in range.
      */
     private List<Bloon> findBloonsInRange(final ShootingTower tower) {
-        List<Bloon> bloonsInRange = new ArrayList<>();
-        for (Bloon bloon : this.aliveBloons) {
+        final List<Bloon> bloonsInRange = new ArrayList<>();
+        for (final Bloon bloon : this.aliveBloons) {
             if (isBloonInRange(bloon, tower)) {
                 bloonsInRange.add(bloon);
             }
@@ -433,7 +429,7 @@ public class GameModel {
         int maxCurrentPathIndex = -1;
 
         // Find bloon with the greatest currentPathIndex
-        for (Bloon bloon : bloons) {
+        for (final Bloon bloon : bloons) {
             if (bloon.getCurrentPathIndex() > maxCurrentPathIndex) {
                 maxCurrentPathIndex = bloon.getCurrentPathIndex();
                 targetBloon = bloon;
