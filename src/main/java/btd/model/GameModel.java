@@ -7,6 +7,7 @@ import btd.model.map.MapManagerImpl;
 import btd.model.map.Path;
 import btd.model.score.RankModel;
 import btd.view.GameCondition;
+import btd.utils.SoundManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -171,7 +172,8 @@ public class GameModel {
     }
 
     public void addTower(Tower tower) {
-        towers.add(tower);
+        this.towers.add(tower);
+        this.player.setCoins(this.player.getCoins()-tower.getPrice());
     }
 
 
@@ -273,9 +275,7 @@ public class GameModel {
                     Bullet bullet = new Bullet(tower.getPosition().get(),bulletImage);
                     bullet.setTargetPosition(targetBloon.getPosition().get());
                     bullets.add(bullet);
-                    //bullet.updatePosition(1,graphics);
                     targetBloon.hit(((ShootingTower) tower).getPower());
-
                     System.out.println("BLOON POSITION :"+targetBloon.getPosition().get().getX()+"BLOON HEALTH AFTER HIT :"+targetBloon.getHealth());
                 }
             }
