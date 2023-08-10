@@ -1,0 +1,130 @@
+@startuml
+interface btd.model.entity.TowerSpriteManager {
+~ void towerResourceMap()
+~ void upgrade(String)
+~ List<BufferedImage> getTowerSpriteList()
+}
+class btd.model.entity.TowerSpriteManagerImpl {
+- List<BufferedImage> spriteList
+- Map<String,String> towerResourceMap
++ void towerResourceMap()
+- void setTowerSprites(String,Integer)
++ void upgrade(String)
++ List<BufferedImage> getTowerSpriteList()
+}
+class btd.model.entity.ShootingTower {
+- {static} int SELL_PRICE_FACTOR
+- String towerName
+- Integer power
+- Integer price
+- Position position
+- Position hittingRange
+- TowerSpriteManager towerSpriteManager
++ boolean upgradable(Integer)
++ void update()
++ Integer sell()
++ Integer getPrice()
++ BufferedImage getTowerSprite()
++ Optional<Position> getPosition()
++ String getName()
++ void setPosition(double,double)
++ void setHittingRange(double,double)
++ Integer getPower()
++ BufferedImage getTowerImage()
+}
+interface btd.model.entity.Entity {
+~ Optional<Position> getPosition()
+~ String getName()
+~ void setPosition(double,double)
+}
+interface btd.model.entity.Tower {
+~ boolean upgradable(Integer)
+~ void update()
+~ Integer sell()
+~ Integer getPrice()
+~ BufferedImage getTowerSprite()
+~ void setPosition(double,double)
+}
+class btd.model.entity.BloonImpl {
+- int health
+- double speed
+- int damage
+- int money
+- Path path
+- int currentPathIndex
+- Direction currentDirection
+- boolean alive
+- BloonType type
+- Image image
++ double getHealth()
++ int getMoney()
++ boolean hasReachedEnd()
++ void hit(int)
++ void move(long)
++ void update(long)
++ boolean isDead()
++ void setPath(Path)
++ BloonType getType()
++ int getCurrentPathIndex()
+}
+class btd.model.entity.HelpingTower {
+- {static} int SELL_PRICE_FACTOR
+- String towerName
+- String function
+- Integer price
+- Position position
+- Position hittingRange
+- TowerSpriteManager towerSpriteManager
++ boolean upgradable(Integer)
++ void update()
++ Integer sell()
++ Integer getPrice()
++ Optional<Position> getPosition()
++ String getName()
++ String getFunction()
++ void setPosition(double,double)
++ BufferedImage getTowerSprite()
+}
+class btd.model.entity.EntityImpl {
+- String name
+- Optional<Position> position
++ Optional<Position> getPosition()
++ String getName()
++ void setPosition(double,double)
++ double getX()
++ double getY()
+}
+enum btd.model.entity.BloonType {
++  RED_BLOON
++  BLUE_BLOON
++  BLACK_BLOON
+- double speed
+- int health
+- Image image
++ double getSpeed()
++ int getHealth()
++ int getMoney()
++ Image getImage()
+}
+interface btd.model.entity.Bloon {
+~ double getHealth()
+~ int getMoney()
+~ boolean hasReachedEnd()
+~ void hit(int)
+~ void move(long)
+~ void update(long)
+~ boolean isDead()
+~ void setPath(Path)
++ BloonType getType()
+}
+
+
+btd.model.entity.TowerSpriteManager <|.. btd.model.entity.TowerSpriteManagerImpl
+btd.model.entity.Tower <|.. btd.model.entity.ShootingTower
+btd.model.entity.Entity <|-- btd.model.entity.Tower
+btd.model.entity.Bloon <|.. btd.model.entity.BloonImpl
+btd.model.entity.EntityImpl <|-- btd.model.entity.BloonImpl
+btd.model.entity.Tower <|.. btd.model.entity.HelpingTower
+btd.model.entity.Entity <|.. btd.model.entity.EntityImpl
+btd.model.entity.Entity <|-- btd.model.entity.Bloon
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+class GameModel {
++ void update(long)
++ List<Bloon> getAliveBloons()
++ void addTower(Tower)
++ Path getPath()
++ List<Tower> getTowers()
++ List<Bullet> getBullets()
++ Player getPlayer()
++ void initGame(String,String)
++ void towerShoot()
++ void towerHelp()
+}
+
+class View {
++ void renderMenu()
++ void renderGame()
++ void renderGameOver()
++ void restart()
+}
+
+class Game {
++ void start()
++ void render()
++ void update(long)
++ void restart()
++ void exit()
++ GameCondition getGameCondition()
+}
+
+
+View -left- Game
+Game -left- GameModel
+@enduml

@@ -1,0 +1,41 @@
+@startuml
+class GameModel {
++ void startWave()
++ void setDifficulty(String)
++ void setPath(Path)
++ String getDifficulty()
++ void setLevel(String,Path)
++ void update(long)
++ void addTower(Tower)
++ List<Entity> getEntities()
++ void initGame(String,String)
+}
+
+interface Entity {
+~ Optional<Position> getPosition()
+~ String getName()
+~ void setPosition(double,double)
+}
+
+interface Tower {
+~ boolean upgradable(Integer)
+~ void update()
+~ Integer sell()
+~ Integer getPrice()
+}
+
+interface Bloon {
+~ boolean hasReachedEnd()
+~ void hit(int)
+~ void move(long)
+~ void update(long)
+~ void setPath(Path)
+~ BloonType getType()
+}
+
+
+Entity <|-- Tower
+Entity <|-- Bloon
+Tower --* GameModel
+Bloon --* GameModel
+@enduml
