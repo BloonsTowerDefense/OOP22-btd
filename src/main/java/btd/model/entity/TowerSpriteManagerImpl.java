@@ -33,9 +33,8 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
 
 
   /**
-  * @{inheritdoc} .
+  * Method used to map the towers to their sprite path .
   **/
-  @Override
   public void towerResourceMap() {
     towerResourceMap = new HashMap<>();
     towerResourceMap.put("blackAdam", "/towers/blackAdam/");

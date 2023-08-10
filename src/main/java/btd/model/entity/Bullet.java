@@ -50,17 +50,17 @@ public class Bullet {
      * @param g         The Graphics object for drawing.
      */
     public void updatePosition(final double deltaTime, final Graphics g) {
-        double startX = startingPosition.getX();
-        double startY = startingPosition.getY();
-        double endX = targetPosition.getX();
-        double endY = targetPosition.getY();
+        final double startX = startingPosition.getX();
+        final double startY = startingPosition.getY();
+        final double endX = targetPosition.getX();
+        final double endY = targetPosition.getY();
 
-        double t = Math.min(1, this.elapsedTime / deltaTime);
+        final double t = Math.min(1, this.elapsedTime / deltaTime);
 
-        double currentX = startX + (endX - startX) * t;
-        double currentY = startY + (endY - startY) * t;
+        final double currentX = startX + (endX - startX) * t;
+        final double currentY = startY + (endY - startY) * t;
 
-        int trailCount = 4;      // Number of trail segments
+        final int trailCount = 4;      // Number of trail segments
 
         // Draw the bullet trail behind the current position
         for (int i = 0; i < trailCount; i++) {
