@@ -402,8 +402,11 @@ public class GameModel {
      * @return true if the tower is in range, false otherwise.
      */
     private boolean isTowerInRange(final HelpingTower helpingTower, final Tower shootingTower) {
-        return Math.abs(shootingTower.getPosition().get().getX() - helpingTower.getPosition().get().getX()) <= (int) helpingTower.getHittingRange().getX() * 16
-                && Math.abs(shootingTower.getPosition().get().getY() - helpingTower.getPosition().get().getY()) <= (int) helpingTower.getHittingRange().getY() * 16;
+        return Math
+                .abs(shootingTower.getPosition().get().getX()
+                        - helpingTower.getPosition().get().getX()) <= (int) helpingTower.getHittingRange().getX() * 16
+                && Math.abs(shootingTower.getPosition().get().getY()
+                        - helpingTower.getPosition().get().getY()) <= (int) helpingTower.getHittingRange().getY() * 16;
     }
 
     /**
@@ -413,8 +416,11 @@ public class GameModel {
      * @return true if the bloon is in range, false otherwise.
      */
     private boolean isBloonInRange(final Bloon bloon, final ShootingTower shootingTower) {
-        return Math.abs(shootingTower.getPosition().get().getX() - bloon.getPosition().get().getX()) < (int) shootingTower.getHittingRange().getX() * 16
-                && Math.abs(shootingTower.getPosition().get().getY() - bloon.getPosition().get().getY()) < (int) shootingTower.getHittingRange().getY() * 16;
+        return Math
+                .abs(shootingTower.getPosition().get().getX()
+                        - bloon.getPosition().get().getX()) < (int) shootingTower.getHittingRange().getX() * 16
+                && Math.abs(shootingTower.getPosition().get().getY()
+                        - bloon.getPosition().get().getY()) < (int) shootingTower.getHittingRange().getY() * 16;
     }
 
     /**
@@ -444,7 +450,10 @@ public class GameModel {
         return this.mapManager;
     }
 
-    public void restartGame(){
+    /**
+     * Resets the parameter in order to restart the game.
+     */
+    public void restartGame() {
         this.towers = new ArrayList<>();
         this.bullets = new ArrayList<>();
         this.player = new Player();
