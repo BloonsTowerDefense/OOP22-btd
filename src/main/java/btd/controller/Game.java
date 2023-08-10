@@ -1,9 +1,11 @@
-package btd.model;
+package btd.controller;
 
 import javax.swing.*;
 import java.awt.*;
 
 import btd.Main;
+import btd.model.GameModel;
+import btd.model.LevelImpl;
 import btd.view.GameCondition;
 import btd.view.View;
 import btd.view.menu.MainMenu;
@@ -82,7 +84,7 @@ public class Game extends Thread {
         //double interval = 1000000000/4; //60
         //double nextDraw = System.nanoTime() + interval;
         //System.out.print("\nci sono quasi");
-        while(exitGame()){
+        while(runningGame()){
             //System.out.println("Is running");
             this.currentTime = System.currentTimeMillis();
             long elapsedTime = this.currentTime - lastUpdateTime;
@@ -93,7 +95,7 @@ public class Game extends Thread {
         }
         }
 
-    public boolean exitGame(){
+    public boolean runningGame(){
         return this.gameCondition != GameCondition.EXIT;
     }
 
@@ -125,9 +127,16 @@ public class Game extends Thread {
                 break;
         }
     }
-    private void restart() {
+    public void restart() {
         this.view.restart();
+        this.gameCondition = GameCondition.MENU;
         Main.startGame();
+    }
+
+    public void exit() {
+        this.gameCondition = GameCondition.EXIT;
+        this.view.dispose();
+        System.exit(0);
     }
 
     public GameModel getGameModel(){

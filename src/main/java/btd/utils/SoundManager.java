@@ -16,7 +16,7 @@ public final class SoundManager {
     public enum SoundType {
 
         BUTTON,
-        EXPLOSION,
+        BLOON_DEATH,
         SHOOT,
         BACKGROUND_MUSIC
         // Add more sound types here...
@@ -47,7 +47,7 @@ public final class SoundManager {
     private SoundManager() {
         try {
             loadSound(SoundType.BUTTON, "/sounds/button.wav");
-            loadSound(SoundType.EXPLOSION, "/sounds/explosion.wav");
+            loadSound(SoundType.BLOON_DEATH, "/sounds/bloon_death.wav");
             loadSound(SoundType.SHOOT, "/sounds/shoot.wav");
             loadSound(SoundType.BACKGROUND_MUSIC, "/sounds/background_music.wav");
         } catch (Exception e) {

@@ -1,11 +1,7 @@
 //Batusha
 package btd;
 
-import btd.model.Game;
-import btd.view.View;
-
-import javax.swing.*;
-import java.awt.*;
+import btd.controller.Game;
 
 public class Main {
 

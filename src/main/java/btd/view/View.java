@@ -1,12 +1,8 @@
 package btd.view;
 
-import btd.model.Game;
-import btd.model.GameModel;
-import btd.model.map.MapPanel;
+import btd.controller.Game;
 import btd.view.menu.GameOverMenu;
-import btd.view.menu.MainMenu;
 import btd.view.menu.StartingMenu;
-import btd.view.menu.StatsMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -82,11 +78,6 @@ public class View extends JFrame{
         this.gameOverMenu.setVisible(true);
         this.gameOverMenu.requestFocus();
         this.gameOverMenu.repaint();
-    }
-
-
-    public void paintComponent(Graphics g) {
-        super.paintComponents(g);
     }
 
     public void setGameEngine(Game gameEngine){

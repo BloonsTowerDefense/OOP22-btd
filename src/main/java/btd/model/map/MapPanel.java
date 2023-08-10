@@ -11,7 +11,7 @@ import java.util.List;
 import btd.model.GameModel;
 import btd.model.entity.Bullet;
 import btd.utils.Position;
-import btd.model.Game;
+import btd.controller.Game;
 
 import btd.view.ItemType;
 import btd.view.Resources;
