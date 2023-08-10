@@ -30,7 +30,7 @@ public class MapElementImpl implements MapElement {
         return clone(this.img);
     }
 
-    public static BufferedImage clone(BufferedImage bufferImage) {
+    private BufferedImage clone(final BufferedImage bufferImage) {
         ColorModel colorModel = bufferImage.getColorModel();
         java.awt.image.WritableRaster raster = bufferImage.copyData(null);
         boolean isAlphaPremultiplied = colorModel.isAlphaPremultiplied();

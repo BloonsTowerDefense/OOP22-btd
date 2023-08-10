@@ -14,68 +14,67 @@ import btd.utils.Position;
  * This class implements the {@link Path} interface.
  */
 public class PathImpl implements Path {
-    
+
     private List<Direction> path;
     private Position spawnPosition;
     private String source;
 
-	/**
+    /**
      * Standard constructor of this class.
      *
      * @param source source from which to load path information.
+     * @param test used to set test mode on, in this way it loads a standard file.
      */
-    public PathImpl(final String source, Boolean test) {
+    public PathImpl(final String source, final Boolean test) {
         this.path = new ArrayList<>();
-		this.source = source;
+        this.source = source;
         loadPath(this.source, test);
-		//System.out.println("Ho letto il seguente path: " + this.path.toString());
+        //System.out.println("Ho letto il seguente path: " + this.path.toString());
     }
 
-	/**
+    /**
      * {@inheritDoc}
      */
-	@Override
-	public List<Direction> getDirections() {
-		//return this.path;
-		return new ArrayList<>(this.path);
-	}
+    @Override
+    public List<Direction> getDirections() {
+        //return this.path;
+        return new ArrayList<>(this.path);
+    }
 
-	/**
+    /**
      * {@inheritDoc}
      */
-	@Override
-	public Position getSpawnPosition() {
-		return this.spawnPosition;
-		//return new Position(this.spawnPosition.getX(), this.spawnPosition.getX());
-	}
+    @Override
+    public Position getSpawnPosition() {
+        return new Position(this.spawnPosition.getX(), this.spawnPosition.getY());
+    }
 
-	/**
+    /**
      * {@inheritDoc}
      */
-	@Override
-	public int getPathDistance() {
-		return this.path.size();
-	}
+    @Override
+    public int getPathDistance() {
+        return this.path.size();
+    }
 
-	/**
+    /**
      * {@inheritDoc}
      */
-	@Override
-	public int getTileSize() {
-		return MapPanel.finalSpritesize;
-	}
+    @Override
+    public int getTileSize() {
+        return MapPanel.FINAL_SPRITE_SIZE;
+    }
 
-	private final void loadPath(final String source, final Boolean test) {
-        try {
-            String realSource;
-            if (test) {
-                realSource = "/testResources/bloonsPath.txt";
-            } else {
-                realSource = "/map/" + source + "/bloonsPath.txt";
-            }
-            InputStream input = PathImpl.class.getResourceAsStream(realSource);
+    private void loadPath(final String source, final Boolean test) {
+        String realSource;
+        if (test) {
+            realSource = "/testResources/bloonsPath.txt";
+        } else {
+            realSource = "/map/" + source + "/bloonsPath.txt";
+        }
+        try (InputStream input = PathImpl.class.getResourceAsStream(realSource);
+                BufferedReader br = new BufferedReader(new InputStreamReader(input, "UTF-8"))) {
             if (input != null) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(input,  "UTF-8"));
                 String read = br.readLine();
                 if (read != null) {
                     String[] spawnPosition = read.split(" ");
@@ -97,13 +96,13 @@ public class PathImpl implements Path {
         }
     }
 
-	private Direction decodeDirection(final int in) {
-		switch (in) {
-			case 1: return Direction.UP;
-			case 2: return Direction.DOWN;
-			case 3: return Direction.RIGHT;
-			case 4: return Direction.LEFT;
-			default: return null;
-		}
-	}
+    private Direction decodeDirection(final int in) {
+        switch (in) {
+            case 1: return Direction.UP;
+            case 2: return Direction.DOWN;
+            case 3: return Direction.RIGHT;
+            case 4: return Direction.LEFT;
+            default: return null;
+        }
+    }
 }

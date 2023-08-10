@@ -26,7 +26,7 @@ public class MapManagerImpl implements MapManager {
     public MapManagerImpl(final String mapName) {
         this.mapName = mapName;
         this.mapElementList = new ArrayList<>();
-        this.mapNum = new int[MapPanel.col][MapPanel.row];
+        this.mapNum = new int[MapPanel.GAME_COL][MapPanel.GAME_ROW];
         this.mapLoader = new MapLoaderImpl();
         loadMapImage();
         setMap(mapName);
@@ -37,13 +37,13 @@ public class MapManagerImpl implements MapManager {
      */
     @Override
     public void draw(final Graphics2D graphics2d) {
-        IntStream.range(0, MapPanel.row).forEach(currentRow -> {
-            IntStream.range(0, MapPanel.col).forEach(currentCol -> {
+        IntStream.range(0, MapPanel.GAME_ROW).forEach(currentRow -> {
+            IntStream.range(0, MapPanel.GAME_COL).forEach(currentCol -> {
                 int tileNum = this.mapNum[currentCol][currentRow];
                 MapElement mapElement = this.mapElementList.get(tileNum);
-                int x = currentCol * MapPanel.finalSpritesize;
-                int y = currentRow * MapPanel.finalSpritesize;
-                graphics2d.drawImage(mapElement.getImg(), x, y, MapPanel.finalSpritesize, MapPanel.finalSpritesize,
+                int x = currentCol * MapPanel.FINAL_SPRITE_SIZE;
+                int y = currentRow * MapPanel.FINAL_SPRITE_SIZE;
+                graphics2d.drawImage(mapElement.getImg(), x, y, MapPanel.FINAL_SPRITE_SIZE, MapPanel.FINAL_SPRITE_SIZE,
                         null);
             });
         });
@@ -77,8 +77,8 @@ public class MapManagerImpl implements MapManager {
      */
     @Override
     public Boolean canPlace(final int x, final int y) {
-        int newX = x / MapPanel.finalSpritesize;
-        int newY = y / MapPanel.finalSpritesize;
+        int newX = x / MapPanel.FINAL_SPRITE_SIZE;
+        int newY = y / MapPanel.FINAL_SPRITE_SIZE;
         return this.mapNum[newX][newY] == 2;
     }
 
@@ -90,11 +90,14 @@ public class MapManagerImpl implements MapManager {
         return this.mapName;
     }
 
-    private final void loadMapImage() {
+    private void loadMapImage() {
         try {
-            this.mapElementList.add(new MapElementImpl(ImageIO.read(MapManagerImpl.class.getResourceAsStream("/mapSprite/sand.png"))));
-            this.mapElementList.add(new MapElementImpl(ImageIO.read(MapManagerImpl.class.getResourceAsStream("/mapSprite/tree.png"))));
-            this.mapElementList.add(new MapElementImpl(ImageIO.read(MapManagerImpl.class.getResourceAsStream("/mapSprite/wall.png"))));
+            this.mapElementList.add(
+                    new MapElementImpl(ImageIO.read(MapManagerImpl.class.getResourceAsStream("/mapSprite/sand.png"))));
+            this.mapElementList.add(
+                    new MapElementImpl(ImageIO.read(MapManagerImpl.class.getResourceAsStream("/mapSprite/tree.png"))));
+            this.mapElementList.add(
+                    new MapElementImpl(ImageIO.read(MapManagerImpl.class.getResourceAsStream("/mapSprite/wall.png"))));
         } catch (Exception e) {
             e.printStackTrace();
         }

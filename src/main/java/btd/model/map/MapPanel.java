@@ -9,9 +9,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 
 import btd.model.GameModel;
-import btd.model.entity.*;
-
-
+import btd.model.entity.Bullet;
 import btd.utils.Position;
 import btd.model.Game;
 
@@ -24,13 +22,34 @@ import btd.view.Resources;
  */
 public class MapPanel extends JPanel {
 
-    private final static int originalSpriteSize = 16; //16 px originali
-    private final static int scale = 3;
-    public final static int finalSpritesize = originalSpriteSize * scale; //48px finali
-    public final static int col = 25; //25 colonne per avere la lunghezza 1200px
-    public final static int row = 15; //15 righe per avere l'altezza 720px
-    public static final int screenWidth = finalSpritesize * col;
-    public static final int screenHeight = finalSpritesize * row;
+    /**
+     * The original dimension of map's sprite.
+     */
+    private static final int ORIGINAL_SPRITE_SIZE = 16;
+    /**
+     * Scale to multiply map's sprite.
+     */
+    private static final int SCALE = 3;
+    /**
+     * The final dimension for map's sprite.
+     */
+    public static final int FINAL_SPRITE_SIZE = ORIGINAL_SPRITE_SIZE * SCALE;
+    /**
+     * Number of column of the map.
+     */
+    public static final int GAME_COL = 25;
+    /**
+     * Number of row of the map.
+     */
+    public static final int GAME_ROW = 15;
+    /**
+     * Final dimension of screen width, 1200px.
+     */
+    public static final int SCREEN_WIDTH = FINAL_SPRITE_SIZE * GAME_COL;
+    /**
+     * Final dimension of screen height, 720px.
+     */
+    public static final int SCREEN_HEIGHT = FINAL_SPRITE_SIZE * GAME_ROW;
 
     private transient MapManager mapManager;
     private transient Game game;
@@ -41,7 +60,7 @@ public class MapPanel extends JPanel {
      * @param game Game instance.
      */
     public MapPanel(final Game game) {
-        this.setPreferredSize(new Dimension(MapPanel.screenWidth, MapPanel.screenHeight));
+        this.setPreferredSize(new Dimension(MapPanel.SCREEN_WIDTH, MapPanel.SCREEN_HEIGHT));
         this.setDoubleBuffered(true);
         this.game = game;
         this.mapManager = game.getGameModel().getMapManager();
@@ -54,12 +73,14 @@ public class MapPanel extends JPanel {
      */
     public void paintComponent(final Graphics graphics) {
         super.paintComponent(graphics);
-        Graphics2D graphics2d = (Graphics2D) graphics;
+        Graphics2D graphics2d = (Graphics2D) graphics.create();
         graphics2d.setColor(Color.black);
         this.mapManager.draw(graphics2d);
         drawBloon(graphics);
-        this.game.getGameModel().getTowers().forEach(tower -> graphics.drawImage(tower.getTowerSprite(), (int) tower.getPosition().get().getX(), (int) tower.getPosition().get().getY(), null));
-        update();
+        this.game.getGameModel().getTowers().forEach(tower -> graphics.drawImage(tower.getTowerSprite(),
+                (int) tower.getPosition().get().getX(), (int) tower.getPosition().get().getY(), null));
+        this.game.getGameModel().towerShoot();
+        this.game.getGameModel().towerHelp();
         drawBullet(graphics);
     }
 
@@ -71,8 +92,8 @@ public class MapPanel extends JPanel {
     private void drawBullet(final Graphics graphics) {
         List<Bullet> bullets = this.game.getGameModel().getBullets();
         if (bullets != null && !bullets.isEmpty()) {
-            for (Bullet bullet: bullets) {
-                bullet.updatePosition(1,graphics);
+            for (Bullet bullet : bullets) {
+                bullet.updatePosition(1, graphics);
             }
         }
     }
@@ -83,7 +104,7 @@ public class MapPanel extends JPanel {
      * @param g The Graphics object to draw on.
      */
     private void drawBloon(final Graphics g) {
-        //System.out.println("SONO DRAWBLOON");
+        // System.out.println("SONO DRAWBLOON");
         System.out.print(this.game.getGameModel().getAliveBloons());
         this.game.getGameModel().getAliveBloons().forEach(f -> {
             final Position position = f.getPosition().get();
@@ -92,25 +113,21 @@ public class MapPanel extends JPanel {
             final int y = (int) position.getY();
             switch (f.getType().name()) {
                 case "RED_BLOON":
-                    g.drawImage(Resources.getRes().getTextures(ItemType.RED_BLOON), x, y, 48, 48, null);
+                    g.drawImage(Resources.getRes().getTextures(ItemType.RED_BLOON), x, y, MapPanel.FINAL_SPRITE_SIZE,
+                            MapPanel.FINAL_SPRITE_SIZE, null);
                     break;
                 case "BLUE_BLOON":
-                    g.drawImage(Resources.getRes().getTextures(ItemType.BLUE_BLOON), x, y, 48, 48,  null);
+                    g.drawImage(Resources.getRes().getTextures(ItemType.BLUE_BLOON), x, y, MapPanel.FINAL_SPRITE_SIZE,
+                            MapPanel.FINAL_SPRITE_SIZE, null);
                     break;
                 case "BLACK_BLOON":
-                    g.drawImage(Resources.getRes().getTextures(ItemType.BLACK_BLOON), x, y,  48, 48,  null);
+                    g.drawImage(Resources.getRes().getTextures(ItemType.BLACK_BLOON), x, y, MapPanel.FINAL_SPRITE_SIZE,
+                            MapPanel.FINAL_SPRITE_SIZE, null);
                     break;
                 default:
                     break;
             }
         });
-    }
-
-    public void update() {
-        this.game.getGameModel().towerShoot();
-        this.game.getGameModel().towerHelp();
-        this.game.getView().getGameView().setPlayerLife(String.valueOf(this.game.getGameModel().getPlayer().getHealth()));
-        this.game.getView().getGameView().setPlayerMoney(String.valueOf(this.game.getGameModel().getMoney()));
     }
 
     /**
