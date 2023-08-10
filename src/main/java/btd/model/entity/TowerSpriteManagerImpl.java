@@ -20,6 +20,10 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
         setTowerSprites(towerName, 0);
     }
 
+
+    /**
+     * Method used to create a map of [towerName : towerPath]
+     * */
     @Override
     public void towerResourceMap() {
         towerResourceMap = new HashMap<>();
@@ -30,6 +34,12 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
         towerResourceMap.put("rangeEnhancer", "/towers/rangeEnhancer/");
     }
 
+    /**
+     * Method used to add the sprites of the specified tower in a list
+     *
+     * @param towerName The name of the tower to get the sprites
+     * @param upgradeNumber The number of the upgrade to get the corresponding sprites
+     * */
     private void setTowerSprites(String towerName, Integer upgradeNumber) {
         spriteList.clear();
         String towerPath = towerResourceMap.get(towerName);
@@ -46,6 +56,12 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
         }
     }
 
+    /**
+     * Method used to get a specific list of sprites for a specific upgrade
+     *
+     * @param towerName The name of the tower
+     * @param upgradeNumber The number of the upgrade
+     * */
     public List<BufferedImage> getUpgradeSprites(String towerName,Integer upgradeNumber){
         List<BufferedImage> sprites = new ArrayList<>();
         String towerPath = towerResourceMap.get(towerName);

@@ -3,7 +3,6 @@ package btd.model.entity;
 import btd.utils.Position;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 import java.util.Optional;
 
 public class ShootingTower implements Tower {
@@ -90,6 +89,11 @@ public class ShootingTower implements Tower {
         return this.hittingRange;
     }
 
+    /**
+     * Method used to get the power of the shooting tower
+     *
+     * @return returns the Integer of the power.
+     * */
     public Integer getPower(){
         return this.power;
     }

@@ -1,12 +1,9 @@
 package btd.view.menu;
 
-import btd.controller.score.RankController;
-import btd.model.score.RankModel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
@@ -68,7 +65,6 @@ public class GameOverMenu extends JPanel {
         add(buttonPanel);
         setOpaque(false);
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
-
     }
     public void requestFocusForPlayerName() {
         this.playerName.requestFocus();
@@ -83,7 +79,10 @@ public class GameOverMenu extends JPanel {
     }
 
     public String getPlayerName(){
-        return playerName.getText();
+        return this.playerName.getText();
     }
 
+    public JButton getSaveScore() {
+        return this.saveScore;
+    }
 }
