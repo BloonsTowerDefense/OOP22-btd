@@ -1,14 +1,21 @@
 package btd.view;
 
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+
 import btd.controller.Game;
 import btd.view.menu.GameOverMenu;
 import btd.view.menu.StartingMenu;
 
-import javax.swing.*;
-import java.awt.*;
 
-public class View extends JFrame{
-
+/**
+ * This class represents the graphical user interface of the game.
+ * It displays different panels such as the starting menu, game view, and game over menu.
+ */
+public class View extends JFrame {
+    private static final long serialVersionUID = 102824L;
     private final JLayeredPane mainPanel;
     private final StartingMenu menuPanel;
 
@@ -20,7 +27,12 @@ public class View extends JFrame{
     private static final int DEFAULT_WIDTH = 1200;
     private static final int DEFAULT_HEIGHT = 720;
 
-    public View(Game gameEngine) {
+    /**
+     * Standard constructor for View with a specified game engine.
+     *
+     * @param gameEngine game engine associated with this view.
+     */
+    public View(final Game gameEngine) {
         this.gameEngine = gameEngine;
         //this.frame = new JFrame();
         this.mainPanel = new JLayeredPane();
@@ -29,9 +41,11 @@ public class View extends JFrame{
 
         this.gameOverMenu = new GameOverMenu();
         this.gameOverMenu.getSaveScore().addActionListener(e -> {
-            String userName = this.gameOverMenu.getPlayerName();
-            if(!userName.isEmpty()){
-                this.gameEngine.getGameModel().getRankController().addScore(this.gameEngine.getGameModel().getMapManager().getMapName(),this.gameOverMenu.getPlayerName(),this.gameEngine.getGameModel().getPlayer().getScore());
+            final String userName = this.gameOverMenu.getPlayerName();
+            if (!userName.isEmpty()) {
+                this.gameEngine.getGameModel().getRankController().addScore(
+                        this.gameEngine.getGameModel().getMapManager().getMapName(), this.gameOverMenu.getPlayerName(), 
+                        this.gameEngine.getGameModel().getPlayer().getScore());
                 this.gameEngine.restartGame();
             }
         });
@@ -50,10 +64,13 @@ public class View extends JFrame{
         this.getContentPane().add(mainPanel);
         this.pack();
         this.setResizable(false);
-        this.setSize(new Dimension(1200,720));
+        this.setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         this.setVisible(true);
     }
 
+    /**
+     * Renders the starting menu, making it visible and hiding other panels.
+     */
     public void renderMenu() {
         this.mainPanel.setLayer(menuPanel, JLayeredPane.DEFAULT_LAYER);
         this.mainPanel.setLayer(gameView, JLayeredPane.PALETTE_LAYER);
@@ -65,6 +82,9 @@ public class View extends JFrame{
         this.menuPanel.repaint();
     }
 
+     /**
+     * Renders the game view, making it visible and hiding other panels.
+     */
     public void renderGame() {
         this.mainPanel.setLayer(menuPanel, JLayeredPane.PALETTE_LAYER);
         this.mainPanel.setLayer(gameView, JLayeredPane.DEFAULT_LAYER);
@@ -76,6 +96,9 @@ public class View extends JFrame{
         this.gameView.repaint();
     }
 
+    /**
+     * Renders the game over menu, making it visible and hiding other panels.
+     */
     public void renderGameOver() {
         this.mainPanel.setLayer(menuPanel, JLayeredPane.PALETTE_LAYER);
         this.mainPanel.setLayer(gameView, JLayeredPane.MODAL_LAYER);
@@ -83,19 +106,31 @@ public class View extends JFrame{
         this.menuPanel.setVisible(false);
         this.gameView.setVisible(false);
         this.gameOverMenu.setVisible(true);
-     //   this.gameOverMenu.requestFocus();
         this.gameOverMenu.requestFocusForPlayerName();
         this.gameOverMenu.repaint();
     }
 
-    public void setGameEngine(Game gameEngine){
+    /**
+     * Sets the game engine associated with this view.
+     *
+     * @param gameEngine game engine to set.
+     */
+    public void setGameEngine(final Game gameEngine) {
         this.gameEngine = gameEngine;
     }
 
-    public GameView getGameView(){
+    /**
+     * Gets the game view panel.
+     *
+     * @return GameView panel.
+     */
+    public GameView getGameView() {
         return this.gameView;
     }
 
+    /**
+     * Restarts the view by disposing of the current window.
+     */
     public void restart() {
         this.dispose();
     }
