@@ -1,5 +1,8 @@
 package btd.view.menu;
 
+import btd.controller.score.RankController;
+import btd.model.score.RankModel;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -15,11 +18,13 @@ public class GameOverMenu extends JPanel {
 
     private BufferedImage menuBackground;
 
-    private JTextField playerName;
+    private final JTextField playerName;
 
     private final JButton saveScore = new JButton("Save Score");
 
-    public GameOverMenu(Integer score){
+    private Integer score = 0;
+
+    public GameOverMenu(){
         GridLayout mainLayout = new GridLayout(5,1);
         mainLayout.setVgap(40);
         setLayout(mainLayout);
@@ -71,7 +76,12 @@ public class GameOverMenu extends JPanel {
         g.drawImage(this.menuBackground,0,0,WIDTH,HEIGHT,null);
     }
 
+    public void setScore(Integer newScore){
+        this.score = newScore;
+    }
+
     public String getPlayerName(){
         return playerName.getText();
     }
+
 }
