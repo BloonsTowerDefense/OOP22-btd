@@ -21,7 +21,7 @@ import btd.view.Resources;
  * bloons, tower and bullets. It extends {@link JPanel}.
  */
 public class MapPanel extends JPanel {
-
+    private static final long serialVersionUID = 100L;
     /**
      * The original dimension of map's sprite.
      */
@@ -52,13 +52,14 @@ public class MapPanel extends JPanel {
     public static final int SCREEN_HEIGHT = FINAL_SPRITE_SIZE * GAME_ROW;
 
     private transient MapManager mapManager;
-    private transient Game game;
+    private final transient Game game;
 
     /**
      * Standard constructor of MapPanel with the specified Game instance.
      *
      * @param game Game instance.
      */
+    @SuppressWarnings("PMD.MVOEI2")
     public MapPanel(final Game game) {
         this.setPreferredSize(new Dimension(MapPanel.SCREEN_WIDTH, MapPanel.SCREEN_HEIGHT));
         this.setDoubleBuffered(true);
@@ -71,9 +72,10 @@ public class MapPanel extends JPanel {
      *
      * @param graphics Graphics object to paint element on.
      */
+    @Override
     public void paintComponent(final Graphics graphics) {
         super.paintComponent(graphics);
-        Graphics2D graphics2d = (Graphics2D) graphics.create();
+        final Graphics2D graphics2d = (Graphics2D) graphics.create();
         graphics2d.setColor(Color.black);
         this.mapManager.draw(graphics2d);
         drawBloon(graphics);
@@ -92,9 +94,9 @@ public class MapPanel extends JPanel {
      * @param graphics Graphics object to paint bullets on.
      */
     private void drawBullet(final Graphics graphics) {
-        List<Bullet> bullets = this.game.getGameModel().getBullets();
+        final List<Bullet> bullets = this.game.getGameModel().getBullets();
         if (bullets != null && !bullets.isEmpty()) {
-            for (Bullet bullet : bullets) {
+            for (final Bullet bullet : bullets) {
                 bullet.updatePosition(1, graphics);
             }
         }
@@ -107,10 +109,10 @@ public class MapPanel extends JPanel {
      */
     private void drawBloon(final Graphics g) {
         // System.out.println("SONO DRAWBLOON");
-        System.out.print(this.game.getGameModel().getAliveBloons());
+        //System.out.print(this.game.getGameModel().getAliveBloons());
         this.game.getGameModel().getAliveBloons().forEach(f -> {
             final Position position = f.getPosition().get();
-            System.out.println("POSIZIONE: " + position);
+            //System.out.println("POSIZIONE: " + position);
             final int x = (int) position.getX();
             final int y = (int) position.getY();
             switch (f.getType().name()) {

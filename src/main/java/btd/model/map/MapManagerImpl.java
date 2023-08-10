@@ -1,8 +1,11 @@
 package btd.model.map;
 
 import java.awt.Graphics2D;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
 import javax.imageio.ImageIO;
@@ -11,12 +14,12 @@ import javax.imageio.ImageIO;
  * This class implements the {@link MapManager} interface.
  */
 public class MapManagerImpl implements MapManager {
-
-    private List<MapElement> mapElementList;
+    private static final Logger LOGGER = Logger.getLogger(MapManagerImpl.class.getName());
+    private final List<MapElement> mapElementList;
     private int[][] mapNum;
-    private MapLoader mapLoader;
+    private final MapLoader mapLoader;
     private Path bloonPath;
-    private String mapName;
+    private final String mapName;
 
     /**
      * Standard constructor of MapManagerImpl.
@@ -39,10 +42,10 @@ public class MapManagerImpl implements MapManager {
     public void draw(final Graphics2D graphics2d) {
         IntStream.range(0, MapPanel.GAME_ROW).forEach(currentRow -> {
             IntStream.range(0, MapPanel.GAME_COL).forEach(currentCol -> {
-                int tileNum = this.mapNum[currentCol][currentRow];
-                MapElement mapElement = this.mapElementList.get(tileNum);
-                int x = currentCol * MapPanel.FINAL_SPRITE_SIZE;
-                int y = currentRow * MapPanel.FINAL_SPRITE_SIZE;
+                final int tileNum = this.mapNum[currentCol][currentRow];
+                final MapElement mapElement = this.mapElementList.get(tileNum);
+                final int x = currentCol * MapPanel.FINAL_SPRITE_SIZE;
+                final int y = currentRow * MapPanel.FINAL_SPRITE_SIZE;
                 graphics2d.drawImage(mapElement.getImg(), x, y, MapPanel.FINAL_SPRITE_SIZE, MapPanel.FINAL_SPRITE_SIZE,
                         null);
             });
@@ -55,9 +58,9 @@ public class MapManagerImpl implements MapManager {
     @Override
     public int[][] getMapNum() {
         //return this.mapNum;
-        int rows = mapNum.length;
-        int cols = mapNum[0].length;
-        int[][] copy = new int[rows][cols];
+        final int rows = mapNum.length;
+        final int cols = mapNum[0].length;
+        final int[][] copy = new int[rows][cols];
 
         for (int i = 0; i < rows; i++) {
         System.arraycopy(mapNum[i], 0, copy[i], 0, cols);
@@ -77,8 +80,8 @@ public class MapManagerImpl implements MapManager {
      */
     @Override
     public Boolean canPlace(final int x, final int y) {
-        int newX = x / MapPanel.FINAL_SPRITE_SIZE;
-        int newY = y / MapPanel.FINAL_SPRITE_SIZE;
+        final int newX = x / MapPanel.FINAL_SPRITE_SIZE;
+        final int newY = y / MapPanel.FINAL_SPRITE_SIZE;
         return this.mapNum[newX][newY] == 2;
     }
 
@@ -98,13 +101,13 @@ public class MapManagerImpl implements MapManager {
                     new MapElementImpl(ImageIO.read(MapManagerImpl.class.getResourceAsStream("/mapSprite/tree.png"))));
             this.mapElementList.add(
                     new MapElementImpl(ImageIO.read(MapManagerImpl.class.getResourceAsStream("/mapSprite/wall.png"))));
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "IOException", e);
         }
     }
 
     private void setMap(final String mapName) {
-        String src = "/map/" + mapName + "/" + mapName + ".txt";
+        final String src = "/map/" + mapName + "/" + mapName + ".txt";
         this.mapNum = this.mapLoader.loadMap(src);
         this.bloonPath = new PathImpl(mapName, false);
     }

@@ -1,113 +1,116 @@
 package btd.model.entity;
 
 import btd.utils.Position;
-
 import java.awt.image.BufferedImage;
 import java.util.Optional;
 
+/**
+ * Implementation of towers of type Helping. Helping Towers are towers used to help shooting
+ * towers to enhance their shooting range or their power.
+ * */
 public class HelpingTower implements Tower {
+  private final String towerName;
 
-    private final static int SELL_PRICE_FACTOR = 100;
+  private final String function;
 
-    private final String towerName;
+  private final Integer price;
 
-    private final String function;
+  private Integer functionFactor;
 
-    private final Integer price;
+  private Position position;
 
-    private Integer functionFactor;
+  private Position hittingRange;
 
-    private Position position;
+  private final TowerSpriteManager towerSpriteManager;
 
-    private Position hittingRange;
-    private final TowerSpriteManager towerSpriteManager;
+  /**
+   * Builds a Helping Tower with the specified name, function, price, position.
+   *
+   * @param towerName The name of the tower.
+   * @param  function The function of the tower.
+   * @param price The price of the tower.
+   * @param position The position of the tower.
+   **/
+  public HelpingTower(String towerName, final String function, Integer price, Position position) {
+    this.towerSpriteManager = new TowerSpriteManagerImpl(towerName);
+    this.towerName = towerName;
+    this.price = price;
+    this.function = function;
+    this.functionFactor = 10;
+    this.position = position;
+    this.hittingRange = new Position(this.functionFactor, this.functionFactor);
+  }
 
-    public HelpingTower(String towerName,final String function, Integer price, Position position){
-        this.towerSpriteManager = new TowerSpriteManagerImpl(towerName);
-        this.towerName = towerName;
-        this.price = price;
-        this.function = function;
-        this.functionFactor = 10;
-        this.position = position;
-        this.hittingRange = new Position(this.functionFactor,this.functionFactor);
-    }
+  @Override
+  public boolean upgradable(Integer playerMoney) {
+    return false;
+  }
 
-    @Override
-    public boolean upgradable(Integer playerMoney) {
-        return false;
-    }
+  @Override
+  public void update() {
+    this.towerSpriteManager.upgrade(this.towerName);
+    this.hittingRange = new Position(hittingRange.getX() + 10, hittingRange.getY() + 10);
+    this.functionFactor += 5;
+  }
 
-    @Override
-    public void update() {
-        this.towerSpriteManager.upgrade(this.towerName);
-        this.hittingRange = new Position(hittingRange.getX()+10, hittingRange.getY()+10);
-        this.functionFactor += 5;
-    }
+  @Override
+  public Integer getPrice() {
+    return this.price;
+  }
 
-    @Override
-    public Integer sell() {
-        return getPrice() - SELL_PRICE_FACTOR;
-    }
+  @Override
+  public Integer getUpgradePrice() {
+    return this.price + 50;
+  }
 
-    @Override
-    public Integer getPrice() {
-        return this.price;
-    }
+  @Override
+  public Position getHittingRange() {
+    return this.hittingRange;
+  }
 
-    @Override
-    public Integer getUpgradePrice(){
-        return this.price+50;
-    }
+  /**
+   * Method used to get the function factor of the helping tower.
+   * The function factor is the analog of the power for shooting tower,
+   * instead the helping tower cannot shoot, so it will enhance only. The
+   * function factor indicates how much to enhance
+   *
+   * @return returns the Integer of the enhancing factor
+   **/
+  public Integer getFunctionFactor() {
+    return this.functionFactor;
+  }
 
-    @Override
-    public Position getHittingRange() {
-        return this.hittingRange;
-    }
+  @Override
+  public Optional<Position> getPosition() {
+    return Optional.ofNullable(this.position);
+  }
 
-    /**
-     * Method used to get the function factor of the helping tower.
-     * The function factor is the analog of the power for shooting tower,
-     * instead the helping tower cannot shoot, so it will enhance only. The
-     * function factor indicates how much to enhance
-     *
-     * @return returns the Integer of the enhancing factor
-     * */
-    public Integer getFunctionFactor(){
-        return this.functionFactor;
-    }
+  @Override
+  public String getName() {
+    return this.towerName;
+  }
 
-    @Override
-    public Optional<Position> getPosition() {
-        return Optional.ofNullable(this.position);
-    }
+  /**
+  * Method used to return the function type of the helping tower.
+  *
+  * @return returns the String of the function.
+  **/
+  public String getFunction() {
+    return this.function;
+  }
 
-    @Override
-    public String getName() {
-        return this.towerName;
-    }
+  @Override
+  public void setPosition(double x, double y) {
+    this.position = new Position(x, y);
+  }
 
-    /**
-     * Method used to return the function type of the helping tower.
-     *
-     * @return returns the String of the function.
-     * */
-    public String getFunction(){
-        return this.function;
-    }
+  @Override
+  public BufferedImage getTowerSprite() {
+    return towerSpriteManager.getTowerSpriteList().get(0);
+  }
 
-    @Override
-    public void setPosition(double x, double y) {
-        this.position = new Position(x,y);
-    }
-
-    @Override
-    public BufferedImage getTowerSprite(){
-        return towerSpriteManager.getTowerSpriteList().get(0);
-    }
-
-    @Override
-    public TowerSpriteManager getTowerSpriteManager(){
-        return this.towerSpriteManager;
-    }
-
+  @Override
+  public TowerSpriteManager getTowerSpriteManager() {
+    return this.towerSpriteManager;
+  }
 }

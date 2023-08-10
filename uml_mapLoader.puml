@@ -1,0 +1,11 @@
+@startuml
+class MapLoaderImpl {
++ int[][] loadMap(String mapName)
+}
+interface MapLoader {
+~ int[][] loadMap(String mapName)
+}
+
+
+MapLoader <|.. MapLoaderImpl
+@enduml

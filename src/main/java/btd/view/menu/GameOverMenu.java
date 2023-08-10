@@ -1,88 +1,111 @@
 package btd.view.menu;
 
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
+/**
+ * The GameOverMenu class represents a graphical user interface panel for displaying the game over
+ * menu. This panel allows players to save their scores by entering their names.
+ */
 public class GameOverMenu extends JPanel {
 
-    private final static int WIDTH = 1200;
-    private final static int HEIGHT = 720;
+  private static final int WIDTH = 1200;
 
-    private BufferedImage menuBackground;
+  private static final int HEIGHT = 720;
 
-    private final JTextField playerName;
+  private BufferedImage menuBackground;
 
-    private final JButton saveScore = new JButton("Save Score");
+  private final JTextField playerName;
 
-    private Integer score = 0;
+  private final JButton saveScore = new JButton("Save Score");
 
-    public GameOverMenu(){
-        GridLayout mainLayout = new GridLayout(5,1);
-        mainLayout.setVgap(40);
-        setLayout(mainLayout);
+  /**
+   * Constructs a GameOverMenu panel. Initializes the panel layout, loads menu background image,
+   * and sets up UI components.
+   */
+  public GameOverMenu() {
+    Logger logger = Logger.getLogger(getClass().getName());
+    GridLayout mainLayout = new GridLayout(4, 1);
+    mainLayout.setVgap(40);
+    setLayout(mainLayout);
 
-        try {
-            this.menuBackground = ImageIO.read(Objects.requireNonNull(getClass().getResource("/menuSprite/mainMenuSprite.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        JLabel gameOver = new JLabel("GAME OVER");
-        gameOver.setFont(new Font("Arial",Font.BOLD,80));
-        gameOver.setForeground(Color.RED);
-        gameOver.setHorizontalAlignment(SwingConstants.CENTER);
-
-        JLabel yourScoreLabel = new JLabel("Your Score: "+score);
-        yourScoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        yourScoreLabel.setFont(new Font("Arial",Font.BOLD,60));
-        yourScoreLabel.setForeground(Color.WHITE);
-
-
-        JLabel insertName = new JLabel("Insert your name");
-        insertName.setHorizontalAlignment(SwingConstants.CENTER);
-        insertName.setFont(new Font("Arial",Font.ITALIC,40));
-        insertName.setForeground(Color.WHITE);
-
-        JPanel playerNamePanel = new JPanel();
-        playerName = new JTextField(20);
-        playerNamePanel.add(playerName);
-        playerNamePanel.setOpaque(false);
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(saveScore);
-        buttonPanel.setOpaque(false);
-        buttonPanel.setPreferredSize(new Dimension(100,40));
-
-        add(gameOver);
-        add(yourScoreLabel);
-        add(insertName);
-        add(playerNamePanel);
-        add(buttonPanel);
-        setOpaque(false);
-        setPreferredSize(new Dimension(WIDTH,HEIGHT));
-    }
-    public void requestFocusForPlayerName() {
-        this.playerName.requestFocus();
-    }
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        g.drawImage(this.menuBackground,0,0,WIDTH,HEIGHT,null);
+    try {
+      this.menuBackground =
+          ImageIO.read(
+              Objects.requireNonNull(getClass().getResource("/menuSprite/mainMenuSprite.png")));
+    } catch (IOException e) {
+      logger.severe("Error on loading image");
     }
 
-    public void setScore(Integer newScore){
-        this.score = newScore;
-    }
+    JLabel gameOver = new JLabel("GAME OVER");
+    gameOver.setFont(new Font("Arial", Font.BOLD, 80));
+    gameOver.setForeground(Color.RED);
+    gameOver.setHorizontalAlignment(SwingConstants.CENTER);
 
-    public String getPlayerName(){
-        return this.playerName.getText();
-    }
+    JLabel insertName = new JLabel("Insert your name to save score");
+    insertName.setHorizontalAlignment(SwingConstants.CENTER);
+    insertName.setForeground(Color.GREEN);
+    insertName.setFont(new Font("Arial", Font.ITALIC, 60));
 
-    public JButton getSaveScore() {
-        return this.saveScore;
-    }
+    JPanel playerNamePanel = new JPanel();
+    playerName = new JTextField(20);
+    playerNamePanel.add(playerName);
+    playerNamePanel.setOpaque(false);
+
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.add(saveScore);
+    buttonPanel.setOpaque(false);
+    buttonPanel.setPreferredSize(new Dimension(100, 40));
+
+    add(gameOver);
+    add(insertName);
+    add(playerNamePanel);
+    add(buttonPanel);
+    setOpaque(false);
+    setPreferredSize(new Dimension(WIDTH, HEIGHT));
+  }
+
+  /**
+   * Requests focus for the player name text field, allowing the user to start typing.
+   */
+  public void requestFocusForPlayerName() {
+    this.playerName.requestFocus();
+  }
+
+  @Override
+  public void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    g.drawImage(this.menuBackground, 0, 0, WIDTH, HEIGHT, null);
+  }
+
+  /**
+   * Retrieves the player's name entered in the text field.
+   *
+   * @return the player's name
+   */
+  public String getPlayerName() {
+    return this.playerName.getText();
+  }
+
+  /**
+   * Retrieves the "Save Score" button component.
+   *
+   * @return the "Save Score" button
+   */
+  public JButton getSaveScore() {
+    return this.saveScore;
+  }
 }
