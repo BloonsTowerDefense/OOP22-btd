@@ -1,7 +1,6 @@
 package btd.model.score;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,7 +13,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import btd.model.map.MapManagerImpl;
 import btd.utils.RankElement;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -23,6 +25,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * The ranked score contains elements of type {@link RankElement}.
  */
 public final class RankModel {
+    private static final Logger LOGGER = Logger.getLogger(MapManagerImpl.class.getName());
     private Map<String, List<RankElement>> rank;
     /**
      * The maximum number of score to save in rank.
@@ -45,7 +48,7 @@ public final class RankModel {
                     saveRankToFile();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, "IOException", e);
             }
         } else if (this.file.length() > 0) {
             this.rank = readRankFromFile();
@@ -78,7 +81,7 @@ public final class RankModel {
         if (!this.rank.containsKey(mapName)) {
             this.rank.put(mapName, new ArrayList<>());
         }
-        List<RankElement> tmp = this.rank.get(mapName);
+        final List<RankElement> tmp = this.rank.get(mapName);
         tmp.add(new RankElement(user, score));
         orderRank(tmp);
         if (tmp.size() > LIMIT_SCORE) {
@@ -94,7 +97,7 @@ public final class RankModel {
      *
      * @return a copy of the current ranking as a list of {@link RankElement} elements.
      */
-    public HashMap<String, List<RankElement>> getRank() {
+    public Map<String, List<RankElement>> getRank() {
         this.rank = readRankFromFile();
         return new HashMap<>(this.rank);
     }
@@ -122,21 +125,17 @@ public final class RankModel {
                 ObjectOutputStream oos = new ObjectOutputStream(fileOut)) {
             oos.writeObject(this.rank);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "IOException", e);
         }
     }
 
     @SuppressWarnings("unchecked")
-    private HashMap<String, List<RankElement>> readRankFromFile() {
+    private Map<String, List<RankElement>> readRankFromFile() {
         try (ObjectInputStream oos = new ObjectInputStream(
                 new BufferedInputStream(new FileInputStream(this.file.getPath())))) {
             return (HashMap<String, List<RankElement>>) oos.readObject();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (IOException |  ClassNotFoundException e) {
+            LOGGER.log(Level.SEVERE, "Exception", e);
         }
         return new HashMap<>();
     }
@@ -146,7 +145,7 @@ public final class RankModel {
     }
 
     private void limit(final List<RankElement> toLimit) {
-        Iterator<RankElement> it = toLimit.iterator();
+        final Iterator<RankElement> it = toLimit.iterator();
         for (int i = 0; i <= LIMIT_SCORE; i++) {
             it.next();
         }

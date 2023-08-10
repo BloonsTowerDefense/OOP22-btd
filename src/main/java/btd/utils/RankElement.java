@@ -8,8 +8,8 @@ import java.io.Serializable;
  */
 public class RankElement implements Serializable {
     private static final long serialVersionUID = 1717L;
-    private String user;
-    private Integer score;
+    private final String user;
+    private final Integer score;
 
     /**
      * Standard constructor for RankElement.

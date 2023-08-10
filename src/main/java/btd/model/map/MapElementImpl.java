@@ -31,9 +31,9 @@ public class MapElementImpl implements MapElement {
     }
 
     private BufferedImage clone(final BufferedImage bufferImage) {
-        ColorModel colorModel = bufferImage.getColorModel();
-        java.awt.image.WritableRaster raster = bufferImage.copyData(null);
-        boolean isAlphaPremultiplied = colorModel.isAlphaPremultiplied();
+        final ColorModel colorModel = bufferImage.getColorModel();
+        final java.awt.image.WritableRaster raster = bufferImage.copyData(null);
+        final boolean isAlphaPremultiplied = colorModel.isAlphaPremultiplied();
         return new BufferedImage(colorModel, raster, isAlphaPremultiplied, null);
     }
 }
