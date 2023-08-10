@@ -32,6 +32,7 @@ public class View extends JFrame{
             String userName = this.gameOverMenu.getPlayerName();
             if(!userName.isEmpty()){
                 this.gameEngine.getGameModel().getRankController().addScore(this.gameEngine.getGameModel().getMapManager().getMapName(),this.gameOverMenu.getPlayerName(),this.gameEngine.getGameModel().getPlayer().getScore());
+                this.gameEngine.restartGame();
             }
         });
         //System.out.print("\n 2 view");
