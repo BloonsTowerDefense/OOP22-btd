@@ -37,9 +37,11 @@ public class View extends JFrame{
         //System.out.print("\n inizo view");
         this.mainPanel.add(menuPanel, JLayeredPane.DEFAULT_LAYER);
         this.mainPanel.add(gameView, JLayeredPane.PALETTE_LAYER);
+        this.mainPanel.add(gameOverMenu, JLayeredPane.MODAL_LAYER);
 
         this.menuPanel.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         this.gameView.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        this.gameOverMenu.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().add(mainPanel);
@@ -52,8 +54,10 @@ public class View extends JFrame{
     public void renderMenu() {
         this.mainPanel.setLayer(menuPanel, JLayeredPane.DEFAULT_LAYER);
         this.mainPanel.setLayer(gameView, JLayeredPane.PALETTE_LAYER);
+        this.mainPanel.setLayer(gameOverMenu, JLayeredPane.MODAL_LAYER);
         this.menuPanel.setVisible(true);
         this.gameView.setVisible(false);
+        this.gameOverMenu.setVisible(false);
         this.menuPanel.requestFocus();
         this.menuPanel.repaint();
     }
@@ -61,20 +65,25 @@ public class View extends JFrame{
     public void renderGame() {
         this.mainPanel.setLayer(menuPanel, JLayeredPane.PALETTE_LAYER);
         this.mainPanel.setLayer(gameView, JLayeredPane.DEFAULT_LAYER);
+        this.mainPanel.setLayer(gameOverMenu, JLayeredPane.MODAL_LAYER);
         this.menuPanel.setVisible(false);
+        this.gameOverMenu.setVisible(false);
         this.gameView.setVisible(true);
         this.gameView.requestFocus();
         this.gameView.repaint();
     }
 
     public void renderGameOver() {
-        this.mainPanel.setLayer(gameOverMenu, JLayeredPane.PALETTE_LAYER);
-        this.mainPanel.setLayer(gameView, JLayeredPane.DEFAULT_LAYER);
-        this.gameOverMenu.setVisible(true);
+        this.mainPanel.setLayer(menuPanel, JLayeredPane.PALETTE_LAYER);
+        this.mainPanel.setLayer(gameView, JLayeredPane.MODAL_LAYER);
+        this.mainPanel.setLayer(gameOverMenu, JLayeredPane.DEFAULT_LAYER);
+        this.menuPanel.setVisible(false);
         this.gameView.setVisible(false);
+        this.gameOverMenu.setVisible(true);
         this.gameOverMenu.requestFocus();
         this.gameOverMenu.repaint();
     }
+
 
     public void paintComponent(Graphics g) {
         super.paintComponents(g);
