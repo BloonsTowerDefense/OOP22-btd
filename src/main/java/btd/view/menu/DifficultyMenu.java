@@ -161,7 +161,7 @@ public class DifficultyMenu extends JPanel {
   * @param map1 The button representing map 1.
   * @param map2 The button representing map 2.
   */
-  private void setMap( final String value, final JButton map1, final JButton map2) {
+  private void setMap(final String value, final JButton map1, final JButton map2) {
     map = value;
 
     if (Objects.equals(value, "map01")) {
@@ -187,7 +187,7 @@ public class DifficultyMenu extends JPanel {
   * @param label The label text for the button.
   * @return A JButton instance representing the difficulty selection button.
   */
-  private JButton createDifficultyButton(String label) {
+  private JButton createDifficultyButton(final String label) {
     JButton button = new JButton(label);
     button.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
     button.setOpaque(true);

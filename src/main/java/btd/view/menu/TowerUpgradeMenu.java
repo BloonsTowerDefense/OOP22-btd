@@ -28,7 +28,7 @@ public class TowerUpgradeMenu extends JPanel {
    *
    * @param tower The tower to be upgraded.
    */
-  public TowerUpgradeMenu(Tower tower) {
+  public TowerUpgradeMenu(final Tower tower) {
     Logger logger = Logger.getLogger(getClass().getName());
     setPreferredSize(new Dimension(200, 720));
     setBackground(Color.decode("#629D5A"));

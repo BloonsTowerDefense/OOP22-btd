@@ -29,18 +29,17 @@ public class Bullet {
      * @param startingPosition The starting position of the bullet.
      * @param sprite           The image sprite of the bullet.
      */
-    public Bullet(Position startingPosition, BufferedImage sprite) {
+    public Bullet(final Position startingPosition,final BufferedImage sprite) {
         this.startingPosition = startingPosition;
         this.sprite = sprite;
     }
-    
 
     /**
      * Sets the target position for the bullet.
      *
      * @param position The target position.
      */
-    public void setTargetPosition(Position position) {
+    public void setTargetPosition(final Position position) {
         this.targetPosition = position;
     }
 

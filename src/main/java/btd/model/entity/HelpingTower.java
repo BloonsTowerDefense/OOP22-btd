@@ -38,7 +38,7 @@ public class HelpingTower implements Tower {
    * @param price The price of the tower.
    * @param position The position of the tower.
    **/
-  public HelpingTower(String towerName, final String function, Integer price, Position position) {
+  public HelpingTower(final String towerName, final String function, final Integer price, final Position position) {
     this.towerSpriteManager = new TowerSpriteManagerImpl(towerName);
     this.towerName = towerName;
     this.price = price;
