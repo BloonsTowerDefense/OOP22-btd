@@ -6,8 +6,6 @@ import java.awt.image.BufferedImage;
 import java.util.Optional;
 
 public class ShootingTower implements Tower {
-
-    private final static int SELL_PRICE_FACTOR = 100;
     private final String towerName;
     private Integer power;
 
@@ -38,12 +36,6 @@ public class ShootingTower implements Tower {
         this.towerSpriteManager.upgrade(this.towerName);
         this.power += 2;
         this.hittingRange = new Position(hittingRange.getX()+5,hittingRange.getY()+5);
-    }
-
-    @Override
-    public Integer sell() {
-        //When player sells a tower the price is lower than the initial price
-        return getPrice() - SELL_PRICE_FACTOR;
     }
 
     @Override

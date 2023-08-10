@@ -1,11 +1,9 @@
 package btd.model.entity;
 
-import btd.model.entity.Entity;
 import btd.utils.Position;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.List;
 
 public interface Tower extends Entity {
 
@@ -23,13 +21,6 @@ public interface Tower extends Entity {
      * @throws IOException if the image of the tower is not loaded correctly or is missing
      * */
     void update();
-
-    /**
-     * Method used to sell the tower
-     *
-     * @return returns the money earned by selling the tower
-     * */
-    Integer sell();
 
     /**
      * Method used to get the price of the current tower
