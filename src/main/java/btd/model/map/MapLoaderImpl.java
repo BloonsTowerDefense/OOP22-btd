@@ -17,23 +17,23 @@ public class MapLoaderImpl implements MapLoader {
      */
     @Override
     public final int[][] loadMap(final String mapName) {
-        int[][] ret = new int[MapPanel.col][MapPanel.row];
+        int[][] ret = new int[MapPanel.GAME_COL][MapPanel.GAME_ROW];
         try (InputStream input = MapLoaderImpl.class.getResourceAsStream(mapName)) {
             if (input == null) {
                 throw new IllegalArgumentException("Map file not found: " + mapName);
             }
             try (BufferedReader buffReader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8))) {
-                IntStream.range(0, MapPanel.row).forEach(row -> {
+                IntStream.range(0, MapPanel.GAME_ROW).forEach(row -> {
                     try {
                         String line = buffReader.readLine();
                         if (line == null) {
                             throw new IOException("Line is null");
                         }
                         String[] numbers = line.split(" ");
-                        if (numbers.length != MapPanel.col) {
+                        if (numbers.length != MapPanel.GAME_COL) {
                             throw new IllegalArgumentException("Incorrect number of values in row: " + line);
                         }
-                        IntStream.range(0, MapPanel.col).forEach(col -> {
+                        IntStream.range(0, MapPanel.GAME_COL).forEach(col -> {
                             int currentNum = Integer.parseInt(numbers[col]);
                             ret[col][row] = currentNum;
                         });

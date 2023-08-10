@@ -10,13 +10,13 @@ import btd.model.map.MapPanel;
 
 public class MapLoaderTest {
     
-    private int[][] expectedMap = new int[MapPanel.col][MapPanel.row];
+    private int[][] expectedMap = new int[MapPanel.GAME_COL][MapPanel.GAME_ROW];
     
     @BeforeEach
     public void setUp() {
         expectedMap[1][1] = 1;
-        for(int i = 0; i < MapPanel.col; i++){
-            for(int j = 0; j < MapPanel.row; j++){
+        for(int i = 0; i < MapPanel.GAME_COL; i++){
+            for(int j = 0; j < MapPanel.GAME_ROW; j++){
                 expectedMap[i][j] = 1;
             }
         }

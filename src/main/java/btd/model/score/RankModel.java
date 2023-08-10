@@ -24,7 +24,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class RankModel {
     private Map<String, List<RankElement>> rank;
-    public static final int LIMIT_SCORE = 5;
+    /**
+     * The maximum number of score to save in rank.
+     */
+    public static final int LIMIT_SCORE = 5; 
     private final File file;
     private static RankModel rankModelIstance;
 
@@ -49,13 +52,13 @@ public final class RankModel {
         } 
     }
 
-    @SuppressFBWarnings("MS")
     /**
      * Returns the singleton instance of RankModel. It creates a new istance only the first time that
      * it's called.
      *
      * @return the instance of RankModel.
      */
+    @SuppressFBWarnings("MS")
     public static synchronized RankModel getRankModelIstance() {
         if (rankModelIstance == null) {
             rankModelIstance = new RankModel();

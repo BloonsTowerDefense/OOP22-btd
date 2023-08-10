@@ -18,7 +18,7 @@ public class RankController {
      *
      * @param mod The RankModel instance to associate with the controller.
      */
-    public RankController(final RankModel mod){
+    public RankController(final RankModel mod) {
         this.model = mod;
     }
 
@@ -29,7 +29,7 @@ public class RankController {
      * @param user  the user name associated with the score.
      * @param score the score to add to rank.
      */
-    public void addScore(String mapName, String user, Integer score){
+    public void addScore(final String mapName, final String user, final Integer score) {
         this.model.addScore(mapName, user, score);
     }
 
@@ -38,7 +38,7 @@ public class RankController {
      *
      * @return an HashMap<String, List<RankElement>> representing the current rank.
      */
-    public HashMap<String, List<RankElement>> getRank(){
+    public HashMap<String, List<RankElement>> getRank() {
         return this.model.getRank();
     }
 }
