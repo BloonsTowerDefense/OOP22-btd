@@ -33,7 +33,6 @@ public final class RankModel {
     private final File file;
     private static RankModel rankModelIstance;
 
-    @SuppressFBWarnings("MS_SHOULD_BE_FINAL")
     /**
      * Private constructor for RankModel.
      * It loads the score from memory only if the file exists and is not empty.
@@ -60,7 +59,6 @@ public final class RankModel {
      *
      * @return the instance of RankModel.
      */
-    @SuppressFBWarnings("MS")
     public static synchronized RankModel getRankModelIstance() {
         if (rankModelIstance == null) {
             rankModelIstance = new RankModel();
@@ -128,7 +126,6 @@ public final class RankModel {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private Map<String, List<RankElement>> readRankFromFile() {
         try (ObjectInputStream oos = new ObjectInputStream(
                 new BufferedInputStream(new FileInputStream(this.file.getPath())))) {

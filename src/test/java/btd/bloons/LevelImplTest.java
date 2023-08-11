@@ -29,7 +29,6 @@ public class LevelImplTest {
     @Test
     public void testGenerateWaves() {
         for (int waveNum = 1; waveNum <= 5; waveNum++) {
-            System.out.println("Wave " + waveNum);
             Wave wave = level.getWave();
             assertNotNull(wave);
 

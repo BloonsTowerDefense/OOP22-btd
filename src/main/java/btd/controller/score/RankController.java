@@ -19,7 +19,6 @@ public class RankController {
      *
      * @param mod The RankModel instance to associate with the controller.
      */
-    @SuppressWarnings("PMD.MVOEI2")
     public RankController(final RankModel mod) {
         this.model = mod;
     }

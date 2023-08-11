@@ -124,11 +124,6 @@ public class BloonImpl extends EntityImpl implements Bloon {
     public void update(final long time) {
         if (!this.hasReachedEnd()) {
             if (this.currentPathIndex < this.path.getDirections().size()) {
-                /*this.currentDirection = this.path.getDirections().get(this.currentPathIndex);
-                System.out.println("\n" + this.currentDirection);
-                System.out.println("\n pathIndex: " + this.currentPathIndex);
-                System.out.println(this.path.getDirections().size());
-                this.currentPathIndex++;*/
                 this.move(time);
             } else {
                 // Gestisci qui la situazione in cui currentPathIndex >= path.getDirections().size()

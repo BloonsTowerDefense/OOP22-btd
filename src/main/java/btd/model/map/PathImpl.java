@@ -30,9 +30,7 @@ public class PathImpl implements Path {
      */
     public PathImpl(final String source, final Boolean test) {
         this.path = new ArrayList<>();
-        //this.source = source;
         loadPath(source, test);
-        //System.out.println("Ho letto il seguente path: " + this.path.toString());
     }
 
     /**

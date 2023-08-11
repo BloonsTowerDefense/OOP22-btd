@@ -60,11 +60,9 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
           spriteList.add(ImageIO.read(Objects.requireNonNull(getClass()
                   .getResource(towerPath + "Upgrade" + upgradeNumber + "/sprite" + i + ".png"))));
         } catch (IOException e) {
-          System.out.println("No more sprites for tower");
+          e.printStackTrace();
         }
       }
-    } else {
-      System.out.println("Unknown tower name");
     }
   }
 
@@ -83,7 +81,7 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
           sprites.add(ImageIO.read(Objects.requireNonNull(getClass()
                   .getResource(towerPath + "Upgrade" + upgradeNumber + "/sprite" + i + ".png"))));
         } catch (IOException e) {
-          System.out.println("No more sprites");
+          e.printStackTrace();
         }
       }
     }

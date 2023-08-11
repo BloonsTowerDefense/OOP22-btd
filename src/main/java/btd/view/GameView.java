@@ -174,7 +174,6 @@ public class GameView extends JPanel {
   public void paintComponent(final Graphics g) {
     super.paintComponent(g);
     mapPanel.paintComponent(g);
-    System.out.println("\n paint gameView");
   }
 
   /**
