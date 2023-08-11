@@ -30,15 +30,5 @@ public class WaveImpl implements Wave {
     public List<Bloon> getBloons() {
         return List.copyOf(this.bloons);
     }
-
-    /**
-     * Checks if the wave is over (all bloons have been defeated or reached their destination).
-     *
-     * @return {@code true} if the wave is over, {@code false} otherwise.
-     */
-    @Override
-    public boolean isOver() {
-        return this.bloons.isEmpty();
-    }
 }
 

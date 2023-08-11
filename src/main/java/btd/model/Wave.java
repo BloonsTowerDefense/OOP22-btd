@@ -16,19 +16,5 @@ public interface Wave {
      * @return A List containing the bloons in the wave.
      */
     List<Bloon> getBloons();
-
-    /**
-     * Checks if the wave is over (all bloons have been defeated or reached their destination).
-     *
-     * @return {@code true} if the wave is over, {@code false} otherwise.
-     */
-    boolean isOver();
-
-    /**
-     * Removes the specified bloon from the wave.
-     *
-     * @param bloon The bloon to be removed from the wave.
-     */
-    void removeBloon(Bloon bloon);
 }
 
