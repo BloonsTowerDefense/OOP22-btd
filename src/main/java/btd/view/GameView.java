@@ -49,15 +49,14 @@ public class GameView extends JPanel {
     towerShopMenu = new ShopMenu();
     mapPanel = new MapPanel(this.gameEngine);
     statsMenu = new StatsMenu();
-    // gameEngine.getRankController().addScore(gameEngine.getGameModel().getMapManager().getMapName(), "Nome", 1028);
 
     JPanel eastPanel = new JPanel();
     eastPanel.setLayout(new BoxLayout(eastPanel, BoxLayout.PAGE_AXIS));
 
     CardLayout cardLayout = new CardLayout();
     JPanel shopUpgradePanel = new JPanel(cardLayout);
-    shopUpgradePanel.setPreferredSize(new Dimension(200, 620));
     shopUpgradePanel.add(towerShopMenu, "SHOP");
+    shopUpgradePanel.setPreferredSize(new Dimension(200, 720));
 
     cardLayout.show(shopUpgradePanel, "SHOP");
 

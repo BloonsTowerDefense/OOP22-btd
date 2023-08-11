@@ -10,11 +10,6 @@ import java.util.List;
 public interface TowerSpriteManager {
 
   /**
-  * Creates a map of tower names and respective paths of resources.
-  **/
-  void towerResourceMap();
-
-  /**
   * Handles the changes of sprites when the tower is upgraded.
   *
   * @param towerName The name of the tower to be upgraded
