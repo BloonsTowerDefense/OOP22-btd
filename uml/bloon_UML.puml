@@ -1,0 +1,82 @@
+@startuml
+class BloonValues {
++ {static} int RED_BLOON_HEALTH
++ {static} double RED_BLOON_SPEED
++ {static} int RED_BLOON_MONEY
++ {static} int BLUE_BLOON_HEALTH
++ {static} double BLUE_BLOON_SPEED
++ {static} int BLUE_BLOON_MONEY
++ {static} int BLACK_BLOON_HEALTH
++ {static} double BLACK_BLOON_SPEED
++ {static} int BLACK_BLOON_MONEY
+}
+interface Entity {
+~ Optional<Position> getPosition()
+~ void setPosition(double,double)
+}
+class BloonImpl {
+- Path path
+- Direction currentDirection
+- boolean alive
+- BloonType type
++ double getHealth()
++ int getMoney()
++ boolean hasReachedEnd()
++ void hit(int)
++ void move(long)
++ void update(long)
++ boolean isDead()
++ void setPath(Path)
++ BloonType getType()
++ void setHealth(int)
+}
+class EntityImpl {
+- Optional<Position> position
++ Optional<Position> getPosition()
++ String getName()
++ void setPosition(double,double)
++ double getX()
++ double getY()
+}
+enum BloonType {
++  RED_BLOON
++  BLUE_BLOON
++  BLACK_BLOON
+- double speed
+- int health
+- Image image
++ double getSpeed()
++ int getHealth()
++ int getMoney()
++ Image getImage()
+}
+enum Direction {
++  UP
++  DOWN
++  RIGHT
++  LEFT
+}
+interface Bloon {
+~ double getHealth()
+~ int getMoney()
+~ boolean hasReachedEnd()
+~ void hit(int)
+~ void move(long)
+~ void update(long)
+~ boolean isDead()
+~ void setPath(Path)
+~ BloonType getType()
+~ int getCurrentPathIndex()
+~ void setHealth(int)
+}
+
+
+Bloon <|.. BloonImpl
+EntityImpl <|-- BloonImpl
+Entity <|.. EntityImpl
+Entity <|-- Bloon
+Direction -up- BloonImpl
+BloonType --left-- BloonImpl
+BloonValues --left-- BloonType
+
+@enduml

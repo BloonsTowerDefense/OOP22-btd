@@ -1,0 +1,28 @@
+@startuml
+interface Wave {
+~ List<Bloon> getBloons()
+~ boolean isOver()
+}
+class LevelImpl {
+- int round
+- int difficultyMultiplier
+- Random rand
+- boolean waveInProgress
+- Path path
++ Wave getWave()
++ void waveFinished()
+}
+class WaveImpl {
+- List<Bloon> bloons
++ List<Bloon> getBloons()
++ boolean isOver()
+}
+interface Level {
+~ Wave getWave()
+}
+
+
+Level <|.. LevelImpl
+Wave <|.. WaveImpl
+LevelImpl -right- WaveImpl
+@enduml

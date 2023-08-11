@@ -1,0 +1,19 @@
+@startuml
+class Resources {
+- Map<ItemType,BufferedImage> textures
++ {static} Resources getRes()
++ BufferedImage getTextures(ItemType)
+}
+class Resources$LazyRes {
+- {static} Resources SINGLETON
+}
+enum ItemType {
++  RED_BLOON
++  BLUE_BLOON
++  BLACK_BLOON
+}
+
+
+Resources +.. Resources$LazyRes
+Resources -- ItemType
+@enduml

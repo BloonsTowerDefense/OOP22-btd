@@ -1,0 +1,27 @@
+@startuml
+class SoundManager {
+- Map<SoundType,Clip> sounds
+- boolean audioEnabled
++ {static} SoundManager getInstance()
+- void loadSound(SoundType,String)
++ void playSound(SoundType,boolean)
++ void stopSound(SoundType)
++ void stopAll()
++ void playInLoop(SoundType)
++ void setAudioEnabled(boolean)
++ boolean isAudioEnabled()
+}
+enum SoundType {
++  BUTTON
++  BLOON_DEATH
++  SHOOT
++  BACKGROUND_MUSIC
+}
+class SoundManager$LazySoundManager {
+- {static} SoundManager SINGLETON
+}
+
+
+SoundManager +.. SoundManager$LazySoundManager
+SoundManager -- SoundType
+@enduml
