@@ -46,7 +46,6 @@ public class RankView extends JPanel {
      *
      * @param controller the RankController instance associated with this view.
      */
-    @SuppressWarnings("EI2")
     public RankView(final RankController controller) {
         this.controller = controller;
         this.backButton = new JButton();

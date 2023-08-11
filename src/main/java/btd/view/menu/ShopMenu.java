@@ -59,7 +59,7 @@ public class ShopMenu extends JPanel {
    * @param spritePath path to image's path.
    * @param towerPrice the price of the tower.
    */
-  private JButton addTowerIcon(String towerName, String spritePath, String towerPrice) {
+  private JButton addTowerIcon(final String towerName, final String spritePath, final String towerPrice) {
     Logger logger = Logger.getLogger(getClass().getName());
     JButton button = new JButton();
     button.setLayout(new BorderLayout());

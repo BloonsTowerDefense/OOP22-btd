@@ -1,6 +1,7 @@
 package btd.model;
 
 import btd.model.entity.Bloon;
+
 import java.util.List;
 
 /**
@@ -22,5 +23,12 @@ public interface Wave {
      * @return {@code true} if the wave is over, {@code false} otherwise.
      */
     boolean isOver();
+
+    /**
+     * Removes the specified bloon from the wave.
+     *
+     * @param bloon The bloon to be removed from the wave.
+     */
+    void removeBloon(Bloon bloon);
 }
 

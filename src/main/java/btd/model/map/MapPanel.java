@@ -59,7 +59,6 @@ public class MapPanel extends JPanel {
      *
      * @param game Game instance.
      */
-    @SuppressWarnings("PMD.MVOEI2")
     public MapPanel(final Game game) {
         this.setPreferredSize(new Dimension(MapPanel.SCREEN_WIDTH, MapPanel.SCREEN_HEIGHT));
         this.setDoubleBuffered(true);
@@ -108,11 +107,8 @@ public class MapPanel extends JPanel {
      * @param g The Graphics object to draw on.
      */
     private void drawBloon(final Graphics g) {
-        // System.out.println("SONO DRAWBLOON");
-        //System.out.print(this.game.getGameModel().getAliveBloons());
         this.game.getGameModel().getAliveBloons().forEach(f -> {
             final Position position = f.getPosition().get();
-            //System.out.println("POSIZIONE: " + position);
             final int x = (int) position.getX();
             final int y = (int) position.getY();
             switch (f.getType().name()) {

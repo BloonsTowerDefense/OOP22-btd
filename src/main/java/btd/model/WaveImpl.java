@@ -2,9 +2,7 @@ package btd.model;
 
 import btd.model.entity.Bloon;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Represents an implementation of the Wave interface in the tower defense game.
@@ -12,15 +10,7 @@ import java.util.Random;
  */
 public class WaveImpl implements Wave {
 
-    private List<Bloon> bloons;
-    private String bloonType;
-    private int numBloons;
-
-    private long delay;
-
-    private String difficulty;
-
-    private Random random = new Random();
+    private final List<Bloon> bloons;
 
     /**
      * Constructs a WaveImpl object with the specified list of bloons.
@@ -29,7 +19,6 @@ public class WaveImpl implements Wave {
      */
     public WaveImpl(final List<Bloon> bloons) {
         this.bloons = bloons;
-        this.delay = 1000; // Default delay of 1000 milliseconds between bloon spawns
     }
 
     /**
@@ -49,7 +38,7 @@ public class WaveImpl implements Wave {
      */
     @Override
     public boolean isOver() {
-        return this.bloons.size() == 0;
+        return this.bloons.isEmpty();
     }
 
     /**
@@ -58,15 +47,8 @@ public class WaveImpl implements Wave {
      * @param bloon The bloon to be removed from the wave.
      */
     @Override
-    public void removeBloon(Bloon bloon) {
-        System.out.println("\n Bloon removed: " + bloon + " bloons size  before: " + bloons.size());
-        boolean removed = bloons.remove(bloon);
-        if (removed) {
-            System.out.println("Bloon successfully removed.");
-        } else {
-            System.out.println("Failed to remove bloon.");
-        }
-        System.out.println("\n bloons size after: " + bloons.size());
+    public void removeBloon(final Bloon bloon) {
+        this.bloons.remove(bloon);
     }
 
 }

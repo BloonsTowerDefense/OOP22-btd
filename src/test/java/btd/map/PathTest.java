@@ -45,7 +45,6 @@ public class PathTest {
         assertNotNull(path.getDirections());
 
         List<Direction> directions = path.getDirections();
-        System.out.println("DIm directions: " + directions.size());
         assertTrue(directions.size() > 0);
 
         for (Direction direction : directions) {

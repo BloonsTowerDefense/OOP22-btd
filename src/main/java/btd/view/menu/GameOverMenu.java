@@ -86,7 +86,7 @@ public class GameOverMenu extends JPanel {
   }
 
   @Override
-  public void paintComponent(Graphics g) {
+  public void paintComponent(final Graphics g) {
     super.paintComponent(g);
     g.drawImage(this.menuBackground, 0, 0, WIDTH, HEIGHT, null);
   }

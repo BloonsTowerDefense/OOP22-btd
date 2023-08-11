@@ -20,7 +20,7 @@ public class Main {
      * Starts the game.
      */
     public static void startGame() {
-        Game gameEngine = new Game();
+        final Game gameEngine = new Game();
         gameEngine.start();
     }
 

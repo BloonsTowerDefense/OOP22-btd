@@ -146,8 +146,7 @@ public class DifficultyMenu extends JPanel {
   * @param mediumButton The button for selecting medium difficulty.
   * @param hardButton The button for selecting hard difficulty.
   */
-  private void setDifficulty(String value, JButton easyButton,
-                             JButton mediumButton, JButton hardButton) {
+  private void setDifficulty(final String value, final JButton easyButton, final JButton mediumButton, final JButton hardButton) {
     difficulty = value;
     easyButton.setBackground(Objects.equals(value, "easy") ? SELECTED_COLOR : UNSELECTED_COLOR);
     mediumButton.setBackground(Objects.equals(value, "medium") ? SELECTED_COLOR : UNSELECTED_COLOR);
@@ -162,7 +161,7 @@ public class DifficultyMenu extends JPanel {
   * @param map1 The button representing map 1.
   * @param map2 The button representing map 2.
   */
-  private void setMap(String value, JButton map1, JButton map2) {
+  private void setMap(final String value, final JButton map1, final JButton map2) {
     map = value;
 
     if (Objects.equals(value, "map01")) {
@@ -177,7 +176,7 @@ public class DifficultyMenu extends JPanel {
   }
 
   @Override
-  protected void paintComponent(Graphics g) {
+  protected void paintComponent(final Graphics g) {
     super.paintComponent(g);
     g.drawImage(menuBackground, 0, 0, 1200, 720, null);
   }
@@ -188,7 +187,7 @@ public class DifficultyMenu extends JPanel {
   * @param label The label text for the button.
   * @return A JButton instance representing the difficulty selection button.
   */
-  private JButton createDifficultyButton(String label) {
+  private JButton createDifficultyButton(final String label) {
     JButton button = new JButton(label);
     button.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
     button.setOpaque(true);
@@ -203,7 +202,7 @@ public class DifficultyMenu extends JPanel {
   * @param mapPath The path to the map image resource.
   * @return A JButton instance representing the map selection button.
   */
-  private JButton createMapButton(String mapPath) {
+  private JButton createMapButton(final String mapPath) {
     JButton button = new JButton();
     try {
       BufferedImage mapIcon = ImageIO.read(Objects.requireNonNull(getClass().getResource(mapPath)));

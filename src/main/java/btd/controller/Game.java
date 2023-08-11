@@ -1,5 +1,8 @@
 package btd.controller;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import btd.Main;
 import btd.model.GameModel;
 import btd.view.GameCondition;
@@ -11,20 +14,18 @@ import btd.controller.score.RankController;
  * Represents the game engine, which is responsible for the game loop and the game state.
  */
 public class Game extends Thread {
-
-    private final long fTime = 200;
+    private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
+    private static final long FRAME_TIME_VALUE = 200;
     private final long frameTime;
     private final GameModel gameModel;
     private final View view;
-    private boolean running;
-    private Thread gameThread;
     private GameCondition gameCondition;
 
     /**
      * Creates a new game engine.
      */
     public Game() {
-        this.frameTime = fTime;
+        this.frameTime = FRAME_TIME_VALUE;
         this.gameCondition = GameCondition.MENU;
         this.gameModel = new GameModel();
         this.view = new View(this);
@@ -37,12 +38,12 @@ public class Game extends Thread {
      * @param currentTime the start time of the current frame
      */
     private void waitForNextFrame(final long currentTime) {
-        long dt = System.currentTimeMillis() - currentTime;
+        final long dt = System.currentTimeMillis() - currentTime;
         if (dt < frameTime) {
             try {
                 Thread.sleep(frameTime - dt);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (InterruptedException e) {
+                LOGGER.log(Level.SEVERE, "Exception", e);
             }
         }
     }
@@ -55,8 +56,8 @@ public class Game extends Thread {
     public void start() {
         long lastUpdateTime = System.currentTimeMillis();
         while (runningGame()) {
-            long currentTime = System.currentTimeMillis();
-            long elapsedTime = currentTime - lastUpdateTime;
+            final long currentTime = System.currentTimeMillis();
+            final long elapsedTime = currentTime - lastUpdateTime;
             this.update(elapsedTime);
             this.waitForNextFrame(currentTime);
             lastUpdateTime = currentTime;
