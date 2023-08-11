@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import btd.utils.Direction;
 import btd.utils.Position;
+import btd.view.MapPanel;
 
 /**
  * This class implements the {@link Path} interface.

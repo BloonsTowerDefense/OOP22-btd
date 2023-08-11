@@ -63,7 +63,6 @@ public final class SoundManager {
             loadSound(SoundType.BUTTON, "/sounds/button.wav");
             loadSound(SoundType.BLOON_DEATH, "/sounds/bloon_death.wav");
             loadSound(SoundType.SHOOT, "/sounds/shoot.wav");
-            loadSound(SoundType.BACKGROUND_MUSIC, "/sounds/background_music.wav");
         } catch (Exception e) {
             e.printStackTrace();
         }

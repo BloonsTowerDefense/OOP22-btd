@@ -11,6 +11,7 @@ import btd.model.map.MapManager;
 import btd.model.map.MapManagerImpl;
 import btd.model.map.Path;
 import btd.model.score.RankModel;
+import btd.utils.SoundManager;
 import btd.view.GameCondition;
 
 import javax.imageio.ImageIO;
@@ -317,6 +318,7 @@ public class GameModel {
                         bullet.setTargetPosition(targetBloon.getPosition().get());
                         bullets.add(bullet);
                         targetBloon.hit(((ShootingTower) tower).getPower());
+                        SoundManager.getInstance().playSound(SoundManager.SoundType.SHOOT, false);
                     } catch (IOException e) {
                         LOGGER.log(java.util.logging.Level.SEVERE, "Exception", e);
                     }

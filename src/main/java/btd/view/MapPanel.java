@@ -1,4 +1,4 @@
-package btd.model.map;
+package btd.view;
 
 import javax.swing.JPanel;
 
@@ -10,11 +10,9 @@ import java.util.List;
 
 import btd.model.GameModel;
 import btd.model.entity.Bullet;
+import btd.model.map.MapManager;
 import btd.utils.Position;
 import btd.controller.Game;
-
-import btd.view.ItemType;
-import btd.view.Resources;
 
 /**
  * This class rapresents a JPanel that displays the game map and the entity in the map, like

@@ -1,5 +1,7 @@
 package btd.model.map;
 
+import btd.view.MapPanel;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,7 +1,7 @@
 package btd.view.menu;
 
 import btd.controller.Game;
-import btd.model.map.MapPanel;
+import btd.view.MapPanel;
 import btd.utils.SoundManager;
 import btd.view.GameCondition;
 import btd.view.score.RankView;

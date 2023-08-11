@@ -4,7 +4,6 @@ import btd.controller.Game;
 import btd.model.entity.HelpingTower;
 import btd.model.entity.ShootingTower;
 import btd.model.entity.Tower;
-import btd.model.map.MapPanel;
 import btd.utils.Position;
 import btd.utils.SoundManager;
 import btd.view.menu.ShopMenu;

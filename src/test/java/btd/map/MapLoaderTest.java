@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import btd.model.map.MapLoaderImpl;
-import btd.model.map.MapPanel;
+import btd.view.MapPanel;
 
 public class MapLoaderTest {
     
