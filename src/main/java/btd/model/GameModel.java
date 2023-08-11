@@ -28,8 +28,8 @@ import java.util.Iterator;
  */
 public class GameModel {
     private static final Logger LOGGER = Logger.getLogger(GameModel.class.getName());
-    private static final long WAVE_WAITING_TIME = 2000;
-    private static final long BLOON_SPAWN_WAITING_TIME = 1500;
+    private static final long WAVE_WAITING_TIME = 1500;
+    private static final long BLOON_SPAWN_WAITING_TIME = 1000;
     private static final int X_TOLERANCE = 40;
     private static final int Y_TOLERANCE = 70;
     private LevelImpl level;

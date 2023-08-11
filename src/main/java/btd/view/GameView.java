@@ -159,9 +159,9 @@ public class GameView extends JPanel {
           case "deadColossus" -> new ShootingTower(
               "deadColossus", 5, 300, new Position(spriteX, spriteY));
           case "rangeEnhancer" -> new HelpingTower(
-              "rangeEnhancer", "Range", 100, new Position(spriteX, spriteY));
+              "rangeEnhancer", "Range", 400, new Position(spriteX, spriteY));
           case "powerEnhancer" -> new HelpingTower(
-              "powerEnhancer", "Power", 200, new Position(spriteX, spriteY));
+              "powerEnhancer", "Power", 600, new Position(spriteX, spriteY));
           default -> null;
         };
 

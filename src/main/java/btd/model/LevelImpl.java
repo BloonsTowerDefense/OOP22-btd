@@ -51,7 +51,7 @@ public class LevelImpl implements Level {
             return null;
         }
         final List<Bloon> bloons = new ArrayList<>();
-        final int numBloons = rand.nextInt(3, 10) + round * difficultyMultiplier;
+        final int numBloons = rand.nextInt(5, 15) + round * difficultyMultiplier;
         for (int i = 0; i < numBloons; i++) {
             final int bloonType = i % 3;
             Bloon b = null;

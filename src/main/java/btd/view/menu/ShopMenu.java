@@ -41,9 +41,9 @@ public class ShopMenu extends JPanel {
     deadColossus =
         addTowerIcon("Dead Colossus", "/towers/deadColossus/Upgrade0/sprite0.png", "300");
     rangeEnhancer =
-        addTowerIcon("Range Enhancer", "/towers/rangeEnhancer/Upgrade0/sprite0.png", "100");
+        addTowerIcon("Range Enhancer", "/towers/rangeEnhancer/Upgrade0/sprite0.png", "400");
     powerEnhancer =
-        addTowerIcon("Power Enhancer", "/towers/powerEnhancer/Upgrade0/sprite0.png", "200");
+        addTowerIcon("Power Enhancer", "/towers/powerEnhancer/Upgrade0/sprite0.png", "600");
 
     add(blackAdam);
     add(voldelife);

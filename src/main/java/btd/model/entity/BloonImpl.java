@@ -2,6 +2,7 @@ package btd.model.entity;
 
 import btd.model.map.Path;
 import btd.utils.Direction;
+import btd.utils.SoundManager;
 
 
 /**
@@ -72,6 +73,7 @@ public class BloonImpl extends EntityImpl implements Bloon {
     public void hit(final int amount) {
         this.health -= amount;
         if (health <= 0) {
+            SoundManager.getInstance().playSound(SoundManager.SoundType.BLOON_DEATH, false);
             this.alive = false;
         }
     }

@@ -5,7 +5,7 @@ package btd.model;
  * It holds information about player's health, score, and coins.
  */
 public class Player {
-    private int health = 10;
+    private int health = 15;
     private int coins = 200;
     private int score;
 

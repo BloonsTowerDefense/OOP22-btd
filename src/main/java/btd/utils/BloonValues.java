@@ -9,7 +9,7 @@ public final class BloonValues {
     /**
      * The default health value for a red bloon.
      */
-    public static final int RED_BLOON_HEALTH = 10;
+    public static final int RED_BLOON_HEALTH = 40;
 
     /**
      * The default speed value for a red bloon.
@@ -24,7 +24,7 @@ public final class BloonValues {
     /**
      * The default health value for a blue bloon.
      */
-    public static final int BLUE_BLOON_HEALTH = 20;
+    public static final int BLUE_BLOON_HEALTH = 70;
 
     /**
      * The default speed value for a blue bloon.
@@ -39,7 +39,7 @@ public final class BloonValues {
     /**
      * The default health value for a black bloon.
      */
-    public static final int BLACK_BLOON_HEALTH = 30;
+    public static final int BLACK_BLOON_HEALTH = 80;
 
     /**
      * The default speed value for a black bloon.
