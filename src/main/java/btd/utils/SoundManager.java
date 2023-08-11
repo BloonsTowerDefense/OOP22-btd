@@ -158,4 +158,3 @@ public final class SoundManager {
         return audioEnabled;
     }
 }
-
