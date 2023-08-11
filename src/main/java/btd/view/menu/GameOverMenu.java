@@ -85,6 +85,10 @@ public class GameOverMenu extends JPanel {
     this.playerName.requestFocus();
   }
 
+  /**
+   * Paints the menu background image.
+   * @param g Graphics
+   */
   @Override
   public void paintComponent(final Graphics g) {
     super.paintComponent(g);

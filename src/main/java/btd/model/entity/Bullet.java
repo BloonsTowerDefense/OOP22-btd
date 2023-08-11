@@ -11,9 +11,9 @@ import java.awt.image.BufferedImage;
  */
 public class Bullet {
 
-    private final static int SPRITE_DIMENSION = 20;
+    private static final int SPRITE_DIMENSION = 20;
 
-    private final static double POSITION_FACTOR = 0.3;
+    private static final double POSITION_FACTOR = 0.3;
 
     private final BufferedImage sprite;
 

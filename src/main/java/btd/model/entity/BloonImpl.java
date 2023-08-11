@@ -17,8 +17,7 @@ public class BloonImpl extends EntityImpl implements Bloon {
     private int currentPathIndex;
     private Direction currentDirection;
     private boolean alive;
-
-    final private BloonType type;
+    private final BloonType type;
     private double remainingDistance;
 
     /**

@@ -2,12 +2,9 @@ package btd.controller;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import btd.Main;
 import btd.model.GameModel;
 import btd.view.GameCondition;
 import btd.view.View;
-import btd.model.score.RankModel;
 import btd.controller.score.RankController;
 
 /**
@@ -111,24 +108,6 @@ public class Game extends Thread {
     }
 
     /**
-     * restart the game.
-     */
-    public void restart() {
-        this.view.restart();
-        this.gameCondition = GameCondition.MENU;
-        Main.startGame();
-    }
-
-    /**
-     * exit the game.
-     */
-    public void exit() {
-        this.gameCondition = GameCondition.EXIT;
-        this.view.dispose();
-        System.exit(0);
-    }
-
-    /**
      * return the game model.
      * @return the game model.
      */
@@ -145,29 +124,12 @@ public class Game extends Thread {
     }
 
     /**
-     * return the game condition.
-     * @return the game condition.
-     */
-    public GameCondition getGameCondition() {
-        return this.gameCondition;
-    }
-
-    /**
      * return the view.
      * @return the view.
      */
     public View getView() {
         return this.view;
     }
-
-    /**
-     * return the rank model.
-     * @return the rank model.
-     */
-    public RankModel getRankModel() {
-        return this.gameModel.getRankModel();
-    }
-
     /**
      * return the rank controller.
      * @return the rank controller.
@@ -176,8 +138,11 @@ public class Game extends Thread {
         return this.gameModel.getRankController();
     }
 
-    public void restartGame(){
-        setGameCondition(gameCondition.MENU);
+    /**
+     * restart the game.
+     */
+    public void restartGame() {
+        setGameCondition(GameCondition.MENU);
         this.gameModel.restartGame();
     }
 

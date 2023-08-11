@@ -131,7 +131,7 @@ public class GameModel {
             }
         }
 
-        if (waveInProgress  /*&& !this.wave.isOver()*/) {
+        if (waveInProgress) {
             for (final Bloon bloon : aliveBloons) {
                 ((BloonImpl) bloon).update(time);
             }
@@ -311,7 +311,8 @@ public class GameModel {
                 if (!bloonsInRange.isEmpty()) {
                     Bloon targetBloon = findTargetBloon(bloonsInRange);
                     try {
-                        final BufferedImage bulletImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/towers/bullet.png")));
+                        final BufferedImage bulletImage = ImageIO.read(Objects.requireNonNull(getClass()
+                                .getResource("/towers/bullet.png")));
                         final Bullet bullet = new Bullet(tower.getPosition().get(), bulletImage);
                         bullet.setTargetPosition(targetBloon.getPosition().get());
                         bullets.add(bullet);

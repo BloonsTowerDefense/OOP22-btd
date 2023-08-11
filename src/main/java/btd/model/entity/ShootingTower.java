@@ -10,11 +10,11 @@ import java.util.Optional;
  * */
 public class ShootingTower implements Tower {
 
-  private final static int UPGRADE_FACTOR = 2;
+  private static final int UPGRADE_FACTOR = 2;
 
-  private final static int RANGE_FACTOR = 5;
+  private static final int RANGE_FACTOR = 5;
 
-  private final static int PRICE_FACTOR = 50;
+  private static final int PRICE_FACTOR = 50;
 
 
   private final String towerName;
@@ -88,34 +88,50 @@ public class ShootingTower implements Tower {
     return towerSpriteManager.getTowerSpriteList().get(0);
   }
 
+  /**
+   * @{inheritdoc} .
+   */
   @Override
   public Optional<Position> getPosition() {
     return Optional.ofNullable(this.position);
   }
 
+    /**
+     * @{inheritdoc} .
+     */
   @Override
   public String getName() {
     return this.towerName;
   }
 
+    /**
+     * @{inheritdoc} .
+     */
   @Override
   public void setPosition(final double x, final double y) {
     this.position = new Position(x, y);
   }
 
   /**
-   * Method used to set the hitting range of the tower
-   * @param x the x-coordinate of the range
-   * @param y the y-coordinate of the range
+   * Method used to set the hitting range of the tower.
+   * @param x the x-coordinate of the range.
+   * @param y the y-coordinate of the range.
    */
   public void setHittingRange(final double x, final double y) {
     this.hittingRange = new Position(x, y);
   }
 
+  /**
+   * Method used to set the power of the tower.
+   * @param power the power of the tower.
+   */
   public void setPower(final Integer power) {
     this.power = power;
   }
 
+  /**
+   * @{inheritdoc} .
+   */
   @Override
   public Position getHittingRange() {
     return this.hittingRange;
@@ -130,6 +146,9 @@ public class ShootingTower implements Tower {
     return this.power;
   }
 
+    /**
+     * @{inheritdoc} .
+     */
   @Override
   public TowerSpriteManager getTowerSpriteManager() {
     return this.towerSpriteManager;

@@ -43,7 +43,7 @@ public class GameView extends JPanel {
    *
    * @param gameEngine The game engine controlling the game logic.
    */
-  public GameView(Game gameEngine) {
+  public GameView(final Game gameEngine) {
     this.gameEngine = gameEngine;
     setLayout(new BorderLayout());
     towerShopMenu = new ShopMenu();
@@ -169,6 +169,11 @@ public class GameView extends JPanel {
     return tower != null && this.statsMenu.getMoney() >= tower.getPrice() ? tower : null;
   }
 
+    /**
+     * Paints the game view.
+     *
+     * @param g The graphics object used for painting.
+     */
   @Override
   public void paintComponent(final Graphics g) {
     super.paintComponent(g);

@@ -70,6 +70,7 @@ public class TowerSpriteManagerImpl implements TowerSpriteManager {
   *
   * @param towerName The name of the tower.
   * @param upgradeNumber The number of the upgrade.
+  * @return the list of sprites for the specified upgrade.
   **/
   public List<BufferedImage> getUpgradeSprites(final String towerName, final Integer upgradeNumber) {
     List<BufferedImage> sprites = new ArrayList<>();

@@ -10,11 +10,11 @@ import java.util.Optional;
  * */
 public class HelpingTower implements Tower {
 
-  private final static int FUNCTION_FACTOR = 5;
+  private static final int FUNCTION_FACTOR = 5;
 
-  private final static int RANGE_FACTOR = 10;
+  private static final int RANGE_FACTOR = 10;
 
-  private final static int PRICE_FACTOR = 50;
+  private static final int PRICE_FACTOR = 50;
 
   private final String towerName;
 
@@ -48,11 +48,17 @@ public class HelpingTower implements Tower {
     this.hittingRange = new Position(this.functionFactor, this.functionFactor);
   }
 
+  /**
+   * @{inheritdoc} .
+   **/
   @Override
-  public boolean upgradable(Integer playerMoney) {
-    return false;
+  public boolean upgradable(final Integer playerMoney) {
+    return playerMoney - this.price >= 0;
   }
 
+    /**
+     * @{inheritdoc} .
+     **/
   @Override
   public void update() {
     this.towerSpriteManager.upgrade(this.towerName);
@@ -60,16 +66,25 @@ public class HelpingTower implements Tower {
     this.functionFactor += FUNCTION_FACTOR;
   }
 
+  /**
+   * @{inheritdoc} .
+   **/
   @Override
   public Integer getPrice() {
     return this.price;
   }
 
+    /**
+     * @{inheritdoc} .
+     **/
   @Override
   public Integer getUpgradePrice() {
     return this.price + PRICE_FACTOR;
   }
 
+    /**
+     * @{inheritdoc} .
+     **/
   @Override
   public Position getHittingRange() {
     return this.hittingRange;
@@ -87,11 +102,17 @@ public class HelpingTower implements Tower {
     return this.functionFactor;
   }
 
+    /**
+     * @{inheritdoc} .
+     **/
   @Override
   public Optional<Position> getPosition() {
     return Optional.ofNullable(this.position);
   }
 
+    /**
+     * @{inheritdoc} .
+     **/
   @Override
   public String getName() {
     return this.towerName;
@@ -106,16 +127,25 @@ public class HelpingTower implements Tower {
     return this.function;
   }
 
+    /**
+     * @{inheritdoc} .
+     **/
   @Override
   public void setPosition(final double x, final double y) {
     this.position = new Position(x, y);
   }
 
+  /**
+   * @{inheritdoc} .
+   */
   @Override
   public BufferedImage getTowerSprite() {
     return towerSpriteManager.getTowerSpriteList().get(0);
   }
 
+    /**
+     * @{inheritdoc} .
+     */
   @Override
   public TowerSpriteManager getTowerSpriteManager() {
     return this.towerSpriteManager;

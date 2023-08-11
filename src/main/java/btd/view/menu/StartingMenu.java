@@ -28,7 +28,7 @@ public class StartingMenu extends JPanel {
    *
    * @param gameEngine the game engine controller
    */
-  public StartingMenu(Game gameEngine) {
+  public StartingMenu(final Game gameEngine) {
     this.gameEngine = gameEngine;
     cardLayout = new CardLayout();
     setLayout(cardLayout);
@@ -104,6 +104,10 @@ public class StartingMenu extends JPanel {
     return difficultyMenu.getDifficulty();
   }
 
+    /**
+     * Paints the component.
+     * @param g  Graphics
+     */
   @Override
   public void paint(final Graphics g) {
     super.paint(g);

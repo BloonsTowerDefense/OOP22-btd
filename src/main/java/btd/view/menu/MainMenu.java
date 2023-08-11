@@ -99,6 +99,11 @@ public class MainMenu extends JPanel {
     return label;
   }
 
+    /**
+     * Paints the background image of the panel.
+     *
+     * @param g the graphics context
+     */
   @Override
   public void paintComponent(final Graphics g) {
     super.paintComponent(g);

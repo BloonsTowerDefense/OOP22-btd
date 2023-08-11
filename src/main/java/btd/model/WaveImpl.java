@@ -40,16 +40,5 @@ public class WaveImpl implements Wave {
     public boolean isOver() {
         return this.bloons.isEmpty();
     }
-
-    /**
-     * Removes the specified bloon from the wave.
-     *
-     * @param bloon The bloon to be removed from the wave.
-     */
-    @Override
-    public void removeBloon(final Bloon bloon) {
-        this.bloons.remove(bloon);
-    }
-
 }
 

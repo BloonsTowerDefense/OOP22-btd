@@ -69,7 +69,7 @@ public class RankView extends JPanel {
 
         try {
             final BufferedImage backIcon = ImageIO
-                    .read(Objects.requireNonNull(getClass().getResource("/menusprite/icons/backButton.png")));
+                    .read(Objects.requireNonNull(getClass().getResource("/menuSprite/icons/backButton.png")));
             this.backButton.setIcon(
                     new ImageIcon(backIcon.getScaledInstance(BACK_BUTTON_DIM, BACK_BUTTON_DIM, Image.SCALE_DEFAULT)));
             this.backButton.setBorderPainted(false);

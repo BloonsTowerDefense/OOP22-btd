@@ -175,6 +175,10 @@ public class DifficultyMenu extends JPanel {
     }
   }
 
+  /**
+   * Paints the background image for the menu.
+   * @param g the <code>Graphics</code> object to protect
+   */
   @Override
   protected void paintComponent(final Graphics g) {
     super.paintComponent(g);

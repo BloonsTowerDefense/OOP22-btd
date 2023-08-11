@@ -29,6 +29,6 @@ class Game {
 }
 
 
-View -left- Game
-Game -left- GameModel
+View -up- Game
+Game -up- GameModel
 @enduml

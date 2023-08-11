@@ -18,7 +18,6 @@ public final class Resources {
     /**
      * Private inner class responsible for lazy initialization of the Resources singleton instance.
      */
-    @SuppressWarnings("checkstyle:FinalClass")
     private static class LazyRes {
         private static final Resources SINGLETON = new Resources();
     }
